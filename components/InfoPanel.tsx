@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CulturalData } from '../types';
+import { AppMode, CulturalData } from '../types';
 import { Play, ArrowUpRight, Disc, Mic2, X, Music4, Guitar, Quote, Store, CassetteTape, Radio, Shirt, Globe, Star, MessageSquare, AudioWaveform, Sliders, ChevronLeft, ChevronRight, Newspaper, BookOpen, Radar, Zap, Fingerprint, ExternalLink, Globe2 } from 'lucide-react';
 import { Loader } from './ui/Loader';
 import { essays } from '../data/essays';
@@ -11,7 +11,7 @@ interface InfoPanelProps {
   isOpen: boolean;
   onClose: () => void;
   selectedCountryName: string | null;
-  mode: 'mainstream' | 'editorial';
+  mode: AppMode;
   editorialImageDeck: string[];
   onOpenGlobalEditorial?: () => void;
   onOpenEssay?: (essayId: string) => void;
@@ -51,7 +51,6 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
   const totalPages = mode === 'editorial' && isInProgress ? 1 : 4;
   const nextPage = () => setEditorialPage(p => Math.min(p + 1, totalPages - 1));
   const prevPage = () => setEditorialPage(p => Math.max(p - 1, 0));
-  const goToRadar = () => setEditorialPage(3);
 
   return (
     <div className={containerClasses}>
@@ -79,7 +78,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
            )}
         </div>
         
-        {mode === 'mainstream' && (
+        {mode === 'atlas' && (
           <button onClick={onClose} className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all">
             <X size={24} />
           </button>
@@ -109,35 +108,24 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
         )}
       </div>
 
-      {/* FLOATING RADAR LINK (Bottom Right) - Only in Editorial */}
-      {mode === 'editorial' && data && !isInProgress && editorialPage !== 3 && (
-        <button 
-          onClick={goToRadar}
-          className="fixed bottom-8 right-8 z-50 bg-[#FF3530] text-black px-6 py-4 font-bold font-sans uppercase tracking-widest text-xs hover:bg-white hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,53,48,0.3)] animate-in slide-in-from-bottom-10 fade-in duration-1000 flex items-center gap-3 rounded-full border-2 border-transparent hover:border-black"
-        >
-          <Radar size={18} className="animate-pulse" />
-          Radar 2026-2027
-        </button>
-      )}
-
       {/* CONTENT AREA */}
       <div className={mode === 'editorial' ? "pt-20 w-full min-h-screen" : "px-6 md:px-16 pb-24 min-h-screen pt-8"}>
         
         {isLoading ? (
           <div className="flex flex-col items-center justify-center h-[60vh]">
-            <Loader text={mode === 'editorial' ? 'Imprimiendo edición global...' : 'Analizando...'} />
+            <Loader text={mode === 'editorial' ? 'Imprimiendo edición global...' : 'Analizando atlas...'} />
           </div>
         ) : data ? (
           <div className="animate-in fade-in duration-500">
             
-            {/* --- MAINSTREAM LAYOUT --- */}
-            {mode === 'mainstream' && (
+            {/* --- ATLAS LAYOUT --- */}
+            {mode === 'atlas' && (
               <div className="space-y-8 font-sans max-w-2xl mx-auto mt-4">
-                <div className="bg-[#1E1E1E] p-8 rounded-[2rem] border border-[#CCD5AE]/20 relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#CCD5AE] to-[#E9EDC9]"></div>
+                <div className="bg-[#1E1E1E] p-8 rounded-[2rem] border border-[#FF3530]/20 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#FF3530] to-white"></div>
                   <div className="flex items-center gap-2 mb-4">
-                     <div className="w-2 h-2 rounded-full bg-[#CCD5AE]"></div>
-                     <span className="text-xs font-bold uppercase text-[#CCD5AE] tracking-widest">Contexto Histórico</span>
+                     <div className="w-2 h-2 rounded-full bg-[#FF3530]"></div>
+                     <span className="text-xs font-bold uppercase text-[#FF3530] tracking-widest">Contexto Histórico</span>
                   </div>
                   <p className="text-gray-300 leading-relaxed text-lg font-light">{data.summary}</p>
                 </div>
@@ -145,7 +133,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="bg-[#181818] p-6 rounded-3xl border border-white/5 flex flex-col justify-between">
                     <div className="mb-4">
-                      <div className="w-10 h-10 bg-[#FAEDCD]/10 rounded-2xl flex items-center justify-center mb-3 text-[#FAEDCD]"><Music4 size={20} /></div>
+                      <div className="w-10 h-10 bg-[#FF3530]/10 rounded-2xl flex items-center justify-center mb-3 text-[#FF3530]"><Music4 size={20} /></div>
                       <h4 className="text-white font-bold text-lg">Géneros</h4>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -156,7 +144,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                   </div>
                   <div className="bg-[#181818] p-6 rounded-3xl border border-white/5 flex flex-col gap-6">
                     <div>
-                       <h4 className="text-[#B4E197] font-bold text-sm mb-2 flex items-center gap-2"><Guitar size={14} /> Instrumentos</h4>
+                       <h4 className="text-[#FF3530] font-bold text-sm mb-2 flex items-center gap-2"><Guitar size={14} /> Instrumentos</h4>
                        <p className="text-sm text-gray-400 leading-snug">{data.instruments.join(", ")}</p>
                     </div>
                     <div>

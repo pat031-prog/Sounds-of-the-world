@@ -76,8 +76,8 @@ export const EarthGlobe: React.FC<EarthGlobeProps> = ({ onCountryClick }) => {
         polygonAltitude={d => d === hoverD ? 0.08 : 0.01}
         
         // Land Color: Dark Grey
-        // Hover Color: Neon Pastel Green (Sage/Mint)
-        polygonCapColor={d => d === hoverD ? '#B4E197' : '#2A2A2A'}
+        // Hover Color: Editorial Red
+        polygonCapColor={d => d === hoverD ? '#FF3530' : '#2A2A2A'}
         
         // Borders: Black, thin
         polygonSideColor={() => '#000000'} 
@@ -92,7 +92,7 @@ export const EarthGlobe: React.FC<EarthGlobeProps> = ({ onCountryClick }) => {
             font-family: 'DM Sans', sans-serif; 
             font-weight: 500; 
             font-size: 14px;
-            border: 1px solid #444;
+            border: 1px solid #FF3530;
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
           ">
             ${d.ADMIN}

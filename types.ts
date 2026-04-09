@@ -81,6 +81,26 @@ export interface CuratedRead {
   url: string;
 }
 
+export interface EditorialBriefingItem {
+  title: string;
+  source: string;
+  url: string;
+  blurb: string;
+  publishedAt: string;
+  tag: string;
+}
+
+export interface CompilationPick {
+  title: string;
+  curator: string;
+  source: string;
+  url: string;
+  note: string;
+  territory?: string;
+}
+
+export type AppMode = 'atlas' | 'editorial';
+
 // EXPANDED EDITORIAL PROFILE
 export interface EditorialProfile {
   magazineStyle: string; 

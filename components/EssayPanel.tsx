@@ -37,26 +37,29 @@ export const EssayPanel: React.FC<EssayPanelProps> = ({ essay, isOpen, onClose, 
       </div>
 
       {/* CONTENT */}
-      <div className="max-w-4xl mx-auto px-6 lg:px-12 pb-32 pt-12">
+      <div className="mx-auto max-w-[920px] px-6 pb-32 pt-12 lg:px-12">
         
-        <div className="text-center mb-12">
+        <div className="mb-14 text-center">
            <span className="font-mono text-xs text-[#FF3530] mb-4 block uppercase tracking-[0.3em]">Por {essay.author}</span>
-           <h1 className="text-5xl md:text-7xl font-serif-display text-white mb-6 leading-[0.9]">
+           <h1 className="mb-6 font-serif-display text-5xl leading-[0.9] text-white md:text-7xl">
                {essay.title}
            </h1>
-           <p className="text-xl md:text-3xl font-serif italic text-gray-400 max-w-2xl mx-auto">
+           <p className="mx-auto max-w-3xl font-serif text-xl italic leading-relaxed text-gray-400 md:text-3xl">
                {essay.subtitle}
            </p>
         </div>
 
-        <div className="mb-16 aspect-video w-full overflow-hidden bg-[#111] border border-white/10 shadow-2xl relative group">
+        <div className="group relative mb-20 aspect-video w-full overflow-hidden border border-white/10 bg-[#111] shadow-2xl">
            <img src={heroImage} alt={essay.title} className="w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-1000 scale-105 group-hover:scale-100" />
            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80"></div>
         </div>
 
-        <div className="space-y-8 prose prose-invert prose-lg md:prose-xl max-w-none">
+        <div className="max-w-none space-y-10 prose prose-invert prose-lg md:space-y-12 md:prose-xl">
            {essay.content.map((paragraph, idx) => (
-             <p key={idx} className={`text-gray-300 font-serif leading-relaxed text-justify ${idx === 0 ? 'drop-cap' : ''}`}>
+             <p
+               key={idx}
+               className={`font-serif text-[1.05rem] leading-[1.95] text-gray-300 text-pretty md:text-[1.12rem] ${idx === 0 ? 'drop-cap' : ''}`}
+             >
                 {paragraph}
              </p>
            ))}
