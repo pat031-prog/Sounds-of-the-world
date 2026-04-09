@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { geoEquirectangular, geoPath } from 'd3-geo';
 import { GeoJsonProperties } from '../types';
+import worldCountriesData from '../data/worldCountries.json';
 
 interface Feature {
   type: string;
@@ -8,48 +9,29 @@ interface Feature {
   geometry: any;
 }
 
-interface FeatureCollection {
-  type: string;
-  features: Feature[];
-}
-
-const GEO_JSON_URL =
-  'https://raw.githubusercontent.com/vasturiano/react-globe.gl/master/example/datasets/ne_110m_admin_0_countries.geojson';
-
 interface FlatMapProps {
   onCountryClick: (properties: GeoJsonProperties) => void;
   selectedCountry: string | null;
 }
 
 export const FlatMap: React.FC<FlatMapProps> = ({ onCountryClick, selectedCountry }) => {
-  const [features, setFeatures] = useState<Feature[]>([]);
-  const [dimensions, setDimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
+  const [dimensions, setDimensions] = useState(() => ({
+    width: typeof window !== 'undefined' ? window.innerWidth : 1440,
+    height: typeof window !== 'undefined' ? window.innerHeight : 900,
+  }));
+  const features = (worldCountriesData as { features?: Feature[] }).features ?? [];
 
   useEffect(() => {
-    let isMounted = true;
-
-    fetch(GEO_JSON_URL)
-      .then((response) => response.json())
-      .then((data: FeatureCollection) => {
-        if (isMounted) {
-          setFeatures(data.features);
-        }
-      })
-      .catch((error) => console.error('Error loading map data', error));
-
     const handleResize = () => {
-      if (isMounted) {
+      if (typeof window !== 'undefined') {
         setDimensions({ width: window.innerWidth, height: window.innerHeight });
       }
     };
 
+    handleResize();
     window.addEventListener('resize', handleResize);
 
     return () => {
-      isMounted = false;
       window.removeEventListener('resize', handleResize);
     };
   }, []);
@@ -63,11 +45,7 @@ export const FlatMap: React.FC<FlatMapProps> = ({ onCountryClick, selectedCountr
   }, [dimensions]);
 
   if (features.length === 0) {
-    return (
-      <div className="flex h-full w-full items-center justify-center bg-[#050505]">
-        <span className="animate-pulse font-serif italic text-gray-500">Loading Atlas...</span>
-      </div>
-    );
+    throw new Error('Local atlas dataset is empty.');
   }
 
   return (

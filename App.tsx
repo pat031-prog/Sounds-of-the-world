@@ -4,6 +4,7 @@ import { FlatMap } from './components/FlatMap';
 import { InfoPanel } from './components/InfoPanel';
 import { EssayPanel } from './components/EssayPanel';
 import { EditorialHub } from './components/EditorialHub';
+import { AtlasSurfaceBoundary } from './components/AtlasSurfaceBoundary';
 import { fetchCountryData, fetchGlobalData } from './services/geminiService';
 import { AppMode, CulturalData, GeoJsonProperties } from './types';
 import { BookOpen, DownloadCloud, Globe2, Mic2 } from 'lucide-react';
@@ -14,11 +15,13 @@ import {
 } from './data/editorialCuratedImages';
 
 const App: React.FC = () => {
+  const getIsDesktopDefault = () =>
+    typeof window !== 'undefined' ? window.innerWidth >= 768 : true;
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [culturalData, setCulturalData] = useState<CulturalData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= 768);
-  const [isPanelOpen, setIsPanelOpen] = useState(() => window.innerWidth >= 768);
+  const [isDesktop, setIsDesktop] = useState(getIsDesktopDefault);
+  const [isPanelOpen, setIsPanelOpen] = useState(getIsDesktopDefault);
   const [appMode, setAppMode] = useState<AppMode>('editorial');
   const [isCaching, setIsCaching] = useState(false);
   const [cacheProgress, setCacheProgress] = useState(0);
@@ -193,13 +196,29 @@ const App: React.FC = () => {
 
       <div className="absolute inset-0 z-0 transition-opacity duration-700">
         {showAtlasGlobe ? (
-          <EarthGlobe onCountryClick={(properties) => void handleCountryClick(properties)} />
+          <AtlasSurfaceBoundary
+            key="atlas-globe"
+            resetKey={`atlas-globe:${appMode}:${selectedCountry ?? 'none'}`}
+            surfaceName="Atlas Globe"
+            onOpenGlobalIssue={openGlobalIssue}
+            onOpenEditorialHome={openEditorialHome}
+          >
+            <EarthGlobe onCountryClick={(properties) => void handleCountryClick(properties)} />
+          </AtlasSurfaceBoundary>
         ) : null}
         {showEditorialMap ? (
-          <FlatMap
-            onCountryClick={(properties) => void handleCountryClick(properties)}
-            selectedCountry={selectedCountry}
-          />
+          <AtlasSurfaceBoundary
+            key="editorial-map"
+            resetKey={`editorial-map:${appMode}:${selectedCountry ?? 'none'}`}
+            surfaceName="Editorial Map"
+            onOpenGlobalIssue={openGlobalIssue}
+            onOpenEditorialHome={openEditorialHome}
+          >
+            <FlatMap
+              onCountryClick={(properties) => void handleCountryClick(properties)}
+              selectedCountry={selectedCountry}
+            />
+          </AtlasSurfaceBoundary>
         ) : null}
         {showEditorialHub ? (
           <EditorialHub

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Globe, { GlobeMethods } from 'react-globe.gl';
 import { GeoJsonProperties } from '../types';
 import * as THREE from 'three';
+import worldCountriesData from '../data/worldCountries.json';
 
 interface EarthGlobeProps {
   onCountryClick: (properties: GeoJsonProperties) => void;
@@ -10,24 +11,34 @@ interface EarthGlobeProps {
 export const EarthGlobe: React.FC<EarthGlobeProps> = ({ onCountryClick }) => {
   const globeEl = useRef<GlobeMethods | undefined>(undefined);
   const [hoverD, setHoverD] = useState<object | null>(null);
-  const [countries, setCountries] = useState({ features: [] });
-  const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth : 1440,
+  );
+  const [height, setHeight] = useState(() =>
+    typeof window !== 'undefined' ? window.innerHeight : 900,
+  );
+  const countries = worldCountriesData as { features?: object[] };
+  const countryFeatures = countries.features ?? [];
 
   useEffect(() => {
     const handleResize = () => {
+      if (typeof window === 'undefined') {
+        return;
+      }
+
       setWidth(window.innerWidth);
       setHeight(window.innerHeight);
     };
-    window.addEventListener('resize', handleResize);
 
-    fetch('https://raw.githubusercontent.com/vasturiano/react-globe.gl/master/example/datasets/ne_110m_admin_0_countries.geojson')
-      .then(res => res.json())
-      .then(setCountries)
-      .catch(err => console.error("Error loading globe data:", err));
+    handleResize();
+    window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  if (countryFeatures.length === 0) {
+    throw new Error('Local atlas dataset is empty.');
+  }
 
   useEffect(() => {
     if (globeEl.current) {
@@ -72,7 +83,7 @@ export const EarthGlobe: React.FC<EarthGlobeProps> = ({ onCountryClick }) => {
         atmosphereColor="#333"
         atmosphereAltitude={0.1}
         
-        polygonsData={countries.features}
+        polygonsData={countryFeatures}
         polygonAltitude={d => d === hoverD ? 0.08 : 0.01}
         
         // Land Color: Dark Grey
