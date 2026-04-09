@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   ArrowUpRight,
   BookOpen,
@@ -13,14 +13,15 @@ import {
 } from 'lucide-react';
 import { essays } from '../data/essays';
 import { getDeckImage } from '../data/editorialCuratedImages';
+import { EditorialIssueMap } from './EditorialIssueMap';
 import {
   compilationPicks,
   cultCanonChart,
   curatedHubCountries,
+  editorialIssueMapSections,
   editorialBriefing,
   globalLead,
   globalPanoramaDispatch,
-  hubNavSections,
   inProgressHubCountries,
   newSignalChart,
   playlistBundles,
@@ -33,6 +34,7 @@ interface EditorialHubProps {
   onOpenGlobalIssue: () => void;
   onOpenEssay: (essayId: string) => void;
   onOpenCountry: (countryName: string) => void;
+  initialSectionId?: string | null;
 }
 
 const platformLabel: Record<'spotify' | 'apple' | 'youtube', string> = {
@@ -53,13 +55,24 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
   onOpenGlobalIssue,
   onOpenEssay,
   onOpenCountry,
+  initialSectionId,
 }) => {
-  const quickAccessSections = hubNavSections.filter((section) =>
-    ['essays', 'cult-canon', 'new-signal', 'countries'].includes(section.id),
-  );
-
-  const quickCountryPreview = curatedHubCountries.slice(0, isDesktop ? 6 : 4);
+  const hubIssueMapItems = editorialIssueMapSections.filter((section) => section.context === 'hub');
+  const quickCountryPreview = curatedHubCountries.slice(0, isDesktop ? 10 : 6);
   const briefingPreview = editorialBriefing.slice(0, 2);
+
+  useEffect(() => {
+    if (!initialSectionId) return;
+
+    const nextFrame = window.requestAnimationFrame(() => {
+      const element = document.getElementById(initialSectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+
+    return () => window.cancelAnimationFrame(nextFrame);
+  }, [initialSectionId]);
 
   return (
     <div className="w-full h-full overflow-y-auto bg-[#050505] text-[#EDEDED]">
@@ -168,22 +181,22 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
                   <ArrowUpRight size={18} className="shrink-0 text-[#FF3530]" />
                 </button>
 
-                <div>
-                  <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
-                    Quick Access
-                  </span>
-                  <div className="grid grid-cols-2 gap-2">
-                    {quickAccessSections.map((section) => (
-                      <a
-                        key={section.id}
-                        href={`#${section.id}`}
-                        className="border border-white/10 px-3 py-3 text-[10px] font-bold uppercase tracking-[0.24em] text-white/70 transition-colors hover:border-[#FF3530] hover:text-white"
-                      >
-                        {section.label}
-                      </a>
-                    ))}
-                  </div>
-                </div>
+                <EditorialIssueMap
+                  items={hubIssueMapItems}
+                  activeTarget={initialSectionId ?? undefined}
+                  isDesktop={false}
+                  onSelect={(item) => {
+                    if (item.target === 'global-issue') {
+                      onOpenGlobalIssue();
+                      return;
+                    }
+
+                    const element = document.getElementById(item.target);
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                />
 
                 <div className="border-t border-white/10 pt-5">
                   <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
@@ -260,19 +273,24 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
           </div>
         </section>
 
-        <nav className="mb-16 overflow-x-auto border-y border-white/10 bg-[#090909]/80 px-3 py-3">
-          <div className="flex min-w-max gap-3">
-            {hubNavSections.map((section) => (
-              <a
-                key={section.id}
-                href={`#${section.id}`}
-                className="border border-white/10 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.28em] text-white/65 transition-colors hover:border-[#FF3530] hover:text-white"
-              >
-                {section.label}
-              </a>
-            ))}
-          </div>
-        </nav>
+        <EditorialIssueMap
+          items={hubIssueMapItems}
+          activeTarget={initialSectionId ?? undefined}
+          isDesktop={isDesktop}
+          sticky={isDesktop}
+          className="mb-16"
+          onSelect={(item) => {
+            if (item.target === 'global-issue') {
+              onOpenGlobalIssue();
+              return;
+            }
+
+            const element = document.getElementById(item.target);
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }}
+        />
 
         <section id="essays" className="mb-16">
           <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
@@ -538,7 +556,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
           </div>
         </section>
 
-        <section className="mb-16">
+        <section id="archive" className="mb-16">
           <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
             <BookOpen size={16} className="text-[#FF3530]" />
             <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Archive In Construction</h3>

@@ -4,8 +4,11 @@ import { Play, ArrowUpRight, Disc, Mic2, X, Music4, Guitar, Quote, Store, Casset
 import { Loader } from './ui/Loader';
 import { essays } from '../data/essays';
 import { getDeckImage } from '../data/editorialCuratedImages';
+import { EditorialIssueMap } from './EditorialIssueMap';
 import {
   cultCanonPreview,
+  editorialFeatureAccessCards,
+  editorialIssueMapSections,
   highlightedSignals,
   newSignalPreview,
   playlistBundles,
@@ -19,7 +22,9 @@ interface InfoPanelProps {
   selectedCountryName: string | null;
   mode: AppMode;
   editorialImageDeck: string[];
-  onOpenGlobalEditorial?: () => void;
+  initialEditorialPage?: number;
+  onOpenGlobalEditorial?: (initialPage?: number) => void;
+  onOpenEditorialSection?: (sectionId: string) => void;
   onOpenEssay?: (essayId: string) => void;
 }
 
@@ -31,15 +36,17 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
   selectedCountryName,
   mode,
   editorialImageDeck,
+  initialEditorialPage = 0,
   onOpenGlobalEditorial,
+  onOpenEditorialSection,
   onOpenEssay
 }) => {
   const [editorialPage, setEditorialPage] = useState(0);
 
   // Reset page when data changes
   useEffect(() => {
-    setEditorialPage(0);
-  }, [data]);
+    setEditorialPage(initialEditorialPage);
+  }, [data, initialEditorialPage]);
 
   if (!isOpen) return null;
 
@@ -57,6 +64,29 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
   const totalPages = mode === 'editorial' && isInProgress ? 1 : 4;
   const nextPage = () => setEditorialPage(p => Math.min(p + 1, totalPages - 1));
   const prevPage = () => setEditorialPage(p => Math.max(p - 1, 0));
+  const issueMapItems = editorialIssueMapSections.filter((item) =>
+    item.context === (isGlobalMode ? 'global' : 'country'),
+  );
+  const featureCards = editorialFeatureAccessCards.filter((item) =>
+    item.context === (isGlobalMode ? 'global' : 'country'),
+  );
+
+  const handleIssueMapSelect = (target: string) => {
+    if (target === 'global-issue') {
+      onOpenGlobalEditorial?.(0);
+      return;
+    }
+
+    if (target.startsWith('page-')) {
+      const pageIndex = Number(target.replace('page-', ''));
+      if (!Number.isNaN(pageIndex)) {
+        setEditorialPage(pageIndex);
+      }
+      return;
+    }
+
+    onOpenEditorialSection?.(target);
+  };
 
   return (
     <div className={containerClasses}>
@@ -116,6 +146,16 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
 
       {/* CONTENT AREA */}
       <div className={mode === 'editorial' ? "pt-20 w-full min-h-screen" : "px-6 md:px-16 pb-24 min-h-screen pt-8"}>
+        {mode === 'editorial' && data && (
+          <EditorialIssueMap
+            items={issueMapItems}
+            activeTarget={`page-${editorialPage}`}
+            isDesktop={typeof window !== 'undefined' ? window.innerWidth >= 768 : true}
+            sticky
+            className="border-b border-white/10"
+            onSelect={(item) => handleIssueMapSelect(item.target)}
+          />
+        )}
         
         {isLoading ? (
           <div className="flex flex-col items-center justify-center h-[60vh]">
@@ -263,6 +303,21 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                               <p className="text-xl font-bold text-white">{data.editorial.independentLabel.name}</p>
                               <p className="text-xs text-gray-500 mt-1 uppercase">Est. {data.editorial.independentLabel.since} • {data.editorial.independentLabel.focus}</p>
                            </div>
+                        </div>
+
+                        <div className="mb-14 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+                           {featureCards.map((card) => (
+                              <button
+                                key={`${card.context}-${card.id}`}
+                                onClick={() => handleIssueMapSelect(card.target)}
+                                className="border border-white/10 bg-[#0d0d0d] p-5 text-left transition-colors hover:border-[#FF3530]"
+                              >
+                                <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.28em] text-[#FF3530]">
+                                  {card.label}
+                                </span>
+                                <p className="text-sm leading-relaxed text-gray-400">{card.description}</p>
+                              </button>
+                           ))}
                         </div>
 
                         {/* SPECIAL ESSAYS SECTION (ONLY IN GLOBAL MODE) */}

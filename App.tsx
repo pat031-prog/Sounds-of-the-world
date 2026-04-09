@@ -40,6 +40,8 @@ const App: React.FC = () => {
   const [isCaching, setIsCaching] = useState(false);
   const [cacheProgress, setCacheProgress] = useState(0);
   const [selectedEssay, setSelectedEssay] = useState<Essay | null>(null);
+  const [editorialPanelPage, setEditorialPanelPage] = useState(0);
+  const [hubSectionFocus, setHubSectionFocus] = useState<string | null>(null);
   const [editorialImageDeck, setEditorialImageDeck] = useState<string[]>(() =>
     shuffleEditorialCuratedImages(),
   );
@@ -68,6 +70,7 @@ const App: React.FC = () => {
       ) {
         setIsLoading(true);
         setIsPanelOpen(true);
+        setEditorialPanelPage(0);
         try {
           const data = await fetchGlobalData();
           setCulturalData(data);
@@ -101,6 +104,7 @@ const App: React.FC = () => {
     setSelectedCountry(null);
     setCulturalData(null);
     setSelectedEssay(null);
+    setHubSectionFocus(null);
     setIsPanelOpen(false);
     setIsLoading(false);
   }, []);
@@ -110,14 +114,18 @@ const App: React.FC = () => {
     setSelectedCountry(null);
     setCulturalData(null);
     setSelectedEssay(null);
+    setHubSectionFocus(null);
+    setEditorialPanelPage(0);
     setIsLoading(false);
     setIsPanelOpen(isDesktop);
   }, [isDesktop]);
 
-  const openGlobalIssue = useCallback(async () => {
+  const openGlobalIssue = useCallback(async (initialPage = 0) => {
     setAppMode('editorial');
     setSelectedCountry(null);
     setSelectedEssay(null);
+    setHubSectionFocus(null);
+    setEditorialPanelPage(initialPage);
     setIsPanelOpen(true);
     setIsLoading(true);
 
@@ -131,6 +139,20 @@ const App: React.FC = () => {
     }
   }, []);
 
+  const openEditorialHubSection = useCallback(
+    (sectionId: string) => {
+      setSelectedCountry(null);
+      setSelectedEssay(null);
+      setCulturalData(null);
+      setIsLoading(false);
+      setIsPanelOpen(false);
+      setEditorialPanelPage(0);
+      setHubSectionFocus(sectionId);
+      setAppMode(isDesktop ? 'atlas' : 'editorial');
+    },
+    [isDesktop],
+  );
+
   const handleCountryClick = useCallback(
     async (properties: GeoJsonProperties | string) => {
       const countryName = typeof properties === 'string' ? properties : properties.ADMIN;
@@ -139,6 +161,8 @@ const App: React.FC = () => {
       setIsPanelOpen(true);
       setAppMode('editorial');
       setSelectedEssay(null);
+      setHubSectionFocus(null);
+      setEditorialPanelPage(0);
 
       if (
         selectedCountry !== countryName ||
@@ -243,6 +267,7 @@ const App: React.FC = () => {
             isDesktop={isDesktop}
             editorialImageDeck={editorialImageDeck}
             onOpenGlobalIssue={openGlobalIssue}
+            initialSectionId={hubSectionFocus}
             onOpenEssay={(essayId) => {
               const essay = essays.find((entry) => entry.id === essayId);
               if (essay) setSelectedEssay(essay);
@@ -322,7 +347,9 @@ const App: React.FC = () => {
         selectedCountryName={selectedCountry}
         mode={appMode}
         editorialImageDeck={editorialImageDeck}
-        onOpenGlobalEditorial={openEditorialHome}
+        initialEditorialPage={editorialPanelPage}
+        onOpenGlobalEditorial={openGlobalIssue}
+        onOpenEditorialSection={openEditorialHubSection}
         onOpenEssay={(essayId) => {
           const essay = essays.find((entry) => entry.id === essayId);
           if (essay) setSelectedEssay(essay);

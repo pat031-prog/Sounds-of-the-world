@@ -1,6 +1,9 @@
 import { CulturalData, EditorialChapter, EditorialTrack } from '../types';
 
-const appleArtwork = (url: string) => url.replace('/100x100bb.jpg', '/800x800bb.jpg');
+const appleArtwork = (url: string) =>
+  url
+    .replace('/100x100bb.jpg', '/800x800bb.jpg')
+    .replace('/100x100bb.png', '/800x800bb.png');
 
 const placeholderCover =
   'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800"><rect width="800" height="800" fill="%23090909"/><rect x="40" y="40" width="720" height="720" fill="none" stroke="%23ffffff" stroke-opacity="0.18" stroke-width="2"/><text x="50%25" y="48%25" fill="%23ffffff" font-size="34" text-anchor="middle" font-family="Arial, sans-serif" letter-spacing="4">CURATION</text><text x="50%25" y="54%25" fill="%23FF3530" font-size="20" text-anchor="middle" font-family="Arial, sans-serif" letter-spacing="6">IN PROGRESS</text></svg>';
@@ -1147,6 +1150,616 @@ const japan = createEntry({
   },
 });
 
+const mexico = createEntry({
+  countryName: 'Mexico',
+  summary:
+    'La escena mexicana de 2026 ya no se deja resumir en un solo circuito. Ciudad de Mexico junta dos tensiones que se necesitan mutuamente: por un lado, la escuela de club mutante que salio de NAAFI, Yu Yu y una decada de dembow, reggaeton deformado y bass pressure; por otro, una deriva de camara experimental donde Mabe Fratti, Titanic y Concepcion Huerta convierten cello, voz, ruido y espacio en una nueva idea de cancion avanzada.',
+  traditions: ['Nortec fronterizo', 'Mutacion de club chilango', 'Archivo electroacustico', 'DIY de camara expandida'],
+  musicalStyles: ['Dembow mutante', 'Avant-pop de cuerdas', 'Noise textural', 'Club nocturno sentimental'],
+  instruments: ['Cello procesado', 'Percusion digital seca', 'Sintetizadores austeros', 'Grabaciones urbanas'],
+  curiosities: [
+    'Mexico City sigue produciendo friccion de escala: escenas pequenas que suenan enormes porque usan la ciudad como camara de eco material.',
+    'El club queer y la composicion de camara dejaron de leerse como mundos aparte; hoy comparten musicos, espacios y sensibilidad.',
+  ],
+  modernInfluentialArtists: [
+    { name: 'Mabe Fratti', genre: 'Avant-pop / chamber electronics', relevance: 'Convirtio la intimidad de cuerdas, voz y estudio en un lenguaje transnacional sin perder el acento local.' },
+    { name: 'Concepcion Huerta', genre: 'Experimental electronics', relevance: 'Trabaja el ruido como memoria fisica de ciudad, cuerpo y sistema nervioso.' },
+    { name: 'Loris', genre: 'Club mutation', relevance: 'Mantiene vivo el costado mas nocturno de CDMX: pista torcida, sensualidad rara y comunidad como infraestructura.' },
+  ],
+  sampleOrigins: [
+    {
+      description: 'Frontera norte, cassette, club latino, escucha experimental y ruido de ciudad comprimido hasta volverlo pulso.',
+      famousUsage: 'De Nortec a Mabe Fratti, el gesto comun es convertir geografia y friccion social en textura.',
+    },
+  ],
+  editorial: {
+    magazineStyle: 'Ciudad de Mexico printed as signal bleed',
+    sceneDescription:
+      'Mexico ya no se entiende como exotismo de periferia ni como simple version latina del club global. La escena actual produce su propia teoria material: ciudad saturada, renta alta, infraestructura fragil y una imaginacion que responde mezclando camara, ruido y perreo torcido.',
+    editorialStatus: 'curated',
+    editorialStatusNote: 'Curada offline con archivo reciente, prensa alternativa y discos verificados.',
+    editorialChapters: [
+      chapter(
+        'Despues de NAAFI',
+        'El club ya no es solo pista, es metodo',
+        `La gran mutacion mexicana de la ultima decada fue dejar de usar el club como exportacion folklorica y empezar a tratarlo como laboratorio politico. NAAFI hizo visible esa operacion cuando tomo reggaeton, cumbia digital, bass music y dembow para devolverlos como objetos mas duros, mas raros y menos domesticables. El efecto llego mucho mas lejos que una marca estetica. En 2026 la leccion de esa escena sigue viva en una nueva generacion que ya no separa programacion, performance, grafica y comunidad. Espacios como Yu Yu, aun atravesados por cierres, reaperturas y la economia brutal de la ciudad, funcionan menos como venue fijo que como nodo de supervivencia: sonido, red, cuidado y posicion politica. Por eso la pista mexicana importante ya no imita a Berlin ni a Miami. Suena mas seca, mas lateral, mas corporal. Aprende de la calle y de la presion del alquiler, de la precariedad laboral y del deseo de quedarse de pie sin volverse decorado para turistas culturales.`,
+      ),
+      chapter(
+        'Camara Mutante',
+        'Cuando la cancion aprende a respirar ruido',
+        `La otra mitad del mapa mexicano actual trabaja en un registro aparentemente opuesto: cello, voz, cuartos pequenos, improvisacion y paciencia. Pero la musica de Mabe Fratti, Titanic y Amor Muere demuestra que esa zona no es refugio apolitico sino otra manera de leer el presente. Pitchfork encontro en Sentir Que No Sabes un disco donde la intimidad no suena confesional sino estructural, como si cada arreglo midiera el desgaste emocional de una ciudad demasiado rapida. Titanic empuja esa intuicion hacia una forma mas espectral y cinematica, mientras Concepcion Huerta convierte vibracion, campo electrico y distorsion en un tipo de composicion donde el cuerpo escucha antes de entender. Esta rama no rechaza la tecnologia: la vuelve porosa. Lo decisivo es que Mexico logro soldar estas dos corrientes. El cuarto experimental y la noche queer se alimentan entre si. De ese cruce sale una musica que no necesita elegir entre cancion, instalacion o pista. Prefiere quedarse en el borde donde todo eso todavia esta en disputa.`,
+      ),
+      chapter(
+        'Fronteras de 2027',
+        'Ciudad, friccion y escala corta',
+        `Lo que viene en Mexico no parece una centralizacion sino una proliferacion de circuitos pequenos y cada vez mas conscientes de su propia escala. La ciudad es demasiado cara y demasiado violenta para sostener fantasias de crecimiento infinito, asi que la respuesta cultural mas lucida se mueve en direccion opuesta: sellos flexibles, colaboraciones rapidas, formatos cortos, shows que caben en un cuarto y audiencias que prefieren intensidad antes que volumen. Esa condicion material esta empujando una estetica especifica. Menos capas ornamentales, mas presencia tactil. Menos pulido internacional, mas mezclas que dejan entrar aire, borde y error. En el costado de club eso significa dembow y reggaeton procesados hasta quedar en arquitectura emocional. En la cancion avanzada significa cuerdas, ruido y voz pensados como tecnologia sensible. El futuro mexicano no necesita un manifiesto unitario. Ya existe como red de refugios sonoros distribuidos. Cada uno trabaja con lo que tiene: cable, cuarto, escena, amigos. Y de esa economia de cercania sale una de las musicas mas vivas del continente.`,
+      ),
+    ],
+    keyVenues: ['Yu Yu', 'Foro del Tejedor satellites', 'DIY loft circuits in CDMX'],
+    recordStores: [
+      { name: 'Revancha', type: 'Record store / selector node', description: 'Sigue funcionando como punto de intercambio entre escucha especializada, club y archivo local.' },
+      { name: 'NAAFI orbit', type: 'Label network', description: 'Mas que sello: una forma de pensar club, grafica y comunidad desde la ciudad.' },
+    ],
+    experimentalArtist: {
+      name: 'Concepcion Huerta',
+      description: 'Trabaja vibracion, ruido y espacio como si el sistema nervioso fuera un sintetizador de campo.',
+      similarTo: 'Moor Mother por densidad, Lucrecia Dalt por precision, Kali Malone por control del aire',
+    },
+    visualAesthetic: {
+      styleName: 'Neon concrete and score paper',
+      description: 'Flyers de club, tipografia industrial, partituras intervenidas y un grano nocturno que nunca se vuelve nostalgia.',
+    },
+    localVerdict: {
+      platformName: 'TerraMusica Desk',
+      score: '8.8',
+      consensus: 'Mexico encontro una manera propia de hacer convivir pista, ruido y cancion sin bajar la presion.',
+    },
+    bestLyricsQuote: 'The city hisses through the strings, and the kick waits under the floor.',
+    soundPalette: ['Cuerda herida', 'Subgrave torcido', 'Aire seco', 'Ruido de avenida'],
+    sonicSignature: {
+      instruments: ['Cello amplificado', 'Cajas de ritmo economicas', 'Sintetizadores compactos', 'Feedback controlado'],
+      vocals: ['Intimas', 'Descentradas', 'Mas cerca del murmullo que del himno'],
+      production: ['Borde tactil', 'Mezcla respirada', 'Bajo lateral'],
+    },
+    localSlang: {
+      term: 'Camara mutante',
+      definition: 'Cancion o pieza donde cuerda, ruido y programacion conviven sin pedir permiso a una sola tradicion.',
+    },
+    cultAlbums: [
+      album('Martes', 'Murcof', '2002', 'Leaf', 'Minimalismo, glitch y sombra fronteriza: una piedra basal para pensar la electronica mexicana fuera de la postal.', 'Murcof Martes full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/cd/10/4e/cd104e15-c671-7242-4976-4806223a33c7/843190082391.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/martes/1384655726?uo=4'),
+      album('Tijuana Sessions, Vol. 3', 'Nortec Collective & Bostich + Fussible', '2005', 'Nacional', 'La frontera convertida en sistema ritmico: banda, sampleo y programacion como politica de mestizaje duro.', 'Nortec Collective Tijuana Sessions Vol 3', 'https://is1-ssl.mzstatic.com/image/thumb/Music71/v4/f6/b0/aa/f6b0aa76-e0e6-2e81-231a-a91b29b49ff0/dj.cxkueodp.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/tijuana-sessions-vol-3/424254145?uo=4'),
+      album('Sera Que Ahora Podremos Entendernos', 'Mabe Fratti', '2021', 'Unheard of Hope', 'Un disco-puente: Mexico entrando al mapa global de la cancion avanzada sin entregar su aspereza material.', 'Mabe Fratti Sera Que Ahora Podremos Entendernos full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/53/b1/ca/53b1ca48-91b4-c1a5-fe16-eb861c2b70f1/196006975340.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/ser%C3%A1-que-ahora-podremos-entendernos/1573274794?uo=4'),
+    ],
+    forecast: {
+      trendName: 'Camara de club',
+      period: '2026-2027',
+      description:
+        'La escena mexicana avanza hacia una zona donde el cuarto pequeno y la pista comparten tecnologia emocional. Menos oposicion entre composicion y noche; mas obras que hacen de la cercania, el error y la presion urbana un mismo lenguaje.',
+      keyArtists: ['Mabe Fratti', 'Titanic', 'Concepcion Huerta', 'Loris'],
+      futureSounds: ['Dembow erosionado', 'Cuerdas procesadas', 'Ruido anatomico', 'Pop espectral'],
+      curiosities: [
+        'El presente mexicano ya no busca exportarse como color local; prefiere sonar especifico, denso y fisicamente situado.',
+        'Los cruces mas fuertes ocurren fuera del algoritmo: sellos pequenos, espacios mixtos y escenas que comparten amistades antes que mercados.',
+      ],
+      forecastReleases: [
+        release('Mabe Fratti', 'Sentir Que No Sabes', '2024', 'Album', 'Mabe Fratti Sentir Que No Sabes full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/82/9e/c2/829ec248-186c-c43b-eac3-31548c16b0e3/198391777547.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/sentir-que-no-sabes/1740787009?uo=4'),
+        release('Titanic', 'HAGEN (feat. I la Catolica & Mabe Fratti)', '2025', 'Single', 'Titanic Hagen feat I la Catolica Mabe Fratti', 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/1e/f3/f8/1ef3f8d7-7f19-00d2-ec4d-523250786765/199350992865.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/hagen-feat-i-la-cat%C3%B3lica-mabe-fratti/1820780792?uo=4'),
+        release('Concepcion Huerta', 'El Sol de los Muertos', '2025', 'Album', 'Concepcion Huerta El Sol de los Muertos', 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a3/d2/f0/a3d2f08d-13ae-2d3c-7914-cffdd5478ff7/880918274607.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/el-sol-de-los-muertos/1807837855?uo=4'),
+        release('Loris', 'Acid Bloom', '2024', 'Single', 'Loris Acid Bloom', 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/66/25/7a/66257a64-abbe-d946-ca0e-d78f86af4079/artwork.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/acid-bloom-single/1730022283?uo=4'),
+      ],
+    },
+    curatedReads: [
+      read('Chasing the Goblin With Mabe Fratti', 'Pitchfork', 'https://pitchfork.com/features/profile/chasing-the-goblin-with-mabe-fratti/'),
+      read('Mabe Fratti: Sentir Que No Sabes', 'Pitchfork', 'https://pitchfork.com/reviews/albums/mabe-fratti-sentir-que-no-sabes/'),
+      read('Titanic Announce New Album Hagen', 'Pitchfork', 'https://pitchfork.com/news/titanic-announce-new-album-hagen-share-new-song-listen/'),
+      read('Loris Wants to Keep Mexico City Thriving', 'Mixmag', 'https://mixmag.net/feature/loris-wants-to-keep-mexico-city-thriving'),
+    ],
+    editorialPlaylist: [
+      track('Sentir Que No Sabes', 'Mabe Fratti', 'Chamber electronics under urban pressure', 'Mabe Fratti Sentir Que No Sabes'),
+      track('HAGEN', 'Titanic', 'Spectral pop built from close-range tension', 'Titanic Hagen feat Mabe Fratti'),
+      track('El Sol de los Muertos', 'Concepcion Huerta', 'Noise composition as nervous system weather', 'Concepcion Huerta El Sol de los Muertos'),
+      track('Acid Bloom', 'Loris', 'Club mutation with humid late-night lift', 'Loris Acid Bloom'),
+    ],
+    independentLabel: {
+      name: 'NAAFI',
+      focus: 'Club mutation, local pressure and nightlife as infrastructure',
+      since: '2010',
+    },
+    subgenreFocus: {
+      name: 'Camara de club',
+      description: 'Zona donde cancion de camara, ruido y club latino se mezclan sin jerarquias fijas.',
+    },
+  },
+});
+
+const france = createEntry({
+  countryName: 'France',
+  summary:
+    'La Francia alternativa de 2026 ya no gira alrededor de una sola capital estetica. Paris sigue ordenando infraestructura, pero el pulso mas interesante nace del roce entre pop mutante, club de alta definicion, ambient emocional y restos de electroclash convertidos en nueva carne.',
+  traditions: ['French touch lateral', 'Electroclash', 'Pop de sintetizador teatral', 'Ambient de precision'],
+  musicalStyles: ['Mutant pop', 'Cold rave romantique', 'Ambient vocal', 'Techno melodico de diseño'],
+  instruments: ['Sintetizadores brillantes', 'Drum machines secas', 'Voz hiperprocesada', 'Pads de niebla'],
+  curiosities: [
+    'La escena francesa reciente ya no busca elegancia como valor por defecto; busca friccion, exceso controlado y una teatralidad que no le teme al mal gusto si sirve a la intensidad.',
+    'Paris sigue importando, pero la idea de centralidad francesa se debilita: los productores trabajan por redes, no por escuela unica.',
+  ],
+  modernInfluentialArtists: [
+    { name: 'Oklou', genre: 'Mutant pop', relevance: 'Redibujo el pop frances en clave vaporosa, emocional y post-plataforma.' },
+    { name: 'Malibu', genre: 'Ambient / vocal electronics', relevance: 'Llevo la calma, la voz y la textura acuosa a un nuevo estandar de escucha francesa contemporanea.' },
+    { name: 'Crystallmess', genre: 'Club / experimental', relevance: 'Sigue funcionando como figura critica: DJ, escritora de escena y diseñadora de contextos.' },
+  ],
+  sampleOrigins: [
+    {
+      description: 'French touch, chanson deformada, rave europea, R&B glacial y cultura de club parisina pasada por filtros mas sentimentales que cinicos.',
+      famousUsage: 'La mejor Francia actual no pule la superficie: la deja vibrar hasta que el pop y el club se vuelven inseparables.',
+    },
+  ],
+  editorial: {
+    magazineStyle: 'Paris after the render, with cold romance intact',
+    sceneDescription:
+      'La nueva Francia ya no suena como lujo automatico. Suena como una escena que aprendio a mezclar romance, interfaz y rave sin entregar complejidad. El artificio ya no es mascara: es material de trabajo.',
+    editorialStatus: 'curated',
+    editorialStatusNote: 'Curada offline con foco en pop mutante, club frances y archivo critico reciente.',
+    editorialChapters: [
+      chapter(
+        'Despues del brillo',
+        'French touch sin reflejo automatico',
+        `La herencia francesa mas facil de exportar fue siempre la del brillo: house elegante, sintesis limpia, diseño cool. Pero la escena que importa en 2026 trabaja contra ese piloto automatico. El legado de la French touch sigue ahi, aunque ya no como marca estetica cerrada sino como caja de herramientas para otra cosa: romanticismo nervioso, textura emocional, pop deformado por software y un club que admite fragilidad sin perder presion. Rone, Miss Kittin y The Hacker, e incluso la sobriedad de Laurent Garnier, quedaron como archivo util para medir esa transicion. Hoy el productor frances interesante no quiere sonar perfecto. Quiere sonar intervenido. Ese cambio tiene una base material clara: años de saturacion de plataforma, exceso de referencias y una escena de ciudad cara donde la diferenciacion real ya no pasa por el presupuesto, sino por la imaginacion con que se administra el artificio.`,
+      ),
+      chapter(
+        'Pop mutante, club sentimental',
+        'Oklou, Malibu y la nueva superficie sensible',
+        `Pitchfork leyo choke enough de Oklou como un album que transforma el pop en ambiente de interfaz: deseo, vacio y melodias que parecen formarse dentro de la pantalla. Malibu, en cambio, llega desde otra zona, mas acuosa y suspendida, pero participa de la misma operacion. Su musica no cancela el club; desacelera su imaginario y lo vuelve tactil, mas cercano al cuidado que a la conquista. Entre ambas aparece una de las claves francesas del presente: la sensibilidad no se opone al diseño. Lo vuelve mas peligroso. En paralelo, Crystallmess sostiene la linea de friccion critica que impide que todo esto caiga en decoracion premium. Sus sets, textos y proyectos recuerdan que la escena no es solo un sonido; es una distribucion de poder, acceso y deseo. Francia produce hoy una electronica donde la superficie sigue siendo importante, pero ya no como maquillaje. Funciona como membrana politica entre cuerpo, moda, club y software.`,
+      ),
+      chapter(
+        'Paris de baja presion',
+        'Futuro de escala media',
+        `El proximo movimiento frances no parece expansion imperial sino refinamiento de escala. Menos himnos universales, mas catalogos pequenos con alta definicion emocional. Menos obsesion con la marca nacional, mas dialogo entre escenas de club, pop experimental, radio independiente y listening culture. Esa redistribucion tiene consecuencias sonoras. La voz gana terreno, pero una voz tratada como material sintetico. El beat sigue ahi, aunque mas descentrado, mas dispuesto a convivir con niebla, pads y ruptura de forma. Tambien vuelve una idea vieja de Francia bajo otra luz: la del productor como editor fino de atmosfera. La diferencia es que ahora esa finura ya no garantiza distancia ironica. El presente frances quiere emocion, pero no ingenua; glamour, pero no vacio; intensidad, pero sin perder control de mezcla. El resultado es una escena menos monumental y mas persistente. Una escena que no necesita dominar el mapa para seguir influyendo en como el mapa aprende a sonar.`,
+      ),
+    ],
+    keyVenues: ['Paris hybrid club spaces', 'Listening bars', 'Independent festival circuits'],
+    recordStores: [
+      { name: 'BIM Records orbit', type: 'Shop / curation', description: 'La escucha francesa sigue dependiendo de mediadores humanos, sellos chicos y un archivo muy bien conectado.' },
+      { name: 'Radio and event series', type: 'Scene infrastructure', description: 'La radio online, los microfestivales y los ciclos curados sostienen el presente mas que cualquier mainstream local.' },
+    ],
+    experimentalArtist: {
+      name: 'Crystallmess',
+      description: 'Lee el club como estetica y como distribucion de poder, con oidos puestos en el caos mas que en la pureza.',
+      similarTo: 'Lotic, aya y Kode9 por mirada critica y tension de set',
+    },
+    visualAesthetic: {
+      styleName: 'Cold romance interface',
+      description: 'Brillo contenido, tipografia afilada, niebla digital y un dramatismo elegante que ya no pide permiso.',
+    },
+    localVerdict: {
+      platformName: 'TerraMusica Desk',
+      score: '8.7',
+      consensus: 'Francia encontro un nuevo equilibrio entre pop mutante, diseño y presion emocional.',
+    },
+    bestLyricsQuote: 'The screen is soft, but the pulse beneath it still remembers the rave.',
+    soundPalette: ['Brillo helado', 'Pad acuoso', 'Beat de porcelana', 'Voz sintetica'],
+    sonicSignature: {
+      instruments: ['Polisintes luminosos', 'Drum machines secas', 'Procesamiento vocal minucioso', 'Subgrave elegante'],
+      vocals: ['Aereas', 'Teatrales', 'Intimas pero intervenidas'],
+      production: ['Alta definicion', 'Friccion suave', 'Diseño de superficie'],
+    },
+    localSlang: {
+      term: 'Cold romance',
+      definition: 'Tension entre glamour digital, vulnerabilidad y presion de club en una misma pieza.',
+    },
+    cultAlbums: [
+      album('First Album', 'Miss Kittin & The Hacker', '2001', 'Gigolo', 'Electroclash como codigo fuente: ironia, libido y sintetizador frio convertidos en canon util para leer el presente.', 'Miss Kittin and The Hacker First Album full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/a9/8c/b9/a98cb9fb-595e-8a13-712c-578c1a05b59e/mzi.nfscyhwz.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/first-album/270122321?uo=4'),
+      album('Tohu Bohu', 'Rone', '2012', 'InFiné', 'Melodia, club y amplitud cinematica en un punto donde Francia volvio a sonar expansiva sin perder rareza.', 'Rone Tohu Bohu full album', 'https://is1-ssl.mzstatic.com/image/thumb/Features/v4/90/75/ed/9075eddc-f6b7-1e54-1c8f-07348328b31e/dj.yehflaob.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/tohu-bohu/563962208?uo=4'),
+      album('One Life', 'Malibu', '2019', 'UNO NYC', 'Un punto de apoyo para entender como la ambient vocal francesa transformo la calma en intensidad real.', 'Malibu One Life EP', 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/0d/c3/92/0dc392f9-53a9-77fe-4af3-7b5d3a3229e9/810025343002_cover.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/one-life-ep/1481261025?uo=4'),
+    ],
+    forecast: {
+      trendName: 'Cold romance',
+      period: '2026-2027',
+      description:
+        'El futuro frances inmediato combina pop vaporoso, rave sentimental y ambient vocal sin obedecer fronteras de genero. La superficie importa, pero ahora trabaja para producir profundidad y no simple lujo.',
+      keyArtists: ['Oklou', 'Malibu', 'ascendant vierge', 'Calling Marian'],
+      futureSounds: ['Pop de interfaz', 'Rave melodramatica', 'Ambient vocal', 'Techno de alta definicion'],
+      curiosities: [
+        'La escena francesa reciente se vuelve mas fuerte cuando deja de vender sofisticacion y empieza a aceptar vulnerabilidad, exceso y melodrama.',
+        'Paris sigue siendo importante, pero su poder actual esta en la curaduria de contextos, no en imponer un sonido unico.',
+      ],
+      forecastReleases: [
+        release('Oklou', 'choke enough', '2025', 'Album', 'Oklou choke enough full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/1e/48/ba/1e48ba16-4ee3-8ae5-742d-f6849dd8f2d7/850064074949_Cover.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/choke-enough/1779808073?uo=4'),
+        release('Malibu', 'Vanities', '2025', 'Album', 'Malibu Vanities full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/1d/81/e9/1d81e9ac-eb47-e804-6075-0fb5929454fe/8721253846437.png/100x100bb.jpg', 'https://music.apple.com/us/album/vanities/1823209522?uo=4'),
+        release('ascendant vierge', 'Le Plus Grand Spectacle De La Terre', '2024', 'Album', 'Ascendant Vierge Le Plus Grand Spectacle De La Terre', 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ba/8b/cb/ba8bcbfe-cf58-d3a2-39de-72b14d2663cd/196872306170.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/le-plus-grand-spectacle-de-la-terre/1759582097?uo=4'),
+        release('Calling Marian', 'Hyper Opus', '2023', 'Album', 'Calling Marian Hyper Opus full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/f2/a4/07/f2a40766-ed86-45a0-6fc2-b5ffcabbc1a0/3596974489295_cover.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/hyper-opus/1710367421?uo=4'),
+      ],
+    },
+    curatedReads: [
+      read('The Late Bloomer: Oklou', 'Pitchfork', 'https://pitchfork.com/features/cover-story/the-late-bloomer-oklou/'),
+      read('Oklou: choke enough', 'Pitchfork', 'https://pitchfork.com/reviews/albums/oklou-choke-enough/'),
+      read('Malibu: Vanities', 'Pitchfork', 'https://pitchfork.com/reviews/albums/malibu-vanities/'),
+      read('An Interview With CRYSTALLMESS', 'Resident Advisor', 'https://ra.co/features/4337'),
+    ],
+    editorialPlaylist: [
+      track('choke enough', 'Oklou', 'Soft-focus pop with hard infrastructure underneath', 'Oklou choke enough'),
+      track('Vanities', 'Malibu', 'Ambient romance without passivity', 'Malibu Vanities'),
+      track('Le Plus Grand Spectacle De La Terre', 'ascendant vierge', 'Cold rave melodrama', 'Ascendant Vierge Le Plus Grand Spectacle De La Terre'),
+      track('Hyper Opus', 'Calling Marian', 'Festival-scale energy with sharp French control', 'Calling Marian Hyper Opus'),
+    ],
+    independentLabel: {
+      name: 'InFiné',
+      focus: 'French electronics where club design, composition and experiment keep touching',
+      since: '2006',
+    },
+    subgenreFocus: {
+      name: 'Cold romance',
+      description: 'Pop and club music where emotional excess is shaped by precision design and digital sheen.',
+    },
+  },
+});
+
+const russia = createEntry({
+  countryName: 'Russia',
+  summary:
+    'La escena rusa que importa en 2026 no se deja leer como decorado geopolitico ni como reliquia de una edad de oro perdida. Funciona como infraestructura cultural bajo presion: redes de amistad, sellos, estudios caseros y escenas desplazadas que siguen produciendo musica capaz de unir club, intimidad y abstraccion sin caer en cinismo.',
+  traditions: ['IDM eslava', 'Techno de sello pequeno', 'Art-pop oblicuo', 'Electronica domestica'],
+  musicalStyles: ['Dream-pop sintetico', 'Techno mineral', 'Experimental cartoon logic', 'Ambient de pasillo helado'],
+  instruments: ['Drum machines secas', 'Sintetizadores compactos', 'Teclados domesticos', 'Procesamiento vocal flotante'],
+  curiosities: [
+    'La historia reciente forzo a la escena a trabajar con menos visibilidad y mas elasticidad: eso hizo mas importante al sello, al estudio casero y a la comunidad translocal.',
+    'La mejor musica rusa actual no estetiza el encierro: lo convierte en metodo de precision.',
+  ],
+  modernInfluentialArtists: [
+    { name: 'Kedr Livanskiy', genre: 'Dream-pop / electronic', relevance: 'Sigue siendo una de las figuras que mejor soldaron melodia vulnerable y diseño sintetico desde Moscu.' },
+    { name: 'Buttechno', genre: 'Techno / experimental', relevance: 'Endurecio el lenguaje del club sin volverlo caricatura militar ni retrofetiche.' },
+    { name: 'Kate NV', genre: 'Avant-pop / art electronics', relevance: 'Llevo rareza, humor y abstraccion a una forma de cancion extrañamente luminosa.' },
+  ],
+  sampleOrigins: [
+    {
+      description: 'Post-soviet interiority, pop sintetico, sellos pequenos, techno de pasillo y una escucha muy fina del espacio negativo.',
+      famousUsage: 'La escena rusa trabaja como si cada arreglo fuera una forma de administrar distancia, clima y supervivencia.',
+    },
+  ],
+  editorial: {
+    magazineStyle: 'Winter circuitry annotated from inside the apartment',
+    sceneDescription:
+      'Rusia mantiene una de las escenas mas precisas y menos complacientes del mapa. No por grandilocuencia, sino por una economia de trabajo donde el detalle, la red pequeña y el estudio domestico todavia funcionan como resistencia sensible.',
+    editorialStatus: 'curated',
+    editorialStatusNote: 'Curada offline con enfasis en sellos, redes y discos verificables bajo condiciones de alta presion.',
+    editorialChapters: [
+      chapter(
+        'Infraestructura bajo presion',
+        'Escena sin espectacularizacion',
+        `Seria facil leer la musica rusa reciente solo a traves del conflicto y el aislamiento. Seria tambien una manera pobre de escucharla. Lo que define a esta escena en 2026 es otra cosa: la forma en que siguio operando como infraestructura cultural cuando la visibilidad internacional se volvio mas precaria y las condiciones materiales mas inestables. Sellos como Gost Zvuk funcionan menos como marca y mas como sistema nervioso distribuido. Productores que antes compartian fiestas, catálogos y estudios hoy sostienen contacto por redes fragmentadas, colaboraciones remotas y circuitos diminutos. Esa compresion no produjo un arte menor. Produjo musica mas exacta. Mas consciente de cada frecuencia, cada silencio y cada golpe. En Rusia, el estudio pequeño se volvio una politica de forma. No por fetiche DIY, sino porque ahi todavia se puede decidir como suena un cuerpo cuando el exterior exige simplificaciones constantes.`,
+      ),
+      chapter(
+        'Del sueño a la piedra',
+        'Kedr, Kate, Buttechno',
+        `Kedr Livanskiy sigue siendo central porque entendio antes que nadie como traducir vulnerabilidad en arquitectura sintetica. Sus discos nunca suenan grandiosos; suenan habitables, y por eso resisten mejor. Kate NV trabaja la direccion opuesta: color, juego, miniatura absurda, una inteligencia pop que esquiva tanto la solemnidad como el branding global. Buttechno toma el camino mas mineral. En Lost Sounds y X-berg dubs 2 el beat no entra para ordenar, entra para erosionar. Cada loop parece golpear una pared distinta. Juntos dibujan el triangulo de la escena rusa actual: melodia herida, extrañeza ludica y techno de precision brutal. Ninguno necesita exotizar el origen. La especificidad aparece sola, en el modo en que el espacio es tratado, en la paciencia con la que se decide cada capa, en la negativa a confundir intensidad con ruido indiscriminado.`,
+      ),
+      chapter(
+        'Escala menor, futuro largo',
+        'Como suena una escena que decide no colapsar',
+        `El proximo ciclo ruso probablemente siga siendo de escala menor y red larga. Menos visibilidad central, mas persistencia subterranea. Esa condicion ya esta produciendo un tipo de estetica reconocible: beats secos, armonias frias pero no inhumanas, una cancion que puede flotar sobre texturas casi club y un techno que rechaza la saturacion simbolica. La musica no niega el contexto; lo metaboliza en forma. Por eso la escena rusa mas viva no pide piedad ni fascinacion. Pide oidos. Escucharla bien implica aceptar que el futuro de la electronica no pertenece solo a las ciudades con mejor marketing o mayor acceso global. A veces nace donde el margen obliga a afinar cada decision. Rusia sigue siendo uno de esos lugares. No por excepcion heroica, sino porque todavia produce obras que convierten fragilidad material en claridad de lenguaje.`,
+      ),
+    ],
+    keyVenues: ['Distributed warehouse circuits', 'Listening rooms', 'Small label nights'],
+    recordStores: [
+      { name: 'Gost Zvuk orbit', type: 'Label network', description: 'Un archivo vivo de como la escena rusa penso club, abstraccion y comunidad en formatos chicos.' },
+      { name: 'Home studios', type: 'Production infrastructure', description: 'La infraestructura principal no siempre es publica: muchas veces es el cuarto donde sigue ocurriendo la mezcla.' },
+    ],
+    experimentalArtist: {
+      name: 'Buttechno',
+      description: 'Hace que el concreto, el eco y el loop corto suenen como un sistema cognitivo completo.',
+      similarTo: 'Pavel Milyakov, Donato Dozzy por espacio, Skee Mask por rigor de diseño',
+    },
+    visualAesthetic: {
+      styleName: 'Apartment modernism',
+      description: 'Tipografia sobria, grises frios, interfaces austeras y un diseño que prefiere precision antes que impacto inmediato.',
+    },
+    localVerdict: {
+      platformName: 'TerraMusica Desk',
+      score: '8.8',
+      consensus: 'Bajo presion, la escena rusa respondio afinando lenguaje en vez de inflar gesto.',
+    },
+    bestLyricsQuote: 'The room got smaller, so the frequencies learned to think harder.',
+    soundPalette: ['Niebla seca', 'Kick de concreto', 'Pad interior', 'Luz fluorescente'],
+    sonicSignature: {
+      instruments: ['Sintetizadores compactos', 'Cajas de ritmo severas', 'Teclados toy resignificados', 'Reverbs cortas'],
+      vocals: ['Aereas', 'Desplazadas', 'Casi domesticas'],
+      production: ['Precision fria', 'Borde controlado', 'Espacio negativo'],
+    },
+    localSlang: {
+      term: 'Interior precision',
+      definition: 'Produccion donde la escala pequeña obliga a que cada capa tenga peso estructural.',
+    },
+    cultAlbums: [
+      album('Ariadna', 'Kedr Livanskiy', '2017', '2MR', 'Dream-pop sintetico y post-club como lenguaje de ciudad interior.', 'Kedr Livanskiy Ariadna full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/77/ff/d1/77ffd1d6-be9e-5e03-15c0-7f003dfc7c30/090125168990_cover.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/ariadna/1720057200?uo=4'),
+      album('dlya FOR', 'Kate NV', '2018', 'RVNG Intl.', 'Una rareza luminosa donde cartoon logic, cancion y electronica de camara quedan perfectamente soldados.', 'Kate NV dlya FOR full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/fd/86/fe/fd86fedf-e1c7-6213-94ad-f02c871ce2ba/747742382130.png/100x100bb.jpg', 'https://music.apple.com/us/album/%D0%B4%D0%BB%D1%8F-for/1361341632?uo=4'),
+      album('Gost Zvuk 5 Years', 'Various Artists', '2019', 'Gost Zvuk', 'Compilacion que funciona como mapa de una escena: plural, seca, austera y muy consciente de su propio espacio.', 'Gost Zvuk 5 Years compilation', 'https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/1a/6b/1d/1a6b1d8c-a1e0-9687-494d-e77e8c033d86/8790001372030.png/100x100bb.jpg', 'https://music.apple.com/us/album/gost-zvuk-5-years/1641503685?uo=4'),
+    ],
+    forecast: {
+      trendName: 'Interior precision',
+      period: '2026-2027',
+      description:
+        'La escena rusa del proximo ciclo parece moverse hacia una electronica aun mas seca, modular y contenida, donde la escala pequeña deja de ser limitacion y se vuelve criterio formal.',
+      keyArtists: ['Buttechno', 'Pavel Milyakov', 'Kate NV', 'Kedr Livanskiy'],
+      futureSounds: ['Techno mineral', 'Dream-pop sintetico', 'Abstraccion melodica', 'Loop de presion corta'],
+      curiosities: [
+        'Las obras mas fuertes no se vuelven mas grandes: se vuelven mas exactas.',
+        'La escena rusa actual usa la limitacion como filtro de calidad, no como gesto de pureza.',
+      ],
+      forecastReleases: [
+        release('Buttechno', 'Lost Sounds', '2024', 'Album', 'Buttechno Lost Sounds', 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7a/61/da/7a61da6c-6a02-b08d-2365-e90b01d7aa9a/732138140722_cover.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/lost-sounds/1747172469?uo=4'),
+        release('Buttechno', 'x-berg dubs 2', '2026', 'EP', 'Buttechno x-berg dubs 2', 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d8/2a/84/d82a84d4-5a6b-a844-ad72-c6ec794b09e0/cover.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/x-berg-dubs-2-ep/1883755427?uo=4'),
+        release('Pavel Milyakov & Lucas Dupuy', 'HEAL', '2025', 'Album', 'Pavel Milyakov Lucas Dupuy HEAL', 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2a/22/fa/2a22fa4e-0818-d0d5-72ba-96bf32ceceab/674053327072_cover.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/heal/1786755317?uo=4'),
+        release('Kate NV', 'WOW', '2023', 'Album', 'Kate NV WOW full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/1d/55/e6/1d55e633-8df6-716d-48b0-04973b2c49ea/38203.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/wow/1675578274?uo=4'),
+      ],
+    },
+    curatedReads: [
+      read('Meet Kedr Livanskiy, Russia\'s Rising Pop Eccentric', 'Pitchfork', 'https://pitchfork.com/thepitch/meet-kedr-livanskiy-russias-rising-pop-eccentric/'),
+      read('Kedr Livanskiy: Liminal Soul', 'Pitchfork', 'https://pitchfork.com/reviews/albums/kedr-livanskiy-liminal-soul/'),
+      read('Kedr Livanskiy\'s Raucous Electronic Music Reflects Her Home City of Moscow', 'Bandcamp Daily', 'https://daily.bandcamp.com/features/kedr-livanskiys-raucous-electronic-music-reflects-her-home-city-of-moscow'),
+      read('Redefining Russian Techno', 'Bandcamp Daily', 'https://daily.bandcamp.com/lists/russian-techno-list'),
+    ],
+    editorialPlaylist: [
+      track('Ariadna', 'Kedr Livanskiy', 'Melody treated like winter weather', 'Kedr Livanskiy Ariadna'),
+      track('x-berg dubs 2', 'Buttechno', 'Concrete loops with nervous breath', 'Buttechno x-berg dubs 2'),
+      track('HEAL', 'Pavel Milyakov & Lucas Dupuy', 'Abstraction as repair work', 'Pavel Milyakov Lucas Dupuy HEAL'),
+      track('WOW', 'Kate NV', 'Playful structures over disciplined electronics', 'Kate NV WOW'),
+    ],
+    independentLabel: {
+      name: 'Gost Zvuk',
+      focus: 'Russian electronics across techno, abstraction and small-scale futurism',
+      since: '2014',
+    },
+    subgenreFocus: {
+      name: 'Interior precision',
+      description: 'Electronica de escala pequeña que vuelve estructural cada capa, cada pausa y cada golpe.',
+    },
+  },
+});
+
+const australia = createEntry({
+  countryName: 'Australia',
+  summary:
+    'Australia funciona hoy como una escena partida en varias velocidades: Melbourne sigue produciendo club y ambient con paciencia de laboratorio, Sydney alimenta pop mutante de alta energia y toda la costa trabaja con una conciencia geografica rara, donde distancia, aislamiento y sol demasiado brillante terminan convertidos en textura.',
+  traditions: ['Sampledelia australiana', 'Club de sello chico', 'Dream-pop industrial', 'Festival electronics'],
+  musicalStyles: ['House emocional', 'Hyperpop de arcade', 'Ambient dub solar', 'Club melbourneano de baja presion'],
+  instruments: ['Samplers densos', 'Drum machines suaves', 'Sintetizadores brillantes', 'Procesamiento vocal de alta definicion'],
+  curiosities: [
+    'La distancia geografica sigue siendo un hecho material: obliga a que muchas escenas australianas formen primero comunidad local antes de pensar exportacion.',
+    'Melbourne mantiene una cultura de sello y club donde el catalogo importa tanto como la fiesta.',
+  ],
+  modernInfluentialArtists: [
+    { name: 'Logic1000', genre: 'House / leftfield pop', relevance: 'Volvio legitima una emocion de club mas suave, mas humana y mas detallista.' },
+    { name: 'Ninajirachi', genre: 'Hyperpop / club', relevance: 'Condenso internet, rave y melodrama generacional en un lenguaje portable y feroz.' },
+    { name: 'Sleep D', genre: 'Techno / ambient', relevance: 'Sostiene la idea de una Australia donde el club piensa largo, sin ansiedad de peak-time constante.' },
+  ],
+  sampleOrigins: [
+    {
+      description: 'Sampledelia, balearic dust, club de warehouse, FM pop y una sensacion permanente de espacio demasiado abierto.',
+      famousUsage: 'Australia convierte distancia y claridad atmosferica en musica que sabe respirar aun cuando golpea fuerte.',
+    },
+  ],
+  editorial: {
+    magazineStyle: 'Southern light on low-pressure machinery',
+    sceneDescription:
+      'La Australia alternativa ya no vive a la sombra de una sola exportacion. Entre Melbourne, Sydney y sus redes digitales aparece una escena donde el club puede ser blando sin perder rigor, y el pop puede volverse futurista sin dejar de ser sentimental.',
+    editorialStatus: 'curated',
+    editorialStatusNote: 'Curada offline con foco en house sensible, hyperpop australiano y redes de sello/club locales.',
+    editorialChapters: [
+      chapter(
+        'Melbourne como metodo',
+        'Sello, pista y tiempo largo',
+        `Melbourne sigue siendo fundamental no porque produzca el sonido mas obvio, sino porque conserva una cultura de continuidad. Butter Sessions, escenas ligadas a listening rooms y una ecologia de sellos pequeños hicieron que el club australiano desarrollara otra relacion con el tiempo. Menos obsesion con el drop definitivo, mas interes por el recorrido, el groove respirado y la textura que aguanta escucha domestica. Sleep D encarna bien esa linea: musica que puede habitar el warehouse pero tambien el living, sin perder ni fisico ni inteligencia. Esa escuela se alimenta de una condicion material concreta. La distancia geografica respecto de los grandes centros del circuito global obliga a construir escena con paciencia, catalogo y repeticion. Australia no siempre puede depender del flujo inmediato de DJs internacionales; por eso se volvio tan importante producir lenguaje propio.`,
+      ),
+      chapter(
+        'Pop en modo overclock',
+        'Logic1000 y Ninajirachi',
+        `Si Melbourne cuida el pulso largo, Sydney y su periferia digital empujan otra velocidad. Logic1000 demostro con Mother que la electronica de club australiana podia hablar de ternura, familia y cuerpo sin rebajar sofisticacion. Ninajirachi llega desde una energia muy distinta, mas veloz, mas internetizada, mas cercana al exceso generacional. Pero ambas participan del mismo giro: la escena australiana ya no separa tan facilmente cancion y funcionalidad de club. El beat puede llevar memoria emocional, y el pop puede entrar a la pista sin pedir permiso al mainstream. Eso tiene mucho que ver con un ecosistema de artistas criados entre DAWs, foros, radio nacional y plataformas, pero todavia lo bastante conscientes de su contexto local como para no sonar intercambiables. La mejor Australia actual no imita formulas del norte. Usa su propia mezcla de claridad, distancia y sobreconexion para producir algo menos obvio.`,
+      ),
+      chapter(
+        'Sur global de alta resolucion',
+        'Escena de 2027',
+        `Lo que viene en Australia parece una profundizacion de esa doble logica: club de baja presion y pop de alta energia compartiendo mas y mas herramientas. Los sellos van a seguir siendo centrales, igual que las escenas que crecen por comunidad antes que por algoritmo. En lo sonoro, eso apunta a beats mas porosos, voces mas presentes y un trabajo fino sobre la atmosfera. No una retirada del dancefloor, sino un dancefloor mas matizado. Tambien se consolida una intuicion geografica: la musica australiana interesante no necesita negar su lejanía. La convierte en estilo. Hay aire en las mezclas, horizonte en los pads, una manera de dejar que el track exista sin saturarlo de informacion. En un presente donde todo compite por atencion inmediata, Australia sigue recordando que a veces el gesto mas radical es darle a la pista un poco mas de espacio para pensar y, aun asi, hacerla moverse.`,
+      ),
+    ],
+    keyVenues: ['Melbourne warehouse circuits', 'Butter Sessions nights', 'Hybrid pop-club rooms in Sydney'],
+    recordStores: [
+      { name: 'Butter Sessions orbit', type: 'Label network', description: 'Mas que un sello: una manera de organizar escucha, comunidad y continuidad de escena.' },
+      { name: 'Independent shop/radio circuits', type: 'Discovery layer', description: 'La mediacion humana sigue siendo fuerte en una escena donde las distancias fisicas importan.' },
+    ],
+    experimentalArtist: {
+      name: 'Sleep D',
+      description: 'Une pulso de club y escucha profunda con una paciencia que evita cualquier ansiedad de festival.',
+      similarTo: 'CS + Kreme, Roza Terenzi y Priori por trabajo de atmosfera y groove',
+    },
+    visualAesthetic: {
+      styleName: 'Southern brightness',
+      description: 'Luz dura, tipografia limpia, acabados digitales y una extraña mezcla de calidez pop con geometria de club.',
+    },
+    localVerdict: {
+      platformName: 'TerraMusica Desk',
+      score: '8.6',
+      consensus: 'Australia sostiene una escena donde sensibilidad, club y escala local todavia pueden crecer juntos.',
+    },
+    bestLyricsQuote: 'Far from the center, the groove learns how to keep its own weather.',
+    soundPalette: ['Luz blanca', 'Pad abierto', 'Kick suave', 'Brillo de interfaz'],
+    sonicSignature: {
+      instruments: ['Samplers finos', 'Sintetizadores luminosos', 'Drum machines tersas', 'FX de aire amplio'],
+      vocals: ['Presentes', 'Procesadas con nitidez', 'Emotivas sin sobreactuar'],
+      production: ['Espaciosa', 'Controlada', 'Muy legible'],
+    },
+    localSlang: {
+      term: 'Low-pressure club',
+      definition: 'Pista que sostiene tension sin recurrir a hipertrofia de arreglo o volumen.',
+    },
+    cultAlbums: [
+      album('Since I Left You', 'The Avalanches', '2000', 'Modular', 'La sampledelia australiana convertida en geografia emocional infinita.', 'The Avalanches Since I Left You full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/a2/13/79/a2137927-8f49-fcb7-9cbf-09801fea7d26/06UMGIM72874.rgb.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/since-i-left-you/1440847381?uo=4'),
+      album('Psychic 9-5 Club', 'HTRK', '2014', 'Ghostly', 'Desire, dub y dream-pop industrial como escuela de temperatura emocional baja.', 'HTRK Psychic 9-5 Club full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music/v4/1d/65/50/1d6550fe-0cad-932b-cec2-db0d7a38f8c7/cover.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/psychic-9-5-club/839619008?uo=4'),
+      album('Around the World', 'Jennifer Loveless', '2022', 'The Trilogy Tapes', 'Minimal house sensible, viajero y muy corporal: una pieza clave del nuevo club australiano.', 'Jennifer Loveless Around the World', 'https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/00/97/65/00976505-c58f-a04a-6f2c-ae93c3fc4e50/5050580786356.png/100x100bb.jpg', 'https://music.apple.com/us/album/around-the-world/1638118893?uo=4'),
+    ],
+    forecast: {
+      trendName: 'Low-pressure club',
+      period: '2026-2027',
+      description:
+        'Australia empuja un futuro donde el club ya no necesita elegir entre detalle emocional y eficacia fisica. El beat se vuelve mas poroso, la voz gana terreno y la mezcla deja entrar mas aire.',
+      keyArtists: ['Logic1000', 'Ninajirachi', 'Sleep D', '2charm'],
+      futureSounds: ['House sensible', 'Arcade hyperpop', 'Ambient de warehouse', 'Club de sello chico'],
+      curiosities: [
+        'La escena australiana trabaja con una idea de distancia productiva: estar lejos de ciertos centros obliga a construir mejor contexto local.',
+        'Los catálogos siguen importando mas que la promesa de viralidad instantanea.',
+      ],
+      forecastReleases: [
+        release('Logic1000', 'Mother', '2024', 'Album', 'Logic1000 Mother full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/1e/7c/0e/1e7c0e93-920e-20ef-b675-7f614faecf14/5056556131410_cover.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/mother/1713719179?uo=4'),
+        release('Ninajirachi', 'I Love My Computer', '2025', 'Album', 'Ninajirachi I Love My Computer full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/51/41/9c/51419c3f-dce3-5072-eb94-fc453f6fdb87/199350974793.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/i-love-my-computer/1824602984?uo=4'),
+        release('Sleep D', 'Reward Chemicals', '2025', 'Single', 'Sleep D Reward Chemicals', 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b2/f6/7c/b2f67c33-30f5-35b3-848d-79b96e2a4bb8/840200593014_cover.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/reward-chemicals-single/1826327316?uo=4'),
+        release('2charm', 'star scum city', '2026', 'Album', '2charm star scum city', 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/26/82/46/268246f1-765c-08f5-b58c-53d565bbb261/199806730041.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/star-scum-city/1861363515?uo=4'),
+      ],
+    },
+    curatedReads: [
+      read('Logic1000: Mother', 'Pitchfork', 'https://pitchfork.com/reviews/albums/logic1000-mother/'),
+      read('Ninajirachi: I Love My Computer', 'Pitchfork', 'https://pitchfork.com/reviews/albums/ninajirachi-i-love-my-computer/'),
+      read('The Cover Mix: Logic1000', 'Mixmag', 'https://mixmag.net/feature/the-cover-mix-logic1000'),
+      read('The Best Dance 12"s of 2022: Jennifer Loveless, Around the World', 'Bandcamp Daily', 'https://daily.bandcamp.com/best-dance-12s/the-best-dance-12s-of-2022'),
+    ],
+    editorialPlaylist: [
+      track('Mother', 'Logic1000', 'House music with actual tenderness', 'Logic1000 Mother'),
+      track('I Love My Computer', 'Ninajirachi', 'Arcade-pop running at rave speed', 'Ninajirachi I Love My Computer'),
+      track('Reward Chemicals', 'Sleep D', 'Warehouse patience and wide-open air', 'Sleep D Reward Chemicals'),
+      track('star scum city', '2charm', 'New-school Australian club energy', '2charm star scum city'),
+    ],
+    independentLabel: {
+      name: 'Butter Sessions',
+      focus: 'Club music built for long life, local scene continuity and subtle pressure',
+      since: '2010',
+    },
+    subgenreFocus: {
+      name: 'Low-pressure club',
+      description: 'Dance music that keeps motion, emotion and atmosphere in balance without over-signaling every move.',
+    },
+  },
+});
+
+const southAfrica = createEntry({
+  countryName: 'South Africa',
+  summary:
+    'Sudafrica sigue siendo una de las escenas mas decisivas del presente porque no trata el club como moda importada sino como tecnologia social propia. De Durban a Johannesburg, de gqom a AfroTech y 3-step, el ritmo nace de una relacion concreta entre barrio, sistema de sonido, movilidad y deseo colectivo.',
+  traditions: ['Gqom de Durban', 'Amapiano lateral', 'AfroTech', 'Alt-pop corporal'],
+  musicalStyles: ['Gqom', 'AfroTech', '3-step', 'Mutant pop sudafricano'],
+  instruments: ['Percusion seca', 'Voces de comando', 'Sintesis brillante', 'Subgrave de taxi-rank'],
+  curiosities: [
+    'La escena sudafricana no necesita validacion europea para innovar: muchas de sus mutaciones nacen de infraestructuras locales muy especificas.',
+    'Cada nuevo giro ritmico importante sigue estando atado a modos concretos de circulacion, fiesta y comunidad.',
+  ],
+  modernInfluentialArtists: [
+    { name: 'DJ Lag', genre: 'Gqom / club', relevance: 'Sigue siendo una figura central para entender como Durban transformo el peso del beat global.' },
+    { name: 'Moonchild Sanelly', genre: 'Alt-pop / electro-gqom', relevance: 'Cruza club, performance y voz sin dejar que la rareza se vuelva decorado.' },
+    { name: 'Thakzin', genre: 'AfroTech / 3-step', relevance: 'Ayuda a explicar el nuevo corrimiento del house sudafricano hacia patrones mas elasticos y espaciales.' },
+  ],
+  sampleOrigins: [
+    {
+      description: 'Gqom, taxis, radio comunitaria, house local, voces de pista y una relacion muy fisica con el bajo y la repeticion.',
+      famousUsage: 'La escena sudafricana hace que la percusion funcione como organizacion social tanto como como musica.',
+    },
+  ],
+  editorial: {
+    magazineStyle: 'Heat, asphalt and sub-bass drafted as civic rhythm',
+    sceneDescription:
+      'Sudafrica sigue marcando el compas del presente alternativo porque trabaja el ritmo como infraestructura viva. Cada mutacion importante del club local lleva adentro una manera concreta de circular, reunirse y sostener deseo bajo presion.',
+    editorialStatus: 'curated',
+    editorialStatusNote: 'Curada offline con foco en gqom, AfroTech, 3-step y sus cruces con pop y performance.',
+    editorialChapters: [
+      chapter(
+        'Durban no termino',
+        'Gqom como sistema nervioso',
+        `Hablar de Sudafrica hoy sigue exigiendo volver a Durban, no por nostalgia arqueologica sino porque el gqom todavia explica demasiadas cosas del presente. Resident Advisor y Bandcamp Daily mostraron hace tiempo que no se trataba solo de un sonido duro y minimal. Era una infraestructura de barrio: taxis, fiestas, celulares, DJs, circulación veloz y un bajo que funcionaba como organizacion del espacio. DJ Lag sigue siendo central porque entendio como llevar esa energia a una forma mas amplia sin neutralizar su peso. Incluso cuando la escena global intento convertir el gqom en textura exportable, Sudafrica respondio con nuevas variaciones y nuevas velocidades. Lo importante no fue preservar una esencia. Fue sostener una forma de movimiento colectivo que sigue naciendo de condiciones locales muy concretas.`,
+      ),
+      chapter(
+        'Del gqom al 3-step',
+        'Cuando el house cambia de esqueleto',
+        `El otro gran corrimiento sudafricano reciente ocurre en la zona AfroTech y 3-step. Mixmag lo leyo bien: no es solo una moda nueva dentro del house, sino una reescritura del patron mismo. Thakzin, Heavy-K y una constelacion amplia de productores empezaron a empujar estructuras donde el ritmo se desarma un poco, respira distinto y deja huecos nuevos para la tension. Esa mutacion no abandona la pista; la vuelve mas inteligente. La repeticion ya no sirve solo para empujar. Sirve tambien para abrir espacio, insinuar, volver mas elastico el groove. Al mismo tiempo, figuras como Moonchild Sanelly y Desire Marea muestran que la escena sudafricana no se agota en el club funcional. Puede volverse pop, performance, teatro corporal y aun asi seguir respondiendo al mismo pulso material.`,
+      ),
+      chapter(
+        'Ritmo como soberania',
+        'Futuro de 2027',
+        `Lo que viene en Sudafrica parece menos una convergencia con el mercado global que una profundizacion de lenguajes propios. Gqom, AfroTech y 3-step no avanzan porque suenen novedosos para afuera, sino porque siguen siendo utiles adentro: para fiestas, sets, comunidad, ciudad y deseo. Esa es la ventaja estrategica de la escena. No depende solo de la validacion critica internacional, aunque la consiga. Depende de una ecologia local todavia muy inventiva. En terminos sonoros, eso sugiere un futuro donde los golpes seran aun mas escasos y precisos, la voz tendra un rol mas performatico y la mezcla seguira privilegiando impacto fisico antes que limpieza. Sudafrica lleva anos recordando algo que gran parte del norte olvido: el club no es una estetica neutra. Es una tecnologia social. Y cuando esa tecnologia se mantiene viva, las mutaciones del sonido dejan de ser tendencia y vuelven a ser necesidad.`,
+      ),
+    ],
+    keyVenues: ['Durban club circuits', 'Johannesburg hybrid nights', 'Community radio and DIY party networks'],
+    recordStores: [
+      { name: 'Label and mixtape circuits', type: 'Distribution layer', description: 'La circulacion local sigue dependiendo de mixtapes, sellos chicos y redes de DJs mas que de una sola plataforma.' },
+      { name: 'Community media', type: 'Scene infrastructure', description: 'Radio, sets y archivo digital local siguen siendo clave para fijar cada nueva mutacion.' },
+    ],
+    experimentalArtist: {
+      name: 'Desire Marea',
+      description: 'Convierte voz, cuerpo y performance en una extension critica del ecosistema club sudafricano.',
+      similarTo: 'Moonchild Sanelly por fisicalidad, FAKA por vision performatica, Klein por intensidad conceptual',
+    },
+    visualAesthetic: {
+      styleName: 'Asphalt futurism',
+      description: 'Color caliente, tipografia directa, brillo nocturno y una fisicalidad visual que nunca separa moda de ritmo.',
+    },
+    localVerdict: {
+      platformName: 'TerraMusica Desk',
+      score: '9.0',
+      consensus: 'Sudafrica sigue haciendo que el futuro del club parezca una cuestion de necesidad y no de branding.',
+    },
+    bestLyricsQuote: 'The beat is not background here; it is the road itself.',
+    soundPalette: ['Subgrave de asfalto', 'Percusion seca', 'Voz de comando', 'Sintesis solar'],
+    sonicSignature: {
+      instruments: ['Cajas ritmicas duras', 'Bajos breves', 'Hooks vocales afilados', 'Pads con calor ambiental'],
+      vocals: ['Imperativas', 'Sensuales', 'Muy presentes'],
+      production: ['Impacto fisico', 'Espacio ritmico', 'Economia feroz'],
+    },
+    localSlang: {
+      term: 'Ritmo como soberania',
+      definition: 'Idea de pista donde el patron local no se subordina a expectativas externas para seguir mutando.',
+    },
+    cultAlbums: [
+      album('Meeting With The King', 'DJ Lag', '2021', 'Black Major / Hyperdub', 'Documento clave para entender como el gqom paso de infraestructura local a lenguaje global sin perder peso.', 'DJ Lag Meeting With The King full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/df/f9/bf/dff9bf75-7928-0e08-228f-2dcd6e709dfd/5059449046914.png/100x100bb.jpg', 'https://music.apple.com/us/album/meeting-with-the-king/1584341068?uo=4'),
+      album('Phases', 'Moonchild Sanelly', '2022', 'Transgressive', 'Alt-pop, club y performance en un mismo cuerpo electrico.', 'Moonchild Sanelly Phases full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/3d/a3/f5/3da3f517-5ff3-83c1-94bd-6b99e26dab40/5400863081492_cover.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/phases/1614298500?uo=4'),
+      album('On the Romance of Being', 'Desire Marea', '2023', 'Mute', 'Soul, club y vision performatica como expansion de lo que el archivo sudafricano puede decir hoy.', 'Desire Marea On the Romance of Being full album', 'https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/63/b2/a0/63b2a0bc-0b4f-4bfd-8196-f5eb41f99ba0/5400863078010.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/on-the-romance-of-being/1660305030?uo=4'),
+    ],
+    forecast: {
+      trendName: 'Rhythmic sovereignty',
+      period: '2026-2027',
+      description:
+        'El siguiente ciclo sudafricano parece combinar gqom, AfroTech y 3-step en una zona aun mas economica y fisica, donde la percusion organiza espacio, identidad y movimiento con menos elementos y mas autoridad.',
+      keyArtists: ['DJ Lag', 'Moonchild Sanelly', 'Thakzin', 'Heavy-K'],
+      futureSounds: ['Gqom expandido', '3-step', 'AfroTech narrativo', 'Alt-pop corporal'],
+      curiosities: [
+        'Los patrones nuevos siguen naciendo de infraestructura local antes que de brief internacional.',
+        'La escena sudafricana trabaja el groove como informacion social y no solo como textura de exportacion.',
+      ],
+      forecastReleases: [
+        release('DJ Lag', 'Southside Mixtape', '2025', 'Mixtape', 'DJ Lag Southside Mixtape', 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d6/2b/91/d62b9184-7089-c589-b00e-e706316f900b/5059449298672.png/100x100bb.jpg', 'https://music.apple.com/us/album/southside-mixtape/1847368939?uo=4'),
+        release('Moonchild Sanelly', 'Full Moon', '2025', 'Album', 'Moonchild Sanelly Full Moon', 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/83/d1/a2/83d1a2dd-046a-1fb5-7a45-d3112948e432/8721093884729.png/100x100bb.jpg', 'https://music.apple.com/us/album/full-moon/1768312302?uo=4'),
+        release('Thakzin', 'Gods window, Pt. 1', '2025', 'Album', 'Thakzin Gods Window Pt 1', 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/40/1c/83/401c8367-6f4e-1111-3a1e-74017e450ffd/5059449247182.png/100x100bb.jpg', 'https://music.apple.com/us/album/gods-window-pt-1/1834570812?uo=4'),
+        release('Heavy-K', 'Respect The Drumboss (3 Step Edition)', '2025', 'Album', 'Heavy K Respect The Drumboss 3 Step Edition', 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/cb/ac/bb/cbacbbc1-68b8-0db4-6924-8891408924bf/6009553462024_Cover.jpg/100x100bb.jpg', 'https://music.apple.com/us/album/respect-the-drumboss-3-step-edition/1835694828?uo=4'),
+      ],
+    },
+    curatedReads: [
+      read('DJ Lag, Southside Mixtape', 'Bandcamp Daily', 'https://daily.bandcamp.com/album-of-the-day/dj-lag-southside-mixtape-review'),
+      read('How Gqom Took Over the World, One Beat at a Time', 'Bandcamp Daily', 'https://daily.bandcamp.com/scene-report/gqom-club-sound-label-profile'),
+      read('Journey Music: South Africa\'s AfroTech sound travels globally', 'Mixmag', 'https://mixmag.net/feature/journey-music-south-africas-afrotech-sound-travels-globally'),
+      read('17 artists proving 3-step is more than a trend', 'Mixmag', 'https://mixmag.net/feature/17-artists-proving-3-step-is-more-than-a-trend'),
+    ],
+    editorialPlaylist: [
+      track('Southside Mixtape', 'DJ Lag', 'Durban pressure with long-range intent', 'DJ Lag Southside Mixtape'),
+      track('Full Moon', 'Moonchild Sanelly', 'Alt-pop body music with club wiring', 'Moonchild Sanelly Full Moon'),
+      track('Gods window, Pt. 1', 'Thakzin', '3-step as spatial engineering', 'Thakzin Gods Window Pt 1'),
+      track('Respect The Drumboss (3 Step Edition)', 'Heavy-K', 'House architecture shifting its own skeleton', 'Heavy K Respect The Drumboss 3 Step Edition'),
+    ],
+    independentLabel: {
+      name: 'Gqom Oh!',
+      focus: 'Early gqom documentation and the stubborn local logic of Durban rhythm',
+      since: '2015',
+    },
+    subgenreFocus: {
+      name: 'Rhythmic sovereignty',
+      description: 'Club music whose power comes from local rhythmic logic rather than imported genre expectations.',
+    },
+  },
+});
+
 export const preloadedData: Record<string, CulturalData> = {
   'Global Issue': globalIssue,
   Argentina: argentina,
@@ -1162,3 +1775,8 @@ export const preloadedData: Record<string, CulturalData> = {
   Australia: createInProgressCountry('Australia', 'Australia sigue accesible en el mapa mientras se completa una curaduría más precisa de escenas, discos y líneas editoriales.'),
   'South Africa': createInProgressCountry('South Africa', 'Sudáfrica queda marcada como próxima entrega; preferimos una nota honesta antes que sostener un perfil incompleto.'),
 };
+preloadedData.Mexico = mexico;
+preloadedData.France = france;
+preloadedData.Russia = russia;
+preloadedData.Australia = australia;
+preloadedData['South Africa'] = southAfrica;

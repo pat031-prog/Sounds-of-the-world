@@ -156,6 +156,22 @@ export interface EditorialSignalCluster {
   sourceUrl: string;
 }
 
+export interface EditorialIssueMapSection {
+  id: string;
+  label: string;
+  target: string;
+  context: 'hub' | 'global' | 'country';
+  description?: string;
+}
+
+export interface EditorialFeatureAccessCard {
+  id: string;
+  label: string;
+  description: string;
+  target: string;
+  context: 'hub' | 'global' | 'country';
+}
+
 export type AppMode = 'atlas' | 'editorial';
 
 // EXPANDED EDITORIAL PROFILE
