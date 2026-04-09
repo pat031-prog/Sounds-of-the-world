@@ -21,7 +21,10 @@ export const EssayPanel: React.FC<EssayPanelProps> = ({
   if (!isOpen || !essay) return null;
 
   const essayIndex = Math.max(0, essays.findIndex((entry) => entry.id === essay.id));
-  const heroImage = getDeckImage(editorialImageDeck, essayIndex);
+  const heroImage = getDeckImage(
+    editorialImageDeck,
+    Math.max(0, editorialImageDeck.length - 1 - essayIndex),
+  );
 
   return (
     <div className="fixed inset-0 z-[60] overflow-y-auto bg-[#050505] font-serif text-[#EDEDED] animate-in slide-in-from-bottom-10 duration-500">

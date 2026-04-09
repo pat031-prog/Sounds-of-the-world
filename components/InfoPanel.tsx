@@ -279,7 +279,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                                       className="group cursor-pointer bg-[#111] border border-white/10 hover:border-[#FF3530] transition-all overflow-hidden flex flex-col"
                                     >
                                        <div className="aspect-video w-full overflow-hidden relative">
-                                          <img src={getDeckImage(editorialImageDeck, i)} alt={essay.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105" />
+                                          <img src={getDeckImage(editorialImageDeck, i + 9)} alt={essay.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105" />
                                           <div className="absolute inset-0 bg-gradient-to-t from-[#111] to-transparent"></div>
                                        </div>
                                        <div className="p-6 flex-1 flex flex-col">

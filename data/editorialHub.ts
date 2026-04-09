@@ -12,6 +12,20 @@ const allEntries = Object.values(preloadedData);
 
 export const globalLead = preloadedData['Global Issue'];
 
+export const globalPanoramaDispatch = {
+  dateLabel: 'April 9, 2026',
+  summary:
+    'El cambio mas visible del ciclo no es un genero nuevo sino una nueva relacion con la mediacion. Resident Advisor cerro 2025 reabriendo el canon de 2000-25; Pitchfork paso el ano destacando discos donde la electronica se volvio mas porosa, lenta y corporal; y Bandcamp Daily arranco 2026 trazando un mapa donde el minimalismo para soundsystems, la deconstructed club emotiva y el techno brutalista ya conviven sin pedir un centro unico. Al mismo tiempo, Mixmag reporto que Apple Music empezo a etiquetar usos de IA en la metadata y que Bandcamp respondio reforzando la curaduria humana con un nuevo programa semanal de radio electronica. El presente alternativo ya no persigue pureza ni invisibilidad: prefiere borde, contexto y friccion. El feed sigue corriendo, pero el criterio vuelve a tener cuerpo.',
+  researchPulse: ['Canon repair', 'Low-air rhythm', 'Human curation', 'AI transparency'],
+  sources: [
+    { label: 'Resident Advisor // Canon', url: RA_CANON_URL },
+    { label: 'Pitchfork // Electronic 2025', url: PITCHFORK_ELECTRONIC_2025_URL },
+    { label: 'Bandcamp Daily // Feb 2026', url: BANDCAMP_FEB_URL },
+    { label: 'Mixmag // AI Tags', url: MIXMAG_AI_URL },
+    { label: 'Mixmag // Bandcamp Radio', url: BANDCAMP_RADIO_URL },
+  ],
+};
+
 export const curatedHubCountries: CulturalData[] = allEntries.filter(
   (entry) =>
     entry.countryName !== 'Global Issue' &&

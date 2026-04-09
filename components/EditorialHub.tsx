@@ -19,6 +19,7 @@ import {
   curatedHubCountries,
   editorialBriefing,
   globalLead,
+  globalPanoramaDispatch,
   hubNavSections,
   inProgressHubCountries,
   newSignalChart,
@@ -53,6 +54,13 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
   onOpenEssay,
   onOpenCountry,
 }) => {
+  const quickAccessSections = hubNavSections.filter((section) =>
+    ['essays', 'cult-canon', 'new-signal', 'countries'].includes(section.id),
+  );
+
+  const quickCountryPreview = curatedHubCountries.slice(0, isDesktop ? 6 : 4);
+  const briefingPreview = editorialBriefing.slice(0, 2);
+
   return (
     <div className="w-full h-full overflow-y-auto bg-[#050505] text-[#EDEDED]">
       <div
@@ -66,10 +74,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
 
       <div className="relative mx-auto max-w-[1640px] px-5 pb-24 pt-32 md:px-10 md:pt-36 lg:px-12">
         <section className="mb-8 grid grid-cols-1 gap-6 xl:grid-cols-12">
-          <button
-            onClick={onOpenGlobalIssue}
-            className="group relative overflow-hidden border border-white/10 bg-[#0d0d0d] text-left xl:col-span-8"
-          >
+          <article className="group relative overflow-hidden border border-white/10 bg-[#0d0d0d] text-left xl:col-span-8">
             <img
               src={getDeckImage(editorialImageDeck, 0)}
               alt="Global Issue"
@@ -79,15 +84,30 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
             <div className="relative flex h-full flex-col gap-8 p-6 md:p-10">
               <div className="flex flex-wrap items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
                 <span>Global Issue</span>
-                <span className="border border-white/15 px-2 py-1 text-white/70">April 9, 2026</span>
+                <span className="border border-white/15 px-2 py-1 text-white/70">
+                  {globalPanoramaDispatch.dateLabel}
+                </span>
               </div>
               <div className="max-w-4xl">
                 <h2 className="mb-4 font-serif-display text-4xl leading-none text-white md:text-6xl">
                   Global Panorama
                 </h2>
                 <p className="max-w-3xl font-serif text-lg leading-relaxed text-gray-300 md:text-2xl">
-                  {globalLead.editorial.forecast.description}
+                  {globalPanoramaDispatch.summary}
                 </p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {globalPanoramaDispatch.sources.map((source) => (
+                    <a
+                      key={source.url}
+                      href={source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border border-white/12 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.24em] text-white/65 transition-colors hover:border-[#FF3530] hover:text-white"
+                    >
+                      {source.label}
+                    </a>
+                  ))}
+                </div>
               </div>
               <div className="grid grid-cols-1 gap-4 border-t border-white/10 pt-6 md:grid-cols-3">
                 <div>
@@ -100,26 +120,31 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
                 </div>
                 <div>
                   <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
-                    Global Lead
+                    Research Pulse
                   </span>
                   <p className="font-serif text-base text-white md:text-lg">
-                    Canon, archive pressure, club systems and new signal.
+                    {globalPanoramaDispatch.researchPulse.join(' / ')}
                   </p>
                 </div>
                 <div className="flex items-end justify-between gap-4">
-                  <div>
-                    <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
-                      Open Dossier
-                    </span>
-                    <p className="text-sm leading-relaxed text-gray-400">
-                      Abrir la edicion global con chapters, canon, charts y radar expandido.
-                    </p>
-                  </div>
-                  <ArrowUpRight className="shrink-0 text-[#FF3530] transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" size={22} />
+                  <button
+                    onClick={onOpenGlobalIssue}
+                    className="flex w-full items-end justify-between gap-4 text-left"
+                  >
+                    <div>
+                      <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
+                        Open Dossier
+                      </span>
+                      <p className="text-sm leading-relaxed text-gray-400">
+                        Abrir la edicion global con chapters, canon, charts y radar expandido.
+                      </p>
+                    </div>
+                    <ArrowUpRight className="shrink-0 text-[#FF3530] transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" size={22} />
+                  </button>
                 </div>
               </div>
             </div>
-          </button>
+          </article>
 
           <div className="grid gap-6 xl:col-span-4">
             <div className="border border-white/10 bg-[#0d0d0d] p-6 md:p-8">
@@ -127,10 +152,79 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
                 <Mic2 size={14} />
                 <span>{isDesktop ? 'Atlas Desktop Hub' : 'Pocket Editorial Hub'}</span>
               </div>
-              <p className="font-serif text-lg leading-relaxed text-gray-300">
-                Una portada viva para navegar ensayos, charts, bundles y paises curados sin depender
-                solo del mapa.
-              </p>
+              <div className="grid gap-5">
+                <button
+                  onClick={onOpenGlobalIssue}
+                  className="flex items-center justify-between border border-[#FF3530]/40 bg-[#FF3530]/10 px-4 py-3 text-left transition-colors hover:border-[#FF3530] hover:bg-[#FF3530]/15"
+                >
+                  <div>
+                    <span className="mb-1 block text-[10px] font-bold uppercase tracking-[0.28em] text-[#FF3530]">
+                      Open Global Issue
+                    </span>
+                    <p className="text-sm leading-relaxed text-gray-300">
+                      Entrar directo al dossier madre con chapters, canon y radar.
+                    </p>
+                  </div>
+                  <ArrowUpRight size={18} className="shrink-0 text-[#FF3530]" />
+                </button>
+
+                <div>
+                  <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
+                    Quick Access
+                  </span>
+                  <div className="grid grid-cols-2 gap-2">
+                    {quickAccessSections.map((section) => (
+                      <a
+                        key={section.id}
+                        href={`#${section.id}`}
+                        className="border border-white/10 px-3 py-3 text-[10px] font-bold uppercase tracking-[0.24em] text-white/70 transition-colors hover:border-[#FF3530] hover:text-white"
+                      >
+                        {section.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="border-t border-white/10 pt-5">
+                  <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
+                    Curated Countries
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {quickCountryPreview.map((country) => (
+                      <button
+                        key={country.countryName}
+                        onClick={() => onOpenCountry(country.countryName)}
+                        className="border border-white/10 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.24em] text-white/70 transition-colors hover:border-[#FF3530] hover:text-white"
+                      >
+                        {country.countryName}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="border-t border-white/10 pt-5">
+                  <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
+                    Fresh Reading
+                  </span>
+                  <div className="space-y-3">
+                    {briefingPreview.map((item) => (
+                      <a
+                        key={item.url}
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block border border-white/10 px-4 py-3 transition-colors hover:border-[#FF3530]"
+                      >
+                        <div className="mb-2 flex items-center justify-between gap-3 text-[10px] font-bold uppercase tracking-[0.24em] text-white/45">
+                          <span className="text-[#FF3530]">{item.source}</span>
+                          <span>{item.publishedAt}</span>
+                        </div>
+                        <p className="font-serif text-sm leading-relaxed text-gray-300">{item.title}</p>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-2">

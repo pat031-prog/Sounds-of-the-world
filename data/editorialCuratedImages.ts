@@ -3,7 +3,7 @@ const editorialImageModules = import.meta.glob('../assets/editorial-curated/*.{p
   import: 'default',
 }) as Record<string, string>;
 
-const DEFAULT_VISIBLE_EDITORIAL_IMAGES = 10;
+const DEFAULT_RECENT_EDITORIAL_IMAGES = 10;
 
 export const editorialCuratedImages = Object.entries(editorialImageModules)
   .sort(([leftPath], [rightPath]) =>
@@ -11,8 +11,8 @@ export const editorialCuratedImages = Object.entries(editorialImageModules)
   )
   .map(([, source]) => source);
 
-export const shuffleEditorialCuratedImages = (): string[] => {
-  const shuffledImages = [...editorialCuratedImages];
+const shuffleImages = (images: string[]): string[] => {
+  const shuffledImages = [...images];
 
   for (let index = shuffledImages.length - 1; index > 0; index -= 1) {
     const randomIndex = Math.floor(Math.random() * (index + 1));
@@ -25,20 +25,13 @@ export const shuffleEditorialCuratedImages = (): string[] => {
   return shuffledImages;
 };
 
-const getEditorialAdvanceStep = (deckLength: number): number => {
-  if (deckLength <= 1) {
-    return 1;
-  }
+export const shuffleEditorialCuratedImages = (): string[] => shuffleImages(editorialCuratedImages);
 
-  return Math.min(
-    deckLength - 1,
-    Math.max(DEFAULT_VISIBLE_EDITORIAL_IMAGES, Math.floor(deckLength / 2)),
-  );
-};
+const getRecentImageCount = (deckLength: number): number =>
+  Math.min(deckLength, DEFAULT_RECENT_EDITORIAL_IMAGES);
 
 export const advanceEditorialCuratedImages = (
   currentDeck: string[],
-  requestedStep?: number,
 ): string[] => {
   const sourceDeck = currentDeck.length > 0 ? currentDeck : shuffleEditorialCuratedImages();
 
@@ -46,16 +39,14 @@ export const advanceEditorialCuratedImages = (
     return [...sourceDeck];
   }
 
-  const rawStep = requestedStep && requestedStep > 0
-    ? requestedStep
-    : getEditorialAdvanceStep(sourceDeck.length);
-  const normalizedStep = rawStep % sourceDeck.length;
+  const recentImageCount = getRecentImageCount(sourceDeck.length);
+  const recentImages = sourceDeck.slice(0, recentImageCount);
+  const recentImageSet = new Set(recentImages);
 
-  if (normalizedStep === 0) {
-    return [...sourceDeck];
-  }
+  const unseenImages = editorialCuratedImages.filter((image) => !recentImageSet.has(image));
+  const recycledImages = editorialCuratedImages.filter((image) => recentImageSet.has(image));
 
-  return [...sourceDeck.slice(normalizedStep), ...sourceDeck.slice(0, normalizedStep)];
+  return [...shuffleImages(unseenImages), ...shuffleImages(recycledImages)];
 };
 
 export const getDeckImage = (deck: string[], index: number): string => {
