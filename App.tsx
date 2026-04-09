@@ -1,6 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { EarthGlobe } from './components/EarthGlobe';
-import { FlatMap } from './components/FlatMap';
+import React, { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react';
 import { InfoPanel } from './components/InfoPanel';
 import { EssayPanel } from './components/EssayPanel';
 import { EditorialHub } from './components/EditorialHub';
@@ -13,6 +11,22 @@ import {
   advanceEditorialCuratedImages,
   shuffleEditorialCuratedImages,
 } from './data/editorialCuratedImages';
+
+const EarthGlobe = lazy(async () => {
+  const module = await import('./components/EarthGlobe');
+  return { default: module.EarthGlobe };
+});
+
+const FlatMap = lazy(async () => {
+  const module = await import('./components/FlatMap');
+  return { default: module.FlatMap };
+});
+
+const AtlasSurfaceLoader: React.FC<{ label: string }> = ({ label }) => (
+  <div className="flex h-full w-full items-center justify-center bg-[#050505]">
+    <span className="animate-pulse font-serif italic text-gray-500">{label}</span>
+  </div>
+);
 
 const App: React.FC = () => {
   const getIsDesktopDefault = () =>
@@ -203,7 +217,9 @@ const App: React.FC = () => {
             onOpenGlobalIssue={openGlobalIssue}
             onOpenEditorialHome={openEditorialHome}
           >
-            <EarthGlobe onCountryClick={(properties) => void handleCountryClick(properties)} />
+            <Suspense fallback={<AtlasSurfaceLoader label="Loading Atlas Globe..." />}>
+              <EarthGlobe onCountryClick={(properties) => void handleCountryClick(properties)} />
+            </Suspense>
           </AtlasSurfaceBoundary>
         ) : null}
         {showEditorialMap ? (
@@ -214,10 +230,12 @@ const App: React.FC = () => {
             onOpenGlobalIssue={openGlobalIssue}
             onOpenEditorialHome={openEditorialHome}
           >
-            <FlatMap
-              onCountryClick={(properties) => void handleCountryClick(properties)}
-              selectedCountry={selectedCountry}
-            />
+            <Suspense fallback={<AtlasSurfaceLoader label="Loading Editorial Map..." />}>
+              <FlatMap
+                onCountryClick={(properties) => void handleCountryClick(properties)}
+                selectedCountry={selectedCountry}
+              />
+            </Suspense>
           </AtlasSurfaceBoundary>
         ) : null}
         {showEditorialHub ? (
