@@ -1,114 +1,243 @@
+import { EssaySource } from '../types';
+
 export interface Essay {
   id: string;
   title: string;
   subtitle: string;
+  dek?: string;
   author: string;
   content: string[];
   imageUrl: string;
   relatedCountries: string[];
+  sources: EssaySource[];
 }
+
+const research = {
+  raCanon: {
+    title: 'The Best Electronic Records of 2000-25',
+    source: 'Resident Advisor',
+    url: 'https://ra.co/features/4482',
+    publishedAt: 'Dec 11, 2025',
+  },
+  ctm: {
+    title: 'CTM x Resident Advisor: Rethinking Music Ecosystems',
+    source: 'Resident Advisor / CTM',
+    url: 'https://ra.co/events/2346501',
+    publishedAt: 'Jan 30, 2026',
+  },
+  bandcampJan: {
+    title: 'The Best Electronic Music on Bandcamp, January 2026',
+    source: 'Bandcamp Daily',
+    url: 'https://daily.bandcamp.com/best-electronic/the-best-electronic-music-on-bandcamp-january-2026',
+    publishedAt: 'Feb 2, 2026',
+  },
+  bandcampFeb: {
+    title: 'The Best Electronic Music on Bandcamp, February 2026',
+    source: 'Bandcamp Daily',
+    url: 'https://daily.bandcamp.com/best-electronic/the-best-electronic-music-on-bandcamp-february-2026',
+    publishedAt: 'Mar 4, 2026',
+  },
+  bandcampExperimental: {
+    title: 'The Best Experimental Music on Bandcamp, February 2026',
+    source: 'Bandcamp Daily',
+    url: 'https://daily.bandcamp.com/best-experimental/the-best-experimental-music-on-bandcamp-february-2026',
+    publishedAt: 'Mar 3, 2026',
+  },
+  bandcampRadio: {
+    title: 'Bandcamp launches new weekly radio show for electronic music',
+    source: 'Mixmag',
+    url: 'https://mixmag.net/amp/bandcamp-launches-new-weekly-radio-show-electronic-music',
+    publishedAt: 'Mar 27, 2026',
+  },
+  aiLabels: {
+    title: 'Apple Music to inform listeners if music on platform is AI-generated',
+    source: 'Mixmag',
+    url: 'https://mixmag.net/read/apple-music-ai-meta-data-information-listeners-music-generated-news',
+    publishedAt: 'Mar 9, 2026',
+  },
+  autoMix: {
+    title: 'Apple Music launches new AutoMix feature that blends tracks together using AI',
+    source: 'Mixmag',
+    url: 'https://mixmag.net/read/apple-music-launches-new-automix-feature-that-blends-tracks-together-using-ai-tech',
+    publishedAt: 'Jun 12, 2025',
+  },
+  klay: {
+    title: 'Major Labels Sign Licensing Deals With AI Music Company Klay',
+    source: 'Pitchfork',
+    url: 'https://pitchfork.com/news/warner-music-group-signs-licensing-deal-with-ai-music-company-klay/',
+    publishedAt: 'Nov 20, 2025',
+  },
+  nvidia: {
+    title: 'Universal and Nvidia Promise New Partnership Is an "Antidote to AI Slop"',
+    source: 'Pitchfork',
+    url: 'https://pitchfork.com/news/universal-and-nvidia-promise-new-partnership-is-an-antidote-to-ai-slop/',
+    publishedAt: 'Jan 9, 2026',
+  },
+  pitchforkElectronic: {
+    title: 'The 30 Best Electronic Albums of 2025',
+    source: 'Pitchfork',
+    url: 'https://pitchfork.com/features/lists-and-guides/best-electronic-albums-2025/',
+    publishedAt: 'Dec 9, 2025',
+  },
+  pitchforkAlbums: {
+    title: 'The 50 Best Albums of 2025',
+    source: 'Pitchfork',
+    url: 'https://pitchfork.com/features/lists-and-guides/best-albums-2025/',
+    publishedAt: 'Dec 2, 2025',
+  },
+};
 
 export const essays: Essay[] = [
   {
     id: 'algoritmo',
     title: 'El Sonido del Algoritmo',
-    subtitle:
-      'La recomendación ya no organiza solamente el gusto: moldea duración, mezcla, curva emocional y umbral de tolerancia.',
+    subtitle: 'La plataforma ya no ordena solo el gusto. Ordena el tiempo interno del track.',
+    dek:
+      'La recomendacion automatica paso de filtro a forma historica. El beat contemporaneo nace bajo una economia de continuidad, y la musica mas viva responde introduciendo tartamudeo, opacidad y mano humana alli donde el software promete fluidez perfecta.',
     author: 'Editorial Desk',
     imageUrl: '',
     relatedCountries: ['United States of America', 'United Kingdom', 'Japan'],
+    sources: [research.autoMix, research.aiLabels, research.klay, research.nvidia],
     content: [
-      'El algoritmo dejó de ser una herramienta de descubrimiento para convertirse en una infraestructura estética. No solo decide qué llega después. Decide qué tipo de intro merece existir, qué densidad sobrevive al scroll, qué golpe de caja no espanta a la plataforma, qué silencio dura demasiado para una economía de atención entrenada por el salto continuo. En ese régimen, la música no muere: se repliega. Se vuelve funcional, lisa, correctamente intercambiable. La rareza sigue ahí, pero administrada como decoración. El conflicto entra domesticado, con su propia miniatura lista para circular.',
-      'Durante 2025 y 2026 esa mutación dejó de ser intuición y se volvió política visible de plataforma. En junio de 2025 Apple Music lanzó AutoMix y vendió la mezcla automática entre tracks como experiencia inteligente, casi invisible. En marzo de 2026 la misma plataforma anunció que empezaría a informar al oyente cuándo una pista fue generada con IA. Dos movimientos del mismo sistema: automatizar la continuidad por un lado, etiquetar la sospecha por el otro. El problema no es únicamente técnico. Es ideológico. El software ya no solo distribuye música: administra confianza, fricción y credibilidad.',
-      'Por eso la mejor electrónica del presente no responde fingiendo pureza analógica. Responde dejando huellas de fricción dentro del propio entorno digital. Bombos que no entran del todo limpios en la grilla. Voces secas, demasiado próximas, como si la respiración insistiera en escapar del preset. Mezclas que conservan un margen de opacidad. Productores que usan modelos para ordenar archivos, separar stems o generar variaciones tímbricas, pero mantienen visible la mano que corta, descarta y vuelve a ensuciar. Esa mano es más que oficio. Es el último resto político del criterio.',
-      'La crítica fácil opone humanidad y máquina como si todavía estuviéramos ante una frontera clara. La situación real es menos cinematográfica y más incómoda. El estudio contemporáneo ya es híbrido. Plugins que anticipan decisiones, sistemas de masterización automática, sugerencias de armonía, detección de estructura, motores de búsqueda semántica para librerías enteras. La cuestión no es si hay asistencia. La cuestión es dónde termina la asistencia y empieza la sustitución del juicio. En esa línea delgada se juega una nueva ética de producción.',
-      'También cambia la forma de escuchar. Cuando una plataforma promete continuidad perfecta, la discontinuidad vuelve a volverse deseable. De ahí el regreso de discos que respiran raro, de tracks que parecen abrir ventanas y no simplemente encadenarse, de álbumes que usan la duración como un arma contra la obediencia del feed. La dificultad ya no funciona como signo de prestigio vacío. Funciona como defensa. Como modo de recordar que la atención puede ser otra cosa que una variable a optimizar.',
-      'El sonido del algoritmo no es un género. Es el ruido de fondo de una época que quiere volver toda experiencia comparable, medible y reemplazable. La música más viva de los próximos años no triunfará por sonar más eficiente que las máquinas. Triunfará cuando logre introducir duda dentro del sistema que fue diseñado para borrarla. Sonará como si el software hubiera aprendido a tartamudear. Y en ese tartamudeo, por fin, volverá a entrar el alma.',
+      'El algoritmo ya no se limita a decidir que aparece despues. Decide cuanto tarda en empezar un tema, cuanta informacion puede sostener un arreglo antes de ser interpretado como friccion, cuanto silencio puede tolerar un oyente entrenado por el salto infinito. La plataforma parece neutral porque habla en lenguaje de servicio, pero su verdadera tarea es disciplinar el tiempo. En esa administracion del tiempo se juega buena parte de la estetica contemporanea. El loop corto gana porque circula mejor. La transicion suave gana porque retiene. La mezcla brillante gana porque necesita explicar todo de inmediato. No se trata de censura tradicional. Se trata de una forma mas eficaz de gobierno: volver deseable lo que mejor alimenta la interfaz.',
+      'Durante 2025 y 2026 esa mutacion se volvio visible. Apple Music lanzo AutoMix en junio de 2025 y presento la mezcla automatica entre canciones como una mejora obvia de la escucha. En marzo de 2026 la misma plataforma anuncio que empezaria a indicar cuando un track fue generado con IA. Dos gestos que se explican entre si. Por un lado, automatizar el flujo para que nada raspe. Por el otro, etiquetar la sospecha para administrar la ansiedad del usuario frente a la proliferacion de musica sintetica. El software ya no distribuye solamente repertorio. Administra confianza, continuidad y credibilidad.',
+      'Eso explica por que la musica realmente viva del periodo no responde refugiandose en una pureza analogica de museo. Responde creando friccion dentro del entorno digital. Bombos que no entran del todo limpios en la cuadricula. Voces demasiado secas o demasiado cerca, como si el cuerpo quisiera arruinar la perfeccion del preset. Mezclas que conservan grano. Discos que se abren de a poco y se niegan a comportarse como trailers de si mismos. La resistencia no consiste en negar la herramienta, sino en impedir que la herramienta vuelva invisible la decision humana. El criterio, hoy, es la huella que queda despues de recortar todas las opciones que la maquina considera razonables.',
+      'La oposicion simple entre humanidad y tecnologia ya no alcanza. El estudio real de 2026 es hibrido hasta la medula. Separadores de stems, motores semanticos para navegar librerias, asistentes de mezcla, recomendaciones de master, sistemas que organizan archivos mejor que cualquier memoria fatigada. El problema no es si existe asistencia. El problema es cuando la asistencia se convierte en sustitucion del juicio. Pitchfork lo dejo claro al cubrir los acuerdos de Klay con Warner, Universal y Sony en noviembre de 2025, y otra vez cuando describio en enero de 2026 la alianza entre Universal y Nvidia como un supuesto antidoto contra el AI slop. La industria no discute si habra IA. Discute quien controla su legitimidad.',
+      'A nivel de escucha, esa mutacion produce una paradoja hermosa. Cuanto mas perfecto se vuelve el flujo, mas valiosa se vuelve la interrupcion. La dificultad deja de ser una mueca de prestigio y vuelve a ser defensa. Un album que tarda en abrirse, una voz que no se entrega del todo, un final que no resuelve, una mezcla que permite oir el borde de sus costuras: todos esos gestos recuperan potencia politica porque sabotean el mandato de continuidad. La musica vuelve a recordar que la atencion no es un recurso a explotar, sino una forma de vida que aun puede decidir sus propios ritmos.',
+      'El sonido del algoritmo no es un genero. Es la atmosfera base de una epoca que quiere volver comparable toda experiencia. La mejor musica de los proximos anos no triunfara por sonar mas eficiente que la maquina. Triunfara cuando logre introducir duda en el sistema disenado para borrarla. Sonara como un software obligado a respirar. Sonara como una interfaz que, por un momento, pierde su sonrisa de servicio y deja escuchar el ruido del cuerpo atrapado detras de la pantalla.',
     ],
   },
   {
     id: 'guerra',
     title: 'La Guerra Escucha Primero',
-    subtitle:
-      'Antes de la noticia llega su traducción sónica: ansiedad logística, aire táctico, subgrave en estado de alerta.',
+    subtitle: 'Antes del comunicado llega la atmosfera. Antes del frente, la logistica.',
+    dek:
+      'La guerra contemporanea no entra en la musica solo como protesta o consigna. Entra como precision, vigilancia, cadena de suministro, ansiedad energetica y tactica de la supervivencia. El estudio domestico ya funciona como cabina civil dentro de un paisaje logistico en crisis.',
     author: 'Editorial Desk',
     imageUrl: '',
     relatedCountries: ['China', 'United States of America', 'Global Issue'],
+    sources: [research.ctm, research.nvidia, research.klay, research.bandcampFeb],
     content: [
-      'La guerra contemporánea no entra en la música como consigna inmediata. Entra como clima operativo. Se filtra en la compresión, en la necesidad de control, en la obsesión por la señal limpia dentro de un mundo saturado de ruinas informativas. El productor de 2026 trabaja rodeado por cadenas de suministro inestables, energía cara, noticias de vigilancia permanente y un imaginario técnico poblado por drones, satélites y mapas térmicos. Aunque no lo nombre, compone dentro de ese aire. El estudio doméstico ya no es refugio puro. Es una cabina de escucha del desastre.',
-      'Por eso una parte decisiva de la electrónica reciente suena forense. No militar en sentido literal, pero sí tácticamente precisa. Bombos que avanzan como convoyes. Ambientes que sostienen una presión atmosférica casi de sala de control. Voces editadas con una frialdad que recuerda más al montaje de inteligencia que al romanticismo residual de la canción. No se trata de propaganda. Se trata de contagio formal. El presente bélico produce sensibilidad antes que discurso, y la música absorbe esa sensibilidad incluso cuando aparenta hablar de intimidad, paisaje o pista.',
-      'La situación se vuelve más compleja cuando la infraestructura digital que sostiene la escucha participa del mismo escenario geopolítico. Chips, centros de datos, rutas marítimas, minería, cables submarinos, plataformas estadounidenses y fábricas asiáticas: la guerra ya no es un afuera que luego se comenta en un track. Es la condición material de posibilidad del track. Cada beat está atravesado por una cadena logística. Cada archivo parece limpio solo porque oculta una historia opaca de extracción, transporte, cálculo y desgaste.',
-      'Frente a eso, la pista de baile recobra una función civil. No como escapismo sentimental, sino como protocolo mínimo de reagrupamiento. La insistencia en no-phones, salas chicas, sistemas de cuidado y atención sostenida no responde solo a nostalgia clubber. Responde a una sociedad donde toda experiencia tiende a quedar inmediatamente indexada, monetizada y vigilada. Bailar sin archivo no es romanticismo. Es una forma precaria de soberanía temporal. Un pequeño apagón voluntario dentro del régimen de exposición total.',
-      'Que CTM y Resident Advisor hayan dedicado el 30 de enero de 2026 una jornada entera en Berlín a repensar ecosistemas musicales no fue un gesto administrativo. Fue una admisión histórica. Ya no alcanza con programar artistas y repetir la ficción del club como burbuja. La pregunta por infraestructura, sostenibilidad y comunidad se volvió estética antes que burocrática. Lo que está en juego no es solo cómo sobrevivirá la cultura. También cómo sonará bajo presión prolongada.',
-      'La guerra escucha primero porque el poder necesita oír antes de mostrar. La música lúcida invierte ese circuito: convierte ese oído paranoico en escucha compartida, catarsis, cuerpo sincronizado, defensa sensible. No cancela el conflicto. Lo reorganiza a ras del suelo. Y a veces, en esa reorganización, incluso el subgrave más oscuro se vuelve una forma modesta pero real de protección civil.',
+      'La guerra actual rara vez entra en la musica como himno. Entra como condicion del aire. Se filtra en la obsesion por el control, en el deseo de una senal limpia dentro de un mundo saturado de ruina informativa, en la precision casi forense con la que muchos productores organizan el espacio sonoro. El estudio domestico ya no es la fantasia de refugio total que podia vender la cultura del bedroom producer. Es una cabina conectada a redes electricas inestables, a chips caros, a cables submarinos, a plataformas que viven de monetizar la ansiedad. Aunque no nombre ningun conflicto, la musica compone desde adentro de ese clima.',
+      'Por eso buena parte de la electronica reciente suena tactica. Bombos que avanzan como convoyes. Graves que ocupan el aire con la autoridad de una sirena industrial. Ambientes tensos, como si la mezcla entera estuviera monitoreando una amenaza que no termina de hacerse visible. No es propaganda. Es contagio formal. El poder militar y el poder logistico comparten una sensibilidad: ambos necesitan anticipar, mapear, interceptar. La musica absorbe esa sensibilidad incluso cuando habla de intimidad. En 2026 hasta el susurro mas privado esta ecualizado por una infraestructura de vigilancia.',
+      'La clave material esta en la cadena. Cada track depende de una red de extraccion, transporte, calculo y almacenamiento. Chips, centros de datos, energia, minerales, mano de obra invisibilizada, rutas maritimas tensionadas. La guerra no es el afuera del archivo. Es una de sus condiciones de posibilidad. Cuando Pitchfork cubrio la alianza entre Universal y Nvidia a comienzos de 2026, el articulo parecia una nota sobre IA y derechos. En realidad tambien era una nota sobre infraestructura. Toda promesa de creatividad asistida descansa sobre una arquitectura industrial y geopolitica de una escala brutal.',
+      'En ese panorama el club recupera una funcion civil. No como escapismo de brochure, sino como protocolo minimo de reagrupamiento. La insistencia en salas chicas, politicas de cuidado, no-phone dancefloors y temporalidades menos extractivas no es nostalgia. Es respuesta sensible a una sociedad donde toda experiencia tiende a quedar indexada, vigilada y revendida. La jornada de CTM y Resident Advisor en enero de 2026 sobre ecosistemas musicales no fue un debate de oficina. Fue una admision historica: la musica necesita pensar de nuevo sus propias infraestructuras si no quiere sonar como mera banda sonora de la disgregacion.',
+      'La pista, entonces, ya no es solo una valvula de escape. Es un ensayo de coordinacion entre desconocidos. Un dispositivo para recordar que todavia existe sincronizacion sin algoritmo central. Ese recuerdo importa mas cuando la logica del conflicto vuelve sospechosa toda aglomeracion y todo cuerpo no rastreado. Bailar sin archivo no cura nada, pero produce un intervalo de soberania. Un pequeno corte en la maquinaria que quiere convertir cada movimiento en metadato. La escucha comun se vuelve una forma tenue pero real de defensa civil.',
+      'La guerra escucha primero porque el poder necesita oir antes de actuar. La musica lucida invierte la direccion del circuito. Convierte el oido paranoico en escucha compartida, el pulso tactico en respiracion comun, la presion en forma. No disuelve el conflicto. Lo reorganiza a nivel humano. Y a veces, cuando el subgrave logra reunir lo que la epoca dispersa, incluso la noche mas dura se parece a una asamblea sin discurso: pura coordinacion del sistema nervioso bajo la amenaza de un mundo que se rompe.',
     ],
   },
   {
     id: 'club',
     title: 'Club Como Infraestructura',
-    subtitle:
-      'La pista ya no alcanza como metáfora de fuga: hoy funciona como sistema de cuidados, filtro de atención y laboratorio social.',
+    subtitle: 'La pista ya no alcanza como metafora de fuga. Hoy funciona como tejido material.',
+    dek:
+      'El club importa menos como fantasia nocturna y mas como red de cuidados, economia minima, sistema de sonido y laboratorio social. Pensarlo como infraestructura obliga a unir programacion, puerta, transporte, seguridad, renta y escucha en una misma ecuacion.',
     author: 'Editorial Desk',
     imageUrl: '',
     relatedCountries: ['United Kingdom', 'Brazil', 'Argentina'],
+    sources: [research.ctm, research.bandcampRadio, research.bandcampJan],
     content: [
-      'Durante demasiado tiempo la cultura de club fue narrada como suspensión temporal de la historia: una noche fuera del mundo, una cápsula donde el contexto quedaba congelado bajo la promesa de hedonismo. En 2026 esa ficción ya no se sostiene. El club importa porque es uno de los pocos lugares donde todavía puede fabricarse una sincronía no algorítmica entre cuerpos. Personas distintas entrando en el mismo pulso, en la misma presión sonora, bajo el mismo riesgo de aburrirse, rendirse o entregarse. Esa coincidencia parece simple. Hoy es extraordinaria.',
-      'Pensar el club como infraestructura obliga a abandonar la fantasía romántica del line-up como solución total. Importa quién alquila la sala, quién paga el sonido, quién programa, quién cuida la puerta, quién tiene acceso al transporte de vuelta, quién queda afuera por precio, por violencia o por fatiga. El sistema de sonido y el sistema de cuidados pertenecen a la misma discusión. No existe set inocente en un espacio mal organizado. Tampoco existe utopía automática en un cartel correcto si la experiencia material repite jerarquías viejas.',
-      'El 30 de enero de 2026, CTM y Resident Advisor pusieron esa pregunta en primer plano con Rethinking Music Ecosystems en Berlín. El gesto fue importante no por institucional, sino por sintomático. Cuando una de las plataformas más influyentes del circuito club decide discutir sostenibilidad, comunidad y formas de supervivencia, lo que está admitiendo es que la pista ya no puede pensarse solo como consumo nocturno. Debe pensarse como tejido. Como una tecnología social más frágil y más vital de lo que la industria quiso admitir.',
-      'Por eso las escenas más lúcidas del presente ya no dependen únicamente del pico de la noche. Importan la listening session, la radio local, la feria de sellos, el espacio híbrido que funciona de día como tienda y de noche como sala, la comunidad que aprende a sostener un circuito sin transformarlo en marca. El club se extiende más allá del club. Se vuelve una ecología de atención. Lo que se defiende no es solo el baile. Es la posibilidad de que la escucha vuelva a ser situada, conflictiva y compartida.',
-      'En ese contexto, la escala pequeña dejó de ser carencia y pasó a leerse como decisión. Salas donde el error todavía se oye, donde la reverberación no está comprimida para redes, donde el DJ puede tensar el tiempo sin pánico a perder retención. La precariedad no se romantiza; se administra con inteligencia. Menos espectacularidad, más forma. Menos pantalla, más presión acústica. Menos branding, más memoria común. La fiesta se vuelve menos infinita, pero más necesaria.',
-      'Cuando el club funciona, no ofrece una salida limpia del presente. Lo recompone durante unas horas. Hace respirable la densidad de la época y recuerda que todavía existe una política del cuerpo que no entra del todo en las métricas. Ese recordatorio, físico y rítmico, agotador y a veces luminoso, sigue siendo una de las arquitecturas sensibles más importantes que le quedan a la vida urbana.',
+      'Durante demasiado tiempo la cultura de club fue vendida como pausa del mundo. Una noche fuera de la historia, una burbuja donde la politica quedaba suspendida bajo la promesa de hedonismo. En 2026 esa ficcion ya no resiste una sola inspeccion seria. El club importa porque es uno de los pocos lugares donde todavia puede producirse una sincronizacion no algoritmica entre cuerpos distintos. Gente que no comparte timeline ni dashboard entrando en el mismo pulso, en la misma presion sonora, en el mismo riesgo de aburrirse o entregarse. Esa coincidencia parece pequena, pero dentro de una cultura gobernada por interfaces individuales se vuelve enorme.',
+      'Pensar el club como infraestructura obliga a dejar atras la romantizacion del line up. Importa quien alquila la sala, quien paga el sonido, quien asume el costo del cuidado, quien vuelve a casa a las cinco de la manana, quien queda afuera por precio, por miedo o por desgaste. El sistema de sonido y el sistema de cuidados pertenecen a la misma pregunta. No hay set inocente en un espacio mal sostenido. Tampoco hay utopia automatica en un cartel politicamente correcto si la experiencia material repite las jerarquias de siempre. La infraestructura es el verdadero genero oculto de la noche.',
+      'De ahi que la conversacion abierta por CTM y Resident Advisor en Berlin a fines de enero de 2026 haya importado tanto. Cuando el debate pasa de booking a ecosistema, la escena esta admitiendo que el problema ya no es solo estetico. Es logistico, laboral y urbano. La cultura de club depende de alquileres, permisos, trabajo invisible, transporte nocturno, salud mental y energia. Cada uno de esos frentes condiciona como suena la musica. Cuando una escena se precariza hasta el hueso, la pista no solo se vacia: cambia el tipo de tension que la musica puede sostener.',
+      'Por eso las escenas mas inteligentes del presente ya no se piensan solo en el pico del set. Importan la radio barrial, la feria de sellos, la tienda que de noche muta en sala, el espacio hibrido donde se ensaya una comunidad antes de que llegue la marca. El club se expande mas alla de su puerta. Se vuelve una ecologia de atencion. Mixmag entendio algo de eso al cubrir el nuevo programa semanal de radio electronica de Bandcamp en marzo de 2026. No era simplemente una noticia sobre contenido. Era una senal de que la curaduria humana vuelve a ser infraestructura cuando el feed ya no alcanza para sostener pertenencia.',
+      'Tambien cambia la escala del deseo. La sala pequena deja de verse como carencia y empieza a sentirse como metodo. Menos gigantismo, mas forma. Menos pantalla, mas presion acustica. Menos branding, mas memoria comun. La precariedad no se romantiza, pero tampoco se acepta como condena. Se administra con precision. Una cabina sin espectacularidad puede producir mas futuro que un festival entero si ahi todavia existe la libertad de tensar el tiempo sin obedecerle a la retencion.',
+      'Cuando el club funciona, no ofrece una salida limpia del presente. Lo recompone durante unas horas. Vuelve respirable la densidad del momento y recuerda que todavia existe una politica del cuerpo que no entra del todo en las metricas. Ese recordatorio no es accesorio. Es una de las ultimas arquitecturas sensibles que le quedan a la ciudad. Si desaparece, no solo perdemos fiestas. Perdemos una tecnologia social donde el sonido todavia puede organizar vida comun sin pasar primero por la aprobacion de una plataforma.',
     ],
   },
   {
     id: 'silicio',
     title: 'Silicio, Escasez y Ruina',
-    subtitle:
-      'La música de esta década ya no se entiende sin data centers, minerales, hardware fatigado y una imaginación técnica en estado de grieta.',
+    subtitle: 'Toda nube termina pesando. Toda interfaz tiene un subsuelo mineral.',
+    dek:
+      'La musica de esta decada ya no puede narrarse como fenomeno inmaterial. Cada plugin, cada computadora y cada plataforma se apoyan en una geologia de chips, puertos, mineria y desgaste. De esa materialidad nace una nueva sensibilidad sonora: mas rota, mas economica, mas precisa.',
     author: 'Editorial Desk',
     imageUrl: '',
     relatedCountries: ['China', 'Japan', 'Global Issue'],
+    sources: [research.raCanon, research.nvidia, research.pitchforkElectronic],
     content: [
-      'La fantasía digital prometió inmaterialidad. Sin embargo, cada nueva ola tecnológica terminó revelando más infraestructura: centros de datos, minas, puertos, fábricas, semiconductores, trabajo invisible, basura electrónica. La música contemporánea está hecha con esa materia aunque el marketing insista en la nube. Los sintetizadores, las interfaces, los plugins y las plataformas no son milagros abstractos. Son objetos históricos. Por eso suenan distinto cuando el mundo logístico entra en crisis. El futuro dejó de parecer liviano. Ahora pesa.',
-      'Una parte crucial de la electrónica reciente absorbió esa verdad y empezó a producir con oído de ruina. Ventilación de servidor, clipping seco, graves que parecen motores fatigados, frecuencias altas como luz industrial. No es gusto por lo áspero en abstracto. Es una manera de aceptar que la belleza contemporánea debe cargar con aquello que la hace posible y al mismo tiempo la amenaza. El silicio dejó de ser promesa de pureza futurista. Se volvió la prueba material de que toda claridad técnica tiene un costo geológico, energético y político.',
-      'La escasez también reorganiza el deseo. Equipos más caros, giras menos sostenibles, repuestos inciertos, envíos lentos, alquileres imposibles, estudios comprimidos a habitaciones precarias. Frente a eso reaparece una ética de la decisión compositiva. Menos capas, más corte. Menos acumulación ornamental, más presión de forma. La reducción no como austeridad triste impuesta desde arriba, sino como táctica para que cada sonido vuelva a importar. Lo que queda después de descartar se vuelve más violento, más exacto, más caro en atención.',
-      'El canon retrospectivo de Resident Advisor sobre los mejores discos electrónicos de 2000 a 2025 funcionó en diciembre de 2025 como algo más que balance. Mostró hasta qué punto la era digital ya puede leerse también como arqueología material. Muchos de esos discos suenan hoy menos como monumentos que como restos activos de distintas fases del hardware, del club y de la web. Escucharlos en 2026 ya no es recorrer una línea de progreso. Es caminar por capas de ruina todavía caliente.',
-      'La obsolescencia programada produce además una nueva sensibilidad del estudio. Máquinas envejecidas, laptops cansadas, interfaces que sobreviven a fuerza de parches, archivos incompletos, backups dudosos. La perfección pierde prestigio cuando el sistema entero exhibe desgaste. Gana valor lo que todavía respira dentro de una cadena técnica quebrada. De ahí el regreso de texturas rotas, de flujos incompletos, de sets que no esconden del todo la costura. La falla deja de ser accidente. Pasa a ser sintaxis.',
-      'La ruina técnica no anuncia el fin de la música. Anuncia el fin de ciertas fantasías sobre ella. Lo que sobreviva lo hará porque aprendió a trabajar con restos: hardware cansado, chips caros, sistemas frágiles, archivos heredados, decisiones radicalmente finitas. Y quizá justamente ahí, en la fricción entre lo que colapsa y lo que todavía insiste, vuelva a aparecer algo parecido al futuro.',
+      'La fantasia digital prometio ligereza. Todo parecia nube, acceso y velocidad. Sin embargo, cada nueva ola tecnica termino revelando mas infraestructura: centros de datos, puertos, minas, fabricas, cables, electricidad, residuos. La musica contemporanea esta hecha con esa materia aunque el marketing siga hablando como si los archivos brotaran del aire. Un sintetizador no es una idea. Un plugin no es una metafora. Una plataforma no es un destino natural. Son objetos historicos sostenidos por cadenas materiales que hoy muestran fatiga. El futuro dejo de parecer liviano. Ahora pesa y hace ruido al moverse.',
+      'Ese peso cambia la escucha. Buena parte de la electronica mas interesante de los ultimos anos trabaja con una sensibilidad de ruina tecnica. Ventilacion de servidor, clipping seco, graves que recuerdan motores fatigados, agudos que iluminan como tubos industriales. No es gusto por lo aspero en abstracto. Es una estetica que admite el costo material del brillo digital. El silicio ya no aparece como promesa de pureza futurista. Aparece como la prueba de que toda claridad tecnica descansa sobre una geologia violenta. La belleza, entonces, deja de ser transparencia y empieza a incluir desgaste.',
+      'La escasez tambien reorganiza el deseo del estudio. Equipos mas caros, giras menos sostenibles, repuestos inciertos, alquileres imposibles, software por suscripcion, tiempo mental fragmentado. Frente a ese cuadro reaparece una etica de la seleccion. Menos capas, mas corte. Menos decoracion, mas presion de forma. La reduccion no funciona solo como austeridad impuesta. Tambien funciona como acto critico. Cada sonido que sobrevive a la poda importa mas. Cada decision gana peso porque se toma contra un horizonte de saturacion tecnica.',
+      'En diciembre de 2025 Resident Advisor publico su canon de discos electronicos de 2000 a 2025. El valor del articulo no estuvo solamente en la lista. Estuvo en revelar que la era digital ya puede escucharse como arqueologia. Muchos de esos albums hoy suenan menos como monumentos al progreso que como restos activos de distintos regimens tecnicos: el laptop underground, el dubstep pre plataforma, el maximalismo de estudio, el after rave contemplativo, la voz tratada como interfaz. Escucharlos en 2026 es recorrer capas de hardware y software que todavia no terminan de morir.',
+      'Ese paisaje de fatiga vuelve digna a la falla. Maquinas envejecidas, laptops cansadas, interfaces que sobreviven gracias a un cable torcido, discos duros dudosos, librerias heredadas, backups incompletos. La perfeccion pierde prestigio cuando el sistema entero muestra desgaste. Gana valor lo que respira pese a la grieta. De ahi el regreso de texturas rotas, de flujos incompletos, de sets que no esconden del todo la costura. La falla deja de ser accidente. Se vuelve sintaxis. Una nueva manera de decir la verdad sobre las condiciones materiales del presente.',
+      'La ruina tecnica no anuncia el fin de la musica. Anuncia el fin de una fantasia sobre ella. Lo que sobreviva lo hara porque aprenda a trabajar con restos: chips caros, estudios chicos, maquinas heredadas, energia nerviosa, decisiones radicalmente finitas. Tal vez por eso el futuro mas convincente ya no suena como expansion infinita. Suena como inteligencia bajo restriccion. Como una luz tenue adentro de un rack viejo. Como una cancion que sabe de donde sale la electricidad antes de pedirnos que creamos en la magia.',
     ],
   },
   {
     id: 'feed',
     title: 'After the Feed',
-    subtitle:
-      'La nueva escucha aparece cuando la música deja de competir por atención inmediata y empieza a construir refugios de duración.',
+    subtitle: 'La escucha mas viva aparece cuando deja de competir por inmediatez.',
+    dek:
+      'Despues del feed no llega un regreso romantico al offline. Llega una curaduria mas lenta, una politica de la duracion y un deseo nuevo de contexto. La abundancia ya no produce libertad. Produce fatiga, y por eso la mediacion humana vuelve a importar.',
     author: 'Editorial Desk',
     imageUrl: '',
     relatedCountries: ['Argentina', 'India', 'Global Issue'],
+    sources: [research.bandcampRadio, research.bandcampJan, research.bandcampExperimental],
     content: [
-      'El feed enseñó a escuchar en ráfagas. Un hook, una textura, un gesto suficiente para seguir de largo. Durante años pareció que toda obra debía justificar su existencia casi de inmediato. La consecuencia fue una claridad compulsiva: intros ultrarrápidas, estructuras transparentes, producción que explica demasiado. Después del feed, la música más interesante hace lo contrario. Retarda. Reserva. Deja pliegues. Recupera la opacidad como forma de hospitalidad para una atención exhausta.',
-      'No es casual que en 2026 gane peso una curaduría más lenta y más humana. En marzo, Mixmag informó el lanzamiento de un nuevo programa semanal de radio electrónica por parte de Bandcamp. El dato importa menos como novedad de marca que como síntoma. La escena necesita mediaciones que no funcionen como pura optimización. La radio, la selección comentada, la lista hecha por criterio y no por aprendizaje automático regresan porque la abundancia ya no produce libertad. Produce fatiga. El problema dejó de ser encontrar música. Ahora es encontrar contexto.',
-      'Las rondas mensuales de Bandcamp Daily para electrónica y experimental cumplen justamente esa función: no ordenar un centro, sino mapear periferias. Esa diferencia es decisiva. El feed aplana toda música sobre el mismo continuo de atención cuantificable. La curaduría seria, en cambio, devuelve escala, historia, método, parentesco. Hace visible que una pista de Rotterdam no trabaja el mismo tiempo interno que un collage de São Paulo o una miniatura folk procesada desde Tokio. Nombrar esas diferencias vuelve a ser un trabajo crítico central.',
-      'Escuchar después del feed no significa salir de internet. Significa dejar de obedecerle. La nueva escucha nace en discos que toleran demora, en tracks que no se entregan por completo al primer contacto, en obras que prefieren construir un clima antes que una confirmación. Eso no equivale a prestigio elitista. Equivale a recuperar el derecho a una experiencia que no se agota en la primera utilidad. La duración vuelve a ser una política mínima.',
-      'También cambia la economía afectiva del oyente. Menos ansiedad por estar al día, más deseo de construir archivo. Menos catálogo infinito, más relación concreta con pequeñas escenas, radios, sellos y recomendaciones que todavía suenan firmadas por alguien. El crítico reaparece entonces no como árbitro de estatus, sino como organizador de atención. No para cerrar el sentido, sino para abrir un margen donde la escucha vuelva a respirar sin someterse a la lógica de la metrificación permanente.',
-      'After the feed nombra ese margen. No es una utopía offline ni una huida limpia del presente. Es una zona de resistencia tenue donde la música deja de funcionar como fondo obediente y vuelve a instalar una pregunta. A veces basta un disco que tarda en abrirse, una voz que no se explica del todo, un set que se toma su tiempo para recordar que todavía existe otra velocidad. Cuando eso ocurre, el algoritmo sigue ahí. Pero por un momento deja de mandar.',
+      'El feed entreno una escucha de rafaga. Un hook, una textura, un gesto suficiente para decidir si algo merecia mas de quince segundos de vida. Durante anos parecio inevitable que toda musica debiera justificarse de inmediato. Las intros se acortaron, la produccion se volvio explicativa, la estructura se acelero. Despues del feed, la musica que importa hace otra cosa. Retarda. Reserva. Deja pliegues. Recupera la opacidad no como prestigio vacio, sino como hospitalidad para una atencion exhausta. La gran novedad de este momento es que la demora vuelve a sentirse radical.',
+      'En ese contexto la curaduria humana recupera una dignidad que parecia perdida. No porque el algoritmo haya dejado de ser util, sino porque su utilidad no alcanza para construir escena. En marzo de 2026 Mixmag informo el lanzamiento de un programa semanal de radio electronica en Bandcamp. El hecho importa menos como movimiento de marca y mas como sintoma. Cuando una plataforma decide reforzar la voz curatorial, esta admitiendo que la abundancia automatizada produce ruido antes que sentido. El problema ya no es encontrar musica. El problema es encontrar una relacion legible entre la musica, el territorio y el tiempo que la produce.',
+      'Las selecciones mensuales de Bandcamp Daily para electronica y experimental cumplen justamente esa funcion. No ordenan un centro. Cartografian periferias. Y esa diferencia es enorme. El feed aplana todo sobre la misma superficie de atencion cuantificable. La curaduria seria devuelve escala, parentesco, metodo, genealogia. Vuelve visible que un disco de Rotterdam, una miniatura pop mutante de Londres y un artefacto ambient de Tokio no comparten solamente genero, sino condiciones de escucha y de trabajo. Nombrar esas diferencias vuelve a ser una tarea critica de primer orden.',
+      'Escuchar despues del feed no significa salir de internet. Significa dejar de obedecerle. La nueva escucha nace en discos que toleran demora, en tracks que no se entregan por completo al primer contacto, en obras que prefieren construir un clima antes que una confirmacion. Eso no equivale a elitismo. Equivale a recuperar el derecho a una experiencia que no se agota en su primera utilidad. La duracion vuelve a ser una politica minima. Quien logra sostenerla ya no compite por visibilidad. Construye refugio.',
+      'Tambien cambia la economia afectiva del oyente. Menos ansiedad por estar al dia. Mas deseo de construir archivo. Menos catalogo infinito. Mas relacion concreta con sellos, radios, compilados, textos, programadores y escenas que todavia suenan firmadas por alguien. El critico reaparece entonces no como arbitro de estatus, sino como organizador de atencion. Su tarea no es cerrar el sentido, sino abrir un margen para que la escucha vuelva a respirar sin someterse a la metrificacion permanente.',
+      'After the feed nombra ese margen. No es una utopia limpia ni una retirada heroica. Es una zona de resistencia tenue donde la musica deja de funcionar como fondo obediente y vuelve a instalar una pregunta. A veces basta un disco que tarda en abrirse, una voz que se reserva algo, un set que se toma su tiempo para torcer la noche. Cuando eso ocurre, el algoritmo sigue ahi. Pero durante unos minutos deja de mandar. Y ese pequeno intervalo ya se parece mucho a la libertad.',
     ],
   },
   {
     id: 'hard-reset',
     title: 'Hard Reset del Futuro',
-    subtitle:
-      'No se viene una utopía limpia: se viene una reorganización brutal de escalas, herramientas, cánones y expectativas.',
+    subtitle: 'No viene una utopia brillante. Viene una recomposicion dura y selectiva.',
+    dek:
+      'El futuro ya no se presenta como progreso lineal. Se presenta como reset parcial de escalas, herramientas, canones y expectativas. Menos gigantismo, mas criterio. Menos novedad de marketing, mas metodo, archivo y recombinacion con nervio.',
     author: 'Editorial Desk',
     imageUrl: '',
     relatedCountries: ['Global Issue', 'Brazil', 'Japan'],
+    sources: [research.raCanon, research.pitchforkElectronic, research.pitchforkAlbums],
     content: [
-      'El futuro dejó de comportarse como una promesa lineal. Ahora aparece en reseteos parciales: del club, del formato, de la prensa, de la interfaz, del rol del software dentro del estudio. Cada crisis reciente —económica, climática, logística, psíquica— erosionó un poco más la idea de progreso continuo que sostuvo a buena parte de la industria musical. Sin embargo, de esa erosión no sale solo nostalgia. Sale una voluntad de recomenzar con herramientas más concretas y expectativas menos ingenuas.',
-      'Ese hard reset no equivale a volver a cero. Equivale a elegir mejor qué merece permanecer. Menos lanzamientos, más edición. Menos hype, más contexto. Menos gigantismo, más escenas que puedan sostenerse sin suicidarse financieramente. Sellos que publican menos pero con más convicción. Clubes que no necesitan fingir festival para importar. Artistas que usan IA como asistente de taller y no como coartada para licuar criterio. La reducción deja de parecer derrota cuando se la entiende como estrategia de claridad.',
-      'También cambia la idea de novedad. Durante demasiado tiempo lo nuevo equivalió a lo tecnológicamente superior o a lo visualmente espectacular. El presente sospecha de esa definición porque ya vio demasiado futuro vendido como interfaz vacía. Lo nuevo puede consistir en un uso distinto del archivo, en una tradición que reaparece con otra presión política, en una técnica vieja liberada del mandato de productividad. La innovación abandona el marketing de evento y recupera densidad de método.',
-      'Las listas de fin de año de 2025, desde Resident Advisor hasta Pitchfork, mostraron algo incómodo y fértil al mismo tiempo: el canon ya no puede fingir estabilidad. Los mejores discos del ciclo reciente no forman un bloque coherente. Dibujan, más bien, un campo de tensiones entre ambient táctil, pop mutante, techno quebrado, collage vocal y formas híbridas que no quieren resolver su propia contradicción. Eso no es debilidad. Es la forma real que tiene el presente cuando deja de maquillarse como tendencia total.',
-      'El reset también es geográfico. La próxima música decisiva no tiene obligación de nacer en el centro histórico de la industria ni en la plataforma dominante. Puede aparecer en una ciudad secundaria, en una radio pequeña, en un festival lateral, en una tienda que también es sala, en un cuarto mal acondicionado donde todavía importa el tiempo invertido en escuchar. Cuando el horizonte común se rompe, la invención se distribuye. Ya no avanza en línea recta: se propaga por fisuras.',
-      'Hard reset del futuro significa aceptar una verdad menos cómoda pero más fértil: el deseo no va a volver en forma de gran solución. Va a volver como recomposición parcial, tosca, intensa, a veces diminuta. Un sello chico, un club bien cuidado, un disco imposible de resumir, una herramienta usada contra la lógica para la que fue diseñada. Allí empieza otra vez la música. No donde el sistema promete orden perfecto, sino donde por fin algo insiste en desobedecer.',
+      'El futuro dejo de comportarse como promesa lineal. Ahora aparece en reseteos parciales: del club, del formato, de la prensa, del estudio, de la interfaz. Cada crisis reciente, economica, climatica, logistica, psiquica, corroyo un poco mas la idea de progreso continuo que sostenia a buena parte de la industria. Pero de esa erosion no sale solo nostalgia. Sale una voluntad de recomenzar con herramientas mas concretas y expectativas menos ingenuas. El hard reset no es un gesto de tabula rasa. Es una practica de seleccion feroz.',
+      'Esa seleccion se escucha en todos lados. Menos lanzamientos pero mas editados. Menos hype y mas contexto. Menos gigantismo como valor automatico. Sellos que publican menos y mejor. Artistas que usan IA como asistente de taller y no como coartada para licuar criterio. Clubes que no necesitan simular un festival para sentir escala. La reduccion deja de parecer derrota cuando se entiende como estrategia de claridad. Una escena agotada por el exceso descubre que la poda tambien puede producir intensidad.',
+      'Tambien cambia la definicion de novedad. Durante anos lo nuevo equivalio a lo tecnologicamente superior o a lo visualmente impactante. El presente sospecha de esa ecuacion porque ya vio demasiado futuro vendido como interfaz vacia. Lo nuevo puede consistir en un uso distinto del archivo, en una tradicion que vuelve bajo otra presion historica, en una tecnica vieja liberada del mandato de productividad. La innovacion deja de ser showreel y recupera densidad de metodo. Lo realmente nuevo ya no siempre brilla. A veces insiste.',
+      'Las listas de 2025 dejaron esa tension expuesta. El gran canon ya no puede fingir estabilidad. Resident Advisor miro hacia atras y encontro una genealogia hecha de saltos, no de lineas rectas. Pitchfork reviso el ano y encontro un paisaje donde ambient tactil, pop mutante, techno quebrado, collage vocal y experimentacion formal convivian sin querer convertirse en tendencia total. Esa dispersion no es debilidad. Es la forma real que adopta el presente cuando deja de maquillarse como consenso.',
+      'El reset tambien es geografico. La proxima musica decisiva no tiene obligacion de nacer en el centro historico de la industria ni en la plataforma dominante. Puede aparecer en una ciudad secundaria, en una radio pequena, en un sello sin departamento de marketing, en una tienda que de noche se vuelve sala, en un cuarto mal acondicionado donde todavia importa el tiempo invertido en escuchar. Cuando el horizonte comun se rompe, la invencion se distribuye. Ya no avanza como linea maestra. Se propaga por fisuras.',
+      'Hard reset del futuro significa aceptar una verdad menos comoda pero mas fertil. El deseo no va a volver como gran solucion tecnica. Va a volver como recomposicion parcial, tosca, intensa, a veces diminuta. Un disco imposible de resumir, un club bien cuidado, una herramienta usada contra la logica para la que fue disenada, una escena pequena que se niega a sonar como demo para inversores. Ahi empieza otra vez la musica. No donde el sistema promete orden perfecto, sino donde algo insiste en desobedecer.',
+    ],
+  },
+  {
+    id: 'archivo',
+    title: 'Archivo Contra Plataforma',
+    subtitle: 'Guardar ya no es nostalgia. Guardar es defensa de una memoria no optimizada.',
+    dek:
+      'La plataforma quiere presente continuo. El archivo quiere espesor, diferencia y demora. Entre ambos se libra una disputa silenciosa sobre que merece ser recordado, que tipo de historia musical puede circular y quien tiene derecho a construir genealogia.',
+    author: 'Editorial Desk',
+    imageUrl: '',
+    relatedCountries: ['Argentina', 'China', 'Global Issue'],
+    sources: [research.raCanon, research.bandcampJan, research.bandcampRadio, research.aiLabels],
+    content: [
+      'La plataforma vive del presente continuo. Su gran promesa es que todo este disponible ahora y que el usuario nunca tenga que detenerse demasiado en nada. El archivo opera al reves. Introduce espesor, demora, capas, restos, rutas indirectas. Por eso hoy archivar no es un gesto conservador. Es un acto de resistencia contra una economia cultural que prefiere volver intercambiable cualquier obra antes que permitirle adquirir sedimentacion. En un ecosistema dominado por recomendaciones efimeras, el archivo devuelve profundidad historica y tambien devuelve conflicto. No todos los sonidos quieren sonar contemporaneos. Algunos quieren recordar de que ruina vienen.',
+      'La disputa no es abstracta. Pasa por metadatos, por disponibilidad territorial, por cambios de derechos, por la desaparicion de blogs, por algoritmos que desindexan rarezas, por sellos que no pueden sostener catalogo en todas las plataformas, por escenas enteras cuya memoria circula mejor en radio, zip, cdr o Bandcamp que en las vitrinas pulidas del streaming. Cuando Apple anuncia en 2026 que informara si una musica fue generada con IA, tambien esta admitiendo algo mas profundo: el archivo del presente ya esta en disputa. La pregunta no es solo que se produce. La pregunta es bajo que etiqueta sera recordado.',
+      'El gran canon de Resident Advisor sobre 2000 a 2025 tuvo valor precisamente por eso. No fue una lista para decorar una efemeride. Fue un gesto de archivo en un momento en que la memoria musical se vuelve cada vez mas dependiente de plataformas cuyo interes principal no es historico. Recuperar Burial, Kode9, SOPHIE, Kali Malone o Skee Mask dentro de una misma lectura no es solo ordenar gustos. Es construir una genealogia material del presente. Decir: esto tambien pertenece a la historia, aunque la interfaz actual prefiera otra superficie de consumo.',
+      'Bandcamp sigue siendo clave porque entiende algo elemental: el archivo no es solo almacenamiento. Es contexto. Las selecciones mensuales, las notas editoriales, la nueva radio semanal lanzada en 2026, todo eso refuerza una idea de mediacion que la plataforma generalista abandono. No alcanza con alojar audio. Hace falta producir un ecosistema de lectura que permita enlazar sellos, escenas, ciudades y estaticas sin reducirlo todo a una fila de sugerencias. El archivo serio no es deposito. Es montaje.',
+      'Por eso la curaduria vuelve a ser una forma de poder, pero tambien de responsabilidad. Quien archiva decide que entra en la narracion y bajo que luz. El problema no es tener canon. El problema es dejar que el canon sea producido unicamente por infraestructuras disenadas para maximizar permanencia y conversion. La plataforma administra el presente como si fuera un supermercado de sensaciones. El archivo, cuando funciona, recompone tiempo historico. Devuelve relaciones. Permite oir lo que una escena hereda, lo que traiciona, lo que transforma y lo que pierde.',
+      'Archivo contra plataforma no significa negarle valor al acceso. Significa recordar que la memoria no puede quedar en manos exclusivas de una logica de servicio. Si la musica del futuro quiere seguir diciendo algo distinto a la publicidad de si misma, necesitara mas archivos vivos, mas radios, mas sellos con criterio, mas tiendas, mas textos, mas personas dispuestas a conectar restos. Donde la plataforma ve inventario, el archivo todavia puede ver destino. Y a veces esa diferencia alcanza para salvar una escena entera del olvido elegante.',
+    ],
+  },
+  {
+    id: 'canon-roto',
+    title: 'Canon Roto, Futuro Inestable',
+    subtitle: 'El canon ya no puede fingir unidad. Esa fractura es tambien una oportunidad.',
+    dek:
+      'La curaduria contemporanea vive entre dos peligros: la lista convertida en branding y la dispersion total del feed. Entre ambos extremos aparece otra tarea posible, mas exigente: construir canones provisionales, abiertos, materiales, capaces de sostener diferencia sin volverla decoracion.',
+    author: 'Editorial Desk',
+    imageUrl: '',
+    relatedCountries: ['United Kingdom', 'Brazil', 'Global Issue'],
+    sources: [research.raCanon, research.pitchforkElectronic, research.pitchforkAlbums, research.bandcampExperimental],
+    content: [
+      'Hablar de canon en 2026 provoca dos reacciones opuestas y igual de pobres. La primera lo celebra como sello de prestigio, como si toda lista fuera automaticamente garantia de autoridad. La segunda lo rechaza en nombre de una supuesta horizontalidad infinita, como si el feed fuera un paisaje democratico por naturaleza. Ninguna de las dos posiciones alcanza. El canon sigue importando porque organiza atencion, transmite genealogia y define que parte del ruido merece escucharse de nuevo. Pero ya no puede presentarse como bloque estable. Hoy solo existen canones rotos, parciales, provisorios, sostenidos por fricciones reales entre escenas, territorios y modos de escucha.',
+      'Esa rotura no es un defecto accidental. Es la forma historica que adopta una cultura musical atravesada por plataformas, sobreproduccion, micro escenas y crisis de infraestructura. Cuando Pitchfork y Resident Advisor publicaron sus balances de 2025, lo que mostraron no fue un centro solido, sino un campo de tensiones. Ambient tactil junto a club mutante. Pop procesado junto a minimalismo de soundsystem. Cantautoria torcida junto a tectonica subgrave. El canon contemporaneo ya no avanza por escuelas compactas. Avanza por conexiones electricas entre zonas que a simple vista parecen incompatibles.',
+      'Eso obliga a revisar la tarea critica. Curar ya no puede significar solo enumerar favoritos. Hace falta explicar por que ciertos discos importan ahora, bajo que condiciones materiales fueron posibles, que responden de la epoca y que vuelven escuchable dentro de ella. Un canon sin causalidad es marketing de gusto. Un canon con espesor material puede convertirse en herramienta. No para congelar el presente, sino para hacerlo discutible. La mejor critica no clausura el conflicto. Lo concentra.',
+      'Bandcamp Daily lo entiende cuando cruza sus selecciones electronicas y experimentales con geografias improbables, sellos pequenos y relatos de trabajo concreto. La dispersion que para el feed parece caos, alli se vuelve cartografia. Ese movimiento importa porque demuestra que el futuro no tiene una sola direccion. Tiene climas, tacticas, presiones, niveles de riesgo y politicas de forma. El canon roto es mas verdadero justamente porque ya no puede ocultar la heterogeneidad de aquello que pretende representar.',
+      'Tambien hay una dimension emocional en juego. Durante anos el canon funciono como promesa de orden frente al exceso. Hoy ni siquiera esa promesa parece creible. Por eso las listas valiosas son las que admiten su propia fragilidad. Las que no dicen esto es todo, sino esto es una lectura posible del momento. Esa modestia no le quita fuerza. Se la da. Un canon consciente de su inestabilidad puede volverse mucho mas generoso que uno fabricado para blindar jerarquias.',
+      'Canon roto, futuro inestable no es una lamentacion. Es una invitacion a curar mejor. A aceptar que la escena ya no cabe en una sola sintaxis, y que justamente por eso necesita mas trabajo critico, no menos. Cuando el centro se rompe, la responsabilidad de montar relaciones se vuelve mayor. Y en esa tarea, a veces, una lista bien escrita puede hacer algo que ningun algoritmo consigue: abrir una puerta entre restos dispersos y hacer que, por un segundo, el desorden revele forma.',
     ],
   },
 ];

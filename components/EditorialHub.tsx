@@ -4,18 +4,26 @@ import {
   BookOpen,
   Disc,
   Globe2,
+  Headphones,
   Mic2,
   Newspaper,
   Radio,
+  Sparkles,
+  TowerControl,
 } from 'lucide-react';
 import { essays } from '../data/essays';
 import { getDeckImage } from '../data/editorialCuratedImages';
 import {
   compilationPicks,
+  cultCanonChart,
   curatedHubCountries,
   editorialBriefing,
   globalLead,
+  hubNavSections,
   inProgressHubCountries,
+  newSignalChart,
+  playlistBundles,
+  signalLexicon,
 } from '../data/editorialHub';
 
 interface EditorialHubProps {
@@ -25,6 +33,18 @@ interface EditorialHubProps {
   onOpenEssay: (essayId: string) => void;
   onOpenCountry: (countryName: string) => void;
 }
+
+const platformLabel: Record<'spotify' | 'apple' | 'youtube', string> = {
+  spotify: 'Spotify',
+  apple: 'Apple Music',
+  youtube: 'YouTube',
+};
+
+const trendTone: Record<'new' | 'up' | 'steady', string> = {
+  new: 'bg-[#FF3530] text-black',
+  up: 'bg-white text-black',
+  steady: 'bg-white/10 text-white/70',
+};
 
 export const EditorialHub: React.FC<EditorialHubProps> = ({
   isDesktop,
@@ -44,11 +64,11 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
         }}
       />
 
-      <div className="relative mx-auto max-w-[1600px] px-5 pb-24 pt-32 md:px-10 md:pt-36 lg:px-12">
-        <section className="mb-14 grid grid-cols-1 gap-6 xl:grid-cols-12">
+      <div className="relative mx-auto max-w-[1640px] px-5 pb-24 pt-32 md:px-10 md:pt-36 lg:px-12">
+        <section className="mb-8 grid grid-cols-1 gap-6 xl:grid-cols-12">
           <button
             onClick={onOpenGlobalIssue}
-            className="group relative overflow-hidden border border-white/10 bg-[#0d0d0d] text-left xl:col-span-7"
+            className="group relative overflow-hidden border border-white/10 bg-[#0d0d0d] text-left xl:col-span-8"
           >
             <img
               src={getDeckImage(editorialImageDeck, 0)}
@@ -59,7 +79,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
             <div className="relative flex h-full flex-col gap-8 p-6 md:p-10">
               <div className="flex flex-wrap items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
                 <span>Global Issue</span>
-                <span className="border border-white/15 px-2 py-1 text-white/70">April 2026</span>
+                <span className="border border-white/15 px-2 py-1 text-white/70">April 9, 2026</span>
               </div>
               <div className="max-w-4xl">
                 <h2 className="mb-4 font-serif-display text-4xl leading-none text-white md:text-6xl">
@@ -80,10 +100,10 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
                 </div>
                 <div>
                   <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
-                    Local Verdict
+                    Global Lead
                   </span>
                   <p className="font-serif text-base text-white md:text-lg">
-                    {globalLead.editorial.localVerdict.consensus}
+                    Canon, archive pressure, club systems and new signal.
                   </p>
                 </div>
                 <div className="flex items-end justify-between gap-4">
@@ -92,7 +112,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
                       Open Dossier
                     </span>
                     <p className="text-sm leading-relaxed text-gray-400">
-                      Abrir la edición global completa con chapters, cult albums y radar.
+                      Abrir la edicion global con chapters, canon, charts y radar expandido.
                     </p>
                   </div>
                   <ArrowUpRight className="shrink-0 text-[#FF3530] transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" size={22} />
@@ -101,51 +121,71 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
             </div>
           </button>
 
-          <div className="grid gap-6 xl:col-span-5">
+          <div className="grid gap-6 xl:col-span-4">
             <div className="border border-white/10 bg-[#0d0d0d] p-6 md:p-8">
               <div className="mb-5 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
                 <Mic2 size={14} />
-                <span>{isDesktop ? 'Atlas Desktop' : 'Pocket Editorial Hub'}</span>
+                <span>{isDesktop ? 'Atlas Desktop Hub' : 'Pocket Editorial Hub'}</span>
               </div>
               <p className="font-serif text-lg leading-relaxed text-gray-300">
-                Un frente de lectura para navegar la revista sin depender del mapa roto en móvil
-                y sin dejar el escritorio sin contexto editorial cuando el mapa no es la mejor
-                interfaz.
+                Una portada viva para navegar ensayos, charts, bundles y paises curados sin depender
+                solo del mapa.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3 xl:grid-cols-1">
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-2">
               <div className="border border-white/10 bg-[#0d0d0d] p-5">
                 <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
                   Essays
                 </span>
                 <p className="text-3xl font-black text-white">{essays.length}</p>
-                <p className="mt-2 text-sm text-gray-400">Longforms techno-criticos listos para abrir.</p>
+                <p className="mt-2 text-sm text-gray-400">Longforms con research notes.</p>
               </div>
               <div className="border border-white/10 bg-[#0d0d0d] p-5">
                 <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
-                  Curated Countries
+                  Cult Canon
                 </span>
-                <p className="text-3xl font-black text-white">{curatedHubCountries.length}</p>
-                <p className="mt-2 text-sm text-gray-400">Dossiers trabajados con archivo, discos y lecturas reales.</p>
+                <p className="text-3xl font-black text-white">{cultCanonChart.length}</p>
+                <p className="mt-2 text-sm text-gray-400">Discos de archivo con tapa real.</p>
               </div>
               <div className="border border-white/10 bg-[#0d0d0d] p-5">
                 <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
-                  Research Briefing
+                  New Signal
                 </span>
-                <p className="text-3xl font-black text-white">{editorialBriefing.length}</p>
-                <p className="mt-2 text-sm text-gray-400">Links vivos para seguir el presente sin convertirlo en humo.</p>
+                <p className="text-3xl font-black text-white">{newSignalChart.length}</p>
+                <p className="mt-2 text-sm text-gray-400">Releases 2025-2026 bajo radar editorial.</p>
+              </div>
+              <div className="border border-white/10 bg-[#0d0d0d] p-5">
+                <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
+                  Signals
+                </span>
+                <p className="text-3xl font-black text-white">{signalLexicon.length}</p>
+                <p className="mt-2 text-sm text-gray-400">Taxonomias para leer la escena ahora.</p>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="mb-16">
+        <nav className="mb-16 overflow-x-auto border-y border-white/10 bg-[#090909]/80 px-3 py-3">
+          <div className="flex min-w-max gap-3">
+            {hubNavSections.map((section) => (
+              <a
+                key={section.id}
+                href={`#${section.id}`}
+                className="border border-white/10 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.28em] text-white/65 transition-colors hover:border-[#FF3530] hover:text-white"
+              >
+                {section.label}
+              </a>
+            ))}
+          </div>
+        </nav>
+
+        <section id="essays" className="mb-16">
           <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
             <Newspaper size={16} className="text-[#FF3530]" />
             <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Special Essays</h3>
           </div>
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
             {essays.map((essay, index) => (
               <button
                 key={essay.id}
@@ -160,21 +200,211 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30 to-transparent" />
                 </div>
-                <div className="p-6">
-                  <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
-                    Essay
-                  </span>
+                <div className="flex h-full flex-col p-6">
+                  <div className="mb-3 flex items-center justify-between gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
+                    <span>Essay</span>
+                    <span className="text-white/45">{essay.sources.length} sources</span>
+                  </div>
                   <h4 className="mb-3 font-serif-display text-2xl leading-tight text-white transition-colors group-hover:text-[#FF3530]">
                     {essay.title}
                   </h4>
-                  <p className="font-serif text-sm leading-relaxed text-gray-400">{essay.subtitle}</p>
+                  <p className="font-serif text-sm leading-relaxed text-gray-400">
+                    {essay.dek ?? essay.subtitle}
+                  </p>
                 </div>
               </button>
             ))}
           </div>
         </section>
 
-        <section className="mb-16">
+        <section id="cult-canon" className="mb-16">
+          <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+            <Disc size={16} className="text-[#FF3530]" />
+            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Cult Canon // 20</h3>
+          </div>
+          <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+            {cultCanonChart.map((entry) => (
+              <a
+                key={`${entry.chart}-${entry.rank}`}
+                href={entry.coverSourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex gap-4 border border-white/10 bg-[#0d0d0d] p-4 transition-all hover:border-[#FF3530]"
+              >
+                <div className="flex w-10 shrink-0 items-start justify-center text-2xl font-black text-white/30">
+                  {entry.rank}
+                </div>
+                <div className="h-24 w-24 shrink-0 overflow-hidden border border-white/10 bg-black">
+                  <img
+                    src={entry.coverImageUrl}
+                    alt={entry.albumName}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="mb-2 flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.28em] text-white/50">
+                    <span className="font-bold text-[#FF3530]">{entry.label}</span>
+                    <span>{entry.year}</span>
+                    {entry.territory ? <span>{entry.territory}</span> : null}
+                  </div>
+                  <h4 className="font-serif-display text-2xl leading-tight text-white transition-colors group-hover:text-[#FF3530]">
+                    {entry.albumName}
+                  </h4>
+                  <p className="mb-3 text-sm uppercase tracking-[0.22em] text-gray-500">{entry.artist}</p>
+                  <p className="mb-2 text-sm leading-relaxed text-gray-300">{entry.blurb}</p>
+                  <p className="text-sm leading-relaxed text-gray-500">{entry.whyItMatters}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section id="new-signal" className="mb-16">
+          <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+            <TowerControl size={16} className="text-[#FF3530]" />
+            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">New Signal // 20</h3>
+          </div>
+          <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+            {newSignalChart.map((entry) => (
+              <a
+                key={`${entry.chart}-${entry.rank}`}
+                href={entry.coverSourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex gap-4 border border-white/10 bg-[#0d0d0d] p-4 transition-all hover:border-[#FF3530]"
+              >
+                <div className="flex w-10 shrink-0 items-start justify-center text-2xl font-black text-white/30">
+                  {entry.rank}
+                </div>
+                <div className="h-24 w-24 shrink-0 overflow-hidden border border-white/10 bg-black">
+                  <img
+                    src={entry.coverImageUrl}
+                    alt={entry.albumName}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="mb-2 flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.28em] text-white/50">
+                    {entry.trend ? (
+                      <span className={`px-2 py-1 font-bold tracking-[0.22em] ${trendTone[entry.trend]}`}>
+                        {entry.trend}
+                      </span>
+                    ) : null}
+                    <span className="font-bold text-[#FF3530]">{entry.label}</span>
+                    <span>{entry.year}</span>
+                    {entry.territory ? <span>{entry.territory}</span> : null}
+                  </div>
+                  <h4 className="font-serif-display text-2xl leading-tight text-white transition-colors group-hover:text-[#FF3530]">
+                    {entry.albumName}
+                  </h4>
+                  <p className="mb-3 text-sm uppercase tracking-[0.22em] text-gray-500">{entry.artist}</p>
+                  <p className="mb-2 text-sm leading-relaxed text-gray-300">{entry.blurb}</p>
+                  <p className="text-sm leading-relaxed text-gray-500">{entry.whyItMatters}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section id="playlist-matrix" className="mb-16">
+          <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+            <Headphones size={16} className="text-[#FF3530]" />
+            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Playlist Matrix</h3>
+          </div>
+          <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
+            {playlistBundles.map((bundle) => (
+              <div key={bundle.title} className="border border-white/10 bg-[#0d0d0d] p-6">
+                <div className="mb-4 flex items-center justify-between gap-4">
+                  <div>
+                    <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
+                      {bundle.territory}
+                    </span>
+                    <h4 className="font-serif-display text-3xl text-white">{bundle.title}</h4>
+                  </div>
+                  <ArrowUpRight size={18} className="text-white/35" />
+                </div>
+                <p className="mb-4 font-serif text-base leading-relaxed text-gray-300">
+                  {bundle.description}
+                </p>
+                <p className="mb-6 text-sm leading-relaxed text-gray-500">{bundle.thesis}</p>
+                <div className="mb-6 flex flex-wrap gap-2">
+                  {bundle.platforms.map((platform) => (
+                    <a
+                      key={platform.platform}
+                      href={platform.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border border-white/10 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.28em] text-white/70 transition-colors hover:border-[#FF3530] hover:text-white"
+                    >
+                      {platformLabel[platform.platform]}
+                    </a>
+                  ))}
+                </div>
+                <div className="space-y-3 border-t border-white/10 pt-5">
+                  {bundle.highlights.map((highlight) => (
+                    <a
+                      key={`${bundle.title}-${highlight.artist}-${highlight.title}`}
+                      href={highlight.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block border-l-2 border-white/10 pl-4 transition-colors hover:border-[#FF3530]"
+                    >
+                      <div className="mb-1 text-[10px] uppercase tracking-[0.25em] text-[#FF3530]">
+                        {highlight.source}
+                      </div>
+                      <p className="text-sm font-bold text-white">
+                        {highlight.artist} - {highlight.title}
+                      </p>
+                      <p className="text-sm leading-relaxed text-gray-500">{highlight.note}</p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="signal-lexicon" className="mb-16">
+          <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+            <Sparkles size={16} className="text-[#FF3530]" />
+            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Signal Lexicon</h3>
+          </div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {signalLexicon.map((signal) => (
+              <a
+                key={signal.name}
+                href={signal.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group border border-white/10 bg-[#0d0d0d] p-6 transition-all hover:border-[#FF3530]"
+              >
+                <div className="mb-3 flex items-center justify-between gap-4">
+                  <h4 className="font-serif-display text-2xl leading-tight text-white group-hover:text-[#FF3530]">
+                    {signal.name}
+                  </h4>
+                  <ArrowUpRight size={16} className="shrink-0 text-white/35 group-hover:text-white" />
+                </div>
+                <p className="mb-4 text-sm leading-relaxed text-gray-300">{signal.definition}</p>
+                <p className="mb-4 text-sm leading-relaxed text-gray-500">{signal.whyNow}</p>
+                <div className="mb-3 flex flex-wrap gap-2">
+                  {signal.territories.map((territory) => (
+                    <span
+                      key={`${signal.name}-${territory}`}
+                      className="border border-white/10 px-2 py-1 text-[10px] uppercase tracking-[0.24em] text-white/55"
+                    >
+                      {territory}
+                    </span>
+                  ))}
+                </div>
+                <div className="text-[10px] uppercase tracking-[0.24em] text-[#FF3530]">{signal.source}</div>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section id="countries" className="mb-16">
           <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
             <Globe2 size={16} className="text-[#FF3530]" />
             <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Curated Countries</h3>
@@ -236,7 +466,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
           </div>
         </section>
 
-        <section className="mb-16">
+        <section id="briefing" className="mb-16">
           <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
             <Radio size={16} className="text-[#FF3530]" />
             <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Research Briefing</h3>
@@ -251,7 +481,9 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
                 className="group border border-white/10 bg-[#0d0d0d] p-6 transition-all hover:border-[#FF3530]"
               >
                 <div className="mb-3 flex flex-wrap items-center gap-3">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">{item.source}</span>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
+                    {item.source}
+                  </span>
                   <span className="border border-white/10 px-2 py-1 text-[10px] uppercase tracking-[0.25em] text-white/55">
                     {item.tag}
                   </span>
@@ -271,7 +503,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
           </div>
         </section>
 
-        <section>
+        <section id="compilations">
           <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
             <Disc size={16} className="text-[#FF3530]" />
             <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">

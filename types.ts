@@ -99,6 +99,63 @@ export interface CompilationPick {
   territory?: string;
 }
 
+export interface EssaySource {
+  title: string;
+  source: string;
+  url: string;
+  publishedAt: string;
+}
+
+export interface HubChartEntry {
+  rank: number;
+  chart: string;
+  artist: string;
+  albumName: string;
+  year: string;
+  label: string;
+  blurb: string;
+  whyItMatters: string;
+  coverImageUrl: string;
+  coverSourceUrl: string;
+  source: string;
+  sourceUrl: string;
+  territory?: string;
+  trend?: 'new' | 'up' | 'steady';
+}
+
+export interface PlaylistPlatformLink {
+  platform: 'spotify' | 'apple' | 'youtube';
+  url: string;
+}
+
+export interface PlaylistHighlight {
+  artist: string;
+  title: string;
+  note: string;
+  source: string;
+  sourceUrl: string;
+  youtubeQuery: string;
+}
+
+export interface EditorialPlaylistBundle {
+  title: string;
+  description: string;
+  thesis: string;
+  curator: string;
+  territory?: string;
+  platforms: PlaylistPlatformLink[];
+  highlights: PlaylistHighlight[];
+}
+
+export interface EditorialSignalCluster {
+  name: string;
+  definition: string;
+  whyNow: string;
+  territories: string[];
+  source: string;
+  sourceUrl: string;
+}
+
 export type AppMode = 'atlas' | 'editorial';
 
 // EXPANDED EDITORIAL PROFILE

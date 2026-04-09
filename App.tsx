@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { EarthGlobe } from './components/EarthGlobe';
 import { FlatMap } from './components/FlatMap';
 import { InfoPanel } from './components/InfoPanel';
@@ -8,7 +8,10 @@ import { fetchCountryData, fetchGlobalData } from './services/geminiService';
 import { AppMode, CulturalData, GeoJsonProperties } from './types';
 import { BookOpen, DownloadCloud, Globe2, Mic2 } from 'lucide-react';
 import { essays, Essay } from './data/essays';
-import { shuffleEditorialCuratedImages } from './data/editorialCuratedImages';
+import {
+  advanceEditorialCuratedImages,
+  shuffleEditorialCuratedImages,
+} from './data/editorialCuratedImages';
 
 const App: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
@@ -23,6 +26,7 @@ const App: React.FC = () => {
   const [editorialImageDeck, setEditorialImageDeck] = useState<string[]>(() =>
     shuffleEditorialCuratedImages(),
   );
+  const editorialDeckContextRef = useRef<string | null>(null);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(min-width: 768px)');
@@ -62,7 +66,17 @@ const App: React.FC = () => {
   }, [appMode, culturalData, isDesktop, isLoading, selectedCountry]);
 
   useEffect(() => {
-    setEditorialImageDeck(shuffleEditorialCuratedImages());
+    const nextContextKey = `${appMode}:${culturalData?.countryName ?? 'none'}`;
+
+    if (editorialDeckContextRef.current === null) {
+      editorialDeckContextRef.current = nextContextKey;
+      return;
+    }
+
+    if (editorialDeckContextRef.current !== nextContextKey) {
+      setEditorialImageDeck((currentDeck) => advanceEditorialCuratedImages(currentDeck));
+      editorialDeckContextRef.current = nextContextKey;
+    }
   }, [appMode, culturalData?.countryName]);
 
   const switchToAtlas = useCallback(() => {

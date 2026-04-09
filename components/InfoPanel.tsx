@@ -4,6 +4,12 @@ import { Play, ArrowUpRight, Disc, Mic2, X, Music4, Guitar, Quote, Store, Casset
 import { Loader } from './ui/Loader';
 import { essays } from '../data/essays';
 import { getDeckImage } from '../data/editorialCuratedImages';
+import {
+  cultCanonPreview,
+  highlightedSignals,
+  newSignalPreview,
+  playlistBundles,
+} from '../data/editorialHub';
 
 interface InfoPanelProps {
   data: CulturalData | null;
@@ -333,7 +339,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                      </div>
                   )}
 
-                  {/* PAGE 3: COLLECTION (CULT ALBUMS & ARCHIVE) */}
+                  {/* PAGE 3: COLLECTION */}
                   {editorialPage === 2 && (
                      <div className="animate-in fade-in slide-in-from-right-8 duration-500 pt-8">
                         
@@ -341,15 +347,15 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                         <div className="mb-20">
                             <div className="flex items-end justify-between border-b border-white/10 pb-6 mb-12">
                                <div>
-                                  <span className="font-mono text-xs text-[#FF3530] mb-1 block">03 / {isGlobalMode ? "Editors' Choice" : "Essential Listening"}</span>
-                                  <h2 className="text-5xl font-serif-display text-white">{isGlobalMode ? "Best New Albums" : "Cult Classics"}</h2>
+                                  <span className="font-mono text-xs text-[#FF3530] mb-1 block">03 / {isGlobalMode ? "Cult Canon Preview" : "Essential Listening"}</span>
+                                  <h2 className="text-5xl font-serif-display text-white">{isGlobalMode ? "Cult Canon // 20" : "Cult Classics"}</h2>
                                </div>
                                <Disc size={32} className="text-gray-600" />
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                               {data.editorial.cultAlbums?.map((album, i) => (
-                                  <div key={i} className="group relative bg-[#111] border border-white/10 hover:border-[#FF3530] transition-all p-6 flex flex-col h-full hover:-translate-y-2 duration-500">
+                               {((isGlobalMode ? cultCanonPreview : data.editorial.cultAlbums) as any[])?.map((album: any, i) => (
+                                  <div key={`${album.albumName}-${i}`} className="group relative bg-[#111] border border-white/10 hover:border-[#FF3530] transition-all p-6 flex flex-col h-full hover:-translate-y-2 duration-500">
                                      
                                      {/* REAL COVER ART */}
                                      <a 
@@ -384,18 +390,29 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
 
                                      <div className="flex-1">
                                         <h3 className="text-xl font-bold text-white mb-1 leading-tight">{album.albumName}</h3>
-                                        <p className="text-sm font-serif italic text-gray-400 mb-4">{album.artist} <span className="text-gray-600 not-italic mx-1">•</span> {album.year}</p>
+                                        <p className="text-sm font-serif italic text-gray-400 mb-4">{album.artist} <span className="text-gray-600 not-italic mx-1">/</span> {album.year}</p>
                                         <p className="text-xs text-gray-500 font-sans leading-relaxed border-t border-white/5 pt-3">
-                                           {album.reason}
+                                           {album.reason ?? album.blurb}
                                         </p>
-                                        <a 
-                                           href={`https://www.youtube.com/results?search_query=${encodeURIComponent(album.youtubeQuery)}`}
-                                           target="_blank"
-                                           rel="noopener noreferrer"
-                                           className="inline-flex items-center gap-1 mt-3 text-[10px] font-bold uppercase tracking-widest text-[#FF3530] hover:text-white transition-colors"
-                                        >
-                                           <Play size={10} fill="currentColor" /> Listen
-                                        </a>
+                                        {album.youtubeQuery ? (
+                                          <a 
+                                             href={`https://www.youtube.com/results?search_query=${encodeURIComponent(album.youtubeQuery)}`}
+                                             target="_blank"
+                                             rel="noopener noreferrer"
+                                             className="inline-flex items-center gap-1 mt-3 text-[10px] font-bold uppercase tracking-widest text-[#FF3530] hover:text-white transition-colors"
+                                          >
+                                             <Play size={10} fill="currentColor" /> Listen
+                                          </a>
+                                        ) : (
+                                          <a
+                                            href={album.sourceUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-1 mt-3 text-[10px] font-bold uppercase tracking-widest text-[#FF3530] hover:text-white transition-colors"
+                                          >
+                                            <ExternalLink size={10} /> Source
+                                          </a>
+                                        )}
                                      </div>
                                      <div className="mt-4 pt-3 border-t border-dashed border-white/10 flex justify-between items-center text-[10px] uppercase tracking-widest text-gray-600">
                                          <span>{album.label}</span>
@@ -466,7 +483,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                                 
                                 {/* FUTURE SOUNDS TAGS */}
                                 <div className="flex flex-wrap gap-3 mb-12">
-                                    {data.editorial.forecast.futureSounds.map((tag, i) => (
+                                    {(isGlobalMode ? highlightedSignals.map((signal) => signal.name) : data.editorial.forecast.futureSounds).map((tag, i) => (
                                         <span key={i} className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white hover:border-[#FF3530] transition-colors cursor-default">
                                            {tag}
                                         </span>
@@ -474,15 +491,15 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                                 </div>
 
                                 {/* ESSENTIAL FUTURE RELEASES GRID (NEW SECTION) */}
-                                {data.editorial.forecast.forecastReleases && data.editorial.forecast.forecastReleases.length > 0 && (
+                                {((isGlobalMode ? newSignalPreview : data.editorial.forecast.forecastReleases) as any[])?.length > 0 && (
                                   <div className="mb-12">
                                       <h4 className="font-bold text-white uppercase tracking-widest text-xs mb-6 border-b border-white/20 pb-2 flex items-center gap-2">
-                                          <Disc size={16} className="text-[#FF3530]" /> Signal Releases
+                                          <Disc size={16} className="text-[#FF3530]" /> {isGlobalMode ? 'New Signal Top 10' : 'Signal Releases'}
                                       </h4>
                                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                          {data.editorial.forecast.forecastReleases.map((release, i) => (
+                                          {((isGlobalMode ? newSignalPreview : data.editorial.forecast.forecastReleases) as any[]).map((release: any, i) => (
                                               <a 
-                                                  key={i}
+                                                  key={`${release.artist}-${i}`}
                                                   href={release.coverSourceUrl}
                                                   target="_blank"
                                                   rel="noopener noreferrer"
@@ -492,7 +509,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                                                   <div className="w-16 h-16 flex-shrink-0 bg-gray-800 relative overflow-hidden border border-white/10">
                                                       <img 
                                                           src={release.coverImageUrl} 
-                                                          alt={release.title}
+                                                          alt={release.title ?? release.albumName}
                                                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                                           loading="lazy"
                                                           onError={(e) => {
@@ -507,9 +524,9 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                                                   </div>
                                                   
                                                   <div className="flex-1 min-w-0 z-10">
-                                                      <h5 className="text-sm font-bold text-white truncate group-hover:text-[#FF3530] transition-colors">{release.title}</h5>
+                                                      <h5 className="text-sm font-bold text-white truncate group-hover:text-[#FF3530] transition-colors">{release.title ?? release.albumName}</h5>
                                                       <p className="text-xs text-gray-400 truncate">{release.artist}</p>
-                                                      <span className="text-[9px] uppercase tracking-wider text-gray-500 border border-gray-800 px-1 mt-1 inline-block">{release.type} • {release.year}</span>
+                                                      <span className="text-[9px] uppercase tracking-wider text-gray-500 border border-gray-800 px-1 mt-1 inline-block">{release.type ?? release.label} / {release.year}</span>
                                                   </div>
                                                   
                                                   <div className="bg-white text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0 duration-300">
@@ -543,42 +560,72 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                             {/* SIDEBAR: KEY ARTISTS & ARCHIVE */}
                             <div className="lg:col-span-4 flex flex-col gap-12">
                                 
-                                {/* Key Artists */}
+                                {/* Key Artists / Bundles */}
                                 <div>
                                     <h4 className="font-bold text-white uppercase tracking-widest text-xs mb-6 border-b border-white/20 pb-2">
-                                        Future Icons
+                                        {isGlobalMode ? 'Playlist Matrix' : 'Future Icons'}
                                     </h4>
-                                    <div className="space-y-2">
+                                    {isGlobalMode ? (
+                                      <div className="grid gap-4">
+                                        {playlistBundles.map((bundle) => (
+                                          <div key={bundle.title} className="border border-white/10 bg-[#111] p-4">
+                                            <p className="text-[10px] uppercase tracking-[0.28em] text-[#FF3530] mb-2">{bundle.territory}</p>
+                                            <h5 className="text-xl font-serif-display text-white mb-2">{bundle.title}</h5>
+                                            <p className="text-sm leading-relaxed text-gray-400 mb-4">{bundle.description}</p>
+                                            <div className="flex flex-wrap gap-2">
+                                              {bundle.platforms.map((platform) => (
+                                                <a
+                                                  key={`${bundle.title}-${platform.platform}`}
+                                                  href={platform.url}
+                                                  target="_blank"
+                                                  rel="noopener noreferrer"
+                                                  className="border border-white/10 px-2 py-2 text-[10px] font-bold uppercase tracking-[0.24em] text-white/65 hover:border-[#FF3530] hover:text-white transition-colors"
+                                                >
+                                                  {platform.platform}
+                                                </a>
+                                              ))}
+                                            </div>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    ) : (
+                                      <div className="space-y-2">
                                         {data.editorial.forecast.keyArtists.map((artist, i) => (
                                             <div key={i} className="flex items-center justify-between group cursor-pointer hover:bg-white/5 p-2 -mx-2 rounded transition-colors">
                                                 <span className="text-lg font-bold text-gray-300 group-hover:text-white">{artist}</span>
                                                 <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 text-[#FF3530] transition-opacity" />
                                             </div>
                                         ))}
-                                    </div>
+                                      </div>
+                                    )}
                                 </div>
 
-                                {/* FROM THE ARCHIVE (LINKS) */}
+                                {/* FROM THE ARCHIVE / SIGNALS */}
                                 <div>
                                     <h4 className="font-bold text-white uppercase tracking-widest text-xs mb-6 border-b border-white/20 pb-2 flex items-center gap-2">
-                                        <BookOpen size={14} /> Essential Reading
+                                        <BookOpen size={14} /> {isGlobalMode ? 'Signal Lexicon' : 'Essential Reading'}
                                     </h4>
                                     <div className="grid gap-4">
-                                        {data.editorial.curatedReads?.map((article, i) => (
+                                        {(isGlobalMode ? highlightedSignals : data.editorial.curatedReads)?.map((article: any, i) => (
                                             <a 
                                             key={i} 
-                                            href={article.url}
+                                            href={isGlobalMode ? article.sourceUrl : article.url}
                                             target="_blank" 
                                             rel="noopener noreferrer"
                                             className="block group bg-[#161616] p-4 border-l-2 border-white/10 hover:border-[#FF3530] transition-all hover:bg-[#1a1a1a]"
                                             >
                                                 <div className="flex justify-between items-start mb-1">
-                                                    <span className="text-[9px] font-bold uppercase tracking-widest text-gray-500 group-hover:text-[#FF3530]">{article.source}</span>
+                                                    <span className="text-[9px] font-bold uppercase tracking-widest text-gray-500 group-hover:text-[#FF3530]">{isGlobalMode ? article.source : article.source}</span>
                                                     <ExternalLink size={12} className="text-gray-600 group-hover:text-white" />
                                                 </div>
                                                 <h4 className="text-sm font-bold text-gray-300 group-hover:text-white leading-snug">
-                                                    {article.title}
+                                                    {isGlobalMode ? article.name : article.title}
                                                 </h4>
+                                                {isGlobalMode ? (
+                                                  <p className="mt-2 text-xs leading-relaxed text-gray-500">
+                                                    {article.definition}
+                                                  </p>
+                                                ) : null}
                                             </a>
                                         ))}
                                     </div>
