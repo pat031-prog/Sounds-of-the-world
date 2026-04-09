@@ -54,10 +54,39 @@ export interface EditorialChapter {
   content: string;
 }
 
+export interface CultAlbum {
+  albumName: string;
+  artist: string;
+  year: string;
+  label: string;
+  reason: string;
+  youtubeQuery: string;
+  coverImageUrl: string;
+  coverSourceUrl: string;
+}
+
+export interface ForecastRelease {
+  artist: string;
+  title: string;
+  year: string;
+  type: string;
+  coverImageUrl: string;
+  coverSourceUrl: string;
+  youtubeQuery: string;
+}
+
+export interface CuratedRead {
+  title: string;
+  source: string;
+  url: string;
+}
+
 // EXPANDED EDITORIAL PROFILE
 export interface EditorialProfile {
   magazineStyle: string; 
   sceneDescription: string; 
+  editorialStatus: 'curated' | 'in-progress';
+  editorialStatusNote: string;
   
   // Multi-page content
   editorialChapters: EditorialChapter[];
@@ -93,15 +122,7 @@ export interface EditorialProfile {
 
   localSlang: { term: string; definition: string }; 
   
-  cultAlbums: Array<{ 
-    albumName: string; 
-    artist: string; 
-    year: string; 
-    label: string; 
-    reason: string; 
-    youtubeQuery: string; 
-    coverArtQuery: string; 
-  }>; 
+  cultAlbums: CultAlbum[]; 
   
   // New Radar / Forecast Section
   forecast: {
@@ -111,21 +132,10 @@ export interface EditorialProfile {
      keyArtists: string[];
      futureSounds: string[];
      curiosities: string[]; // Samples, weird facts, connections
-     // NEW: Specific releases for the forecast section
-     forecastReleases: Array<{
-       artist: string;
-       title: string;
-       type: string; // "EP", "Single", "Album"
-       coverArtQuery: string;
-       youtubeQuery: string;
-     }>;
+     forecastReleases: ForecastRelease[];
   };
 
-  curatedReads: Array<{
-    title: string;
-    source: string;
-    url: string;
-  }>;
+  curatedReads: CuratedRead[];
 
   editorialPlaylist: EditorialTrack[]; 
   independentLabel: { name: string; focus: string; since: string }; 

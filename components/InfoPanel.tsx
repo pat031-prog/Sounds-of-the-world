@@ -3,6 +3,7 @@ import { CulturalData } from '../types';
 import { Play, ArrowUpRight, Disc, Mic2, X, Music4, Guitar, Quote, Store, CassetteTape, Radio, Shirt, Globe, Star, MessageSquare, AudioWaveform, Sliders, ChevronLeft, ChevronRight, Newspaper, BookOpen, Radar, Zap, Fingerprint, ExternalLink, Globe2 } from 'lucide-react';
 import { Loader } from './ui/Loader';
 import { essays } from '../data/essays';
+import { getDeckImage } from '../data/editorialCuratedImages';
 
 interface InfoPanelProps {
   data: CulturalData | null;
@@ -11,6 +12,8 @@ interface InfoPanelProps {
   onClose: () => void;
   selectedCountryName: string | null;
   mode: 'mainstream' | 'editorial';
+  editorialImageDeck: string[];
+  onOpenGlobalEditorial?: () => void;
   onOpenEssay?: (essayId: string) => void;
 }
 
@@ -21,6 +24,8 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
   onClose,
   selectedCountryName,
   mode,
+  editorialImageDeck,
+  onOpenGlobalEditorial,
   onOpenEssay
 }) => {
   const [editorialPage, setEditorialPage] = useState(0);
@@ -33,6 +38,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
   if (!isOpen) return null;
 
   const isGlobalMode = data?.countryName === "Global Issue";
+  const isInProgress = data?.editorial.editorialStatus === 'in-progress';
 
   const containerClasses = mode === 'editorial' 
     ? 'fixed inset-0 z-50 bg-[#050505] text-[#EDEDED] overflow-y-auto font-serif' 
@@ -42,17 +48,10 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
     ? 'fixed top-0 left-0 right-0 z-50 bg-[#050505]/95 backdrop-blur-md border-b border-white/10 py-4 px-6 md:px-12 flex justify-between items-center h-20'
     : 'sticky top-0 z-20 bg-[#121212]/90 backdrop-blur-md border-b border-white/5 px-8 py-5 flex justify-between items-center';
 
-  // Navigation Logic
-  // 0: Cover/Intro, 1: Essay, 2: Collection, 3: Radar 2026 (New)
-  const totalPages = 4; 
+  const totalPages = mode === 'editorial' && isInProgress ? 1 : 4;
   const nextPage = () => setEditorialPage(p => Math.min(p + 1, totalPages - 1));
   const prevPage = () => setEditorialPage(p => Math.max(p - 1, 0));
   const goToRadar = () => setEditorialPage(3);
-
-  // Image Proxy Helper (Uses Bing to fetch a thumbnail based on query)
-  const getAlbumArtUrl = (query: string) => {
-    return `https://tse2.mm.bing.net/th?q=${encodeURIComponent(query)}&w=500&h=500&c=7&rs=1&p=0`;
-  };
 
   return (
     <div className={containerClasses}>
@@ -111,13 +110,13 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
       </div>
 
       {/* FLOATING RADAR LINK (Bottom Right) - Only in Editorial */}
-      {mode === 'editorial' && data && editorialPage !== 3 && (
+      {mode === 'editorial' && data && !isInProgress && editorialPage !== 3 && (
         <button 
           onClick={goToRadar}
           className="fixed bottom-8 right-8 z-50 bg-[#FF3530] text-black px-6 py-4 font-bold font-sans uppercase tracking-widest text-xs hover:bg-white hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,53,48,0.3)] animate-in slide-in-from-bottom-10 fade-in duration-1000 flex items-center gap-3 rounded-full border-2 border-transparent hover:border-black"
         >
           <Radar size={18} className="animate-pulse" />
-          Radar 2026
+          Radar 2026-2027
         </button>
       )}
 
@@ -126,7 +125,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
         
         {isLoading ? (
           <div className="flex flex-col items-center justify-center h-[60vh]">
-            <Loader text={mode === 'editorial' ? "Imprimiendo edición global..." : `Analizando...`} />
+            <Loader text={mode === 'editorial' ? 'Imprimiendo edición global...' : 'Analizando...'} />
           </div>
         ) : data ? (
           <div className="animate-in fade-in duration-500">
@@ -193,11 +192,46 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                   {/* PAGE 1: COVER STORY */}
                   {editorialPage === 0 && (
                      <div className="animate-in fade-in slide-in-from-right-8 duration-500 flex-1">
+                        {isInProgress && (
+                           <div className="mb-12 border border-[#FF3530]/50 bg-[#111] p-6 md:p-8">
+                              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                                 <div className="max-w-3xl">
+                                    <span className="inline-block px-3 py-1 text-[10px] font-bold uppercase tracking-[0.25em] bg-[#FF3530] text-black mb-4">
+                                      Curación en progreso
+                                    </span>
+                                    <h3 className="text-2xl md:text-4xl font-serif-display text-white mb-4">Esta ficha sigue abierta.</h3>
+                                    <p className="text-base md:text-lg text-gray-300 leading-relaxed">
+                                      {data.editorial.editorialStatusNote}
+                                    </p>
+                                 </div>
+                                 <div className="flex flex-col gap-3 min-w-[220px]">
+                                    {onOpenGlobalEditorial && (
+                                      <button
+                                        onClick={onOpenGlobalEditorial}
+                                        className="px-4 py-3 bg-white text-black font-bold uppercase tracking-widest text-xs hover:bg-[#FF3530] transition-colors"
+                                      >
+                                        Ir a Global Panorama
+                                      </button>
+                                    )}
+                                    {onOpenEssay && essays.slice(0, 2).map((essay) => (
+                                      <button
+                                        key={essay.id}
+                                        onClick={() => onOpenEssay(essay.id)}
+                                        className="px-4 py-3 border border-white/20 text-left hover:border-[#FF3530] hover:text-white transition-colors"
+                                      >
+                                        <span className="block text-[10px] uppercase tracking-[0.25em] text-gray-500 mb-1">Ensayo</span>
+                                        <span className="text-sm font-bold">{essay.title}</span>
+                                      </button>
+                                    ))}
+                                 </div>
+                              </div>
+                           </div>
+                        )}
                         {/* HERO */}
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end mb-16 pt-8 border-b border-white/10 pb-16">
                             <div className="lg:col-span-8">
                                 <span className={`inline-block px-3 py-1 text-[10px] font-bold uppercase tracking-widest mb-6 ${isGlobalMode ? "bg-[#333] text-white" : "bg-[#FF3530] text-black"}`}>
-                                    {isGlobalMode ? "World Issue 2024" : "Cover Story"}
+                                    {isGlobalMode ? "World Issue 2026" : isInProgress ? "Editorial Hold" : "Cover Story"}
                                 </span>
                                 <h1 className="text-6xl md:text-[9rem] font-serif-display text-white leading-[0.85] mb-8 uppercase tracking-tighter break-words">
                                   {data.countryName === "Global Issue" ? "Global Panorama" : data.countryName}
@@ -244,14 +278,14 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                                 <Newspaper size={16} className="text-[#FF3530]" /> Ensayos Especiales
                               </h4>
                               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                 {essays.map((essay) => (
+                                 {essays.map((essay, i) => (
                                     <div 
                                       key={essay.id}
                                       onClick={() => onOpenEssay(essay.id)}
                                       className="group cursor-pointer bg-[#111] border border-white/10 hover:border-[#FF3530] transition-all overflow-hidden flex flex-col"
                                     >
                                        <div className="aspect-video w-full overflow-hidden relative">
-                                          <img src={essay.imageUrl} alt={essay.title} referrerPolicy="no-referrer" className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105" />
+                                          <img src={getDeckImage(editorialImageDeck, i)} alt={essay.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105" />
                                           <div className="absolute inset-0 bg-gradient-to-t from-[#111] to-transparent"></div>
                                        </div>
                                        <div className="p-6 flex-1 flex flex-col">
@@ -329,18 +363,18 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                                {data.editorial.cultAlbums?.map((album, i) => (
                                   <div key={i} className="group relative bg-[#111] border border-white/10 hover:border-[#FF3530] transition-all p-6 flex flex-col h-full hover:-translate-y-2 duration-500">
                                      
-                                     {/* ACTUAL IMAGE FETCHING USING PROXY */}
+                                     {/* REAL COVER ART */}
                                      <a 
-                                        href={`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(album.artist + " " + album.albumName + " album cover art")}`}
+                                        href={album.coverSourceUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="mb-6 relative aspect-square bg-black shadow-2xl group-hover:shadow-[0_20px_40px_-15px_rgba(255,53,48,0.3)] transition-all overflow-hidden"
                                      >
                                         <img 
-                                          src={getAlbumArtUrl(album.artist + " " + album.albumName + " album cover")}
+                                          src={album.coverImageUrl}
                                           alt={album.albumName}
-                                          referrerPolicy="no-referrer"
                                           className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700"
+                                          loading="lazy"
                                           onError={(e) => {
                                             // Fallback if image fails
                                             (e.target as HTMLImageElement).style.display = 'none';
@@ -355,7 +389,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
 
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                                             <span className="text-[10px] uppercase font-bold text-white tracking-widest border border-white px-2 py-1">
-                                                View Source
+                                                Open Source
                                             </span>
                                         </div>
                                      </a>
@@ -455,24 +489,24 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                                 {data.editorial.forecast.forecastReleases && data.editorial.forecast.forecastReleases.length > 0 && (
                                   <div className="mb-12">
                                       <h4 className="font-bold text-white uppercase tracking-widest text-xs mb-6 border-b border-white/20 pb-2 flex items-center gap-2">
-                                          <Disc size={16} className="text-[#FF3530]" /> Essential Future Releases (2026)
+                                          <Disc size={16} className="text-[#FF3530]" /> Signal Releases
                                       </h4>
                                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                           {data.editorial.forecast.forecastReleases.map((release, i) => (
                                               <a 
                                                   key={i}
-                                                  href={`https://www.youtube.com/results?search_query=${encodeURIComponent(release.youtubeQuery)}`}
+                                                  href={release.coverSourceUrl}
                                                   target="_blank"
                                                   rel="noopener noreferrer"
                                                   className="group flex items-center gap-4 bg-[#111] hover:bg-[#1A1A1A] p-3 border border-white/10 hover:border-[#FF3530] transition-all relative overflow-hidden"
                                               >
-                                                  {/* Thumbnail with Proxy */}
+                                                  {/* Thumbnail with real cover */}
                                                   <div className="w-16 h-16 flex-shrink-0 bg-gray-800 relative overflow-hidden border border-white/10">
                                                       <img 
-                                                          src={getAlbumArtUrl(release.coverArtQuery)} 
+                                                          src={release.coverImageUrl} 
                                                           alt={release.title}
-                                                          referrerPolicy="no-referrer"
                                                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                                          loading="lazy"
                                                           onError={(e) => {
                                                               (e.target as HTMLImageElement).style.display = 'none';
                                                               (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
@@ -487,7 +521,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                                                   <div className="flex-1 min-w-0 z-10">
                                                       <h5 className="text-sm font-bold text-white truncate group-hover:text-[#FF3530] transition-colors">{release.title}</h5>
                                                       <p className="text-xs text-gray-400 truncate">{release.artist}</p>
-                                                      <span className="text-[9px] uppercase tracking-wider text-gray-500 border border-gray-800 px-1 mt-1 inline-block">{release.type}</span>
+                                                      <span className="text-[9px] uppercase tracking-wider text-gray-500 border border-gray-800 px-1 mt-1 inline-block">{release.type} • {release.year}</span>
                                                   </div>
                                                   
                                                   <div className="bg-white text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0 duration-300">
@@ -545,8 +579,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                                         {data.editorial.curatedReads?.map((article, i) => (
                                             <a 
                                             key={i} 
-                                            // Constructing a Google Search Link to ensure it works even if the AI hallucinates a dead URL
-                                            href={`https://www.google.com/search?q=${encodeURIComponent(article.source + ' ' + article.title + ' article')}`}
+                                            href={article.url}
                                             target="_blank" 
                                             rel="noopener noreferrer"
                                             className="block group bg-[#161616] p-4 border-l-2 border-white/10 hover:border-[#FF3530] transition-all hover:bg-[#1a1a1a]"

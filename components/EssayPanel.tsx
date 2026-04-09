@@ -1,16 +1,21 @@
 import React from 'react';
-import { Essay } from '../data/essays';
+import { essays, Essay } from '../data/essays';
 import { X, ChevronLeft, Globe2, ArrowUpRight } from 'lucide-react';
+import { getDeckImage } from '../data/editorialCuratedImages';
 
 interface EssayPanelProps {
   essay: Essay | null;
   isOpen: boolean;
   onClose: () => void;
   onNavigateToCountry: (countryName: string) => void;
+  editorialImageDeck: string[];
 }
 
-export const EssayPanel: React.FC<EssayPanelProps> = ({ essay, isOpen, onClose, onNavigateToCountry }) => {
+export const EssayPanel: React.FC<EssayPanelProps> = ({ essay, isOpen, onClose, onNavigateToCountry, editorialImageDeck }) => {
   if (!isOpen || !essay) return null;
+
+  const essayIndex = Math.max(0, essays.findIndex((entry) => entry.id === essay.id));
+  const heroImage = getDeckImage(editorialImageDeck, essayIndex);
 
   return (
     <div className="fixed inset-0 z-[60] bg-[#050505] text-[#EDEDED] overflow-y-auto font-serif animate-in slide-in-from-bottom-10 duration-500">
@@ -45,7 +50,7 @@ export const EssayPanel: React.FC<EssayPanelProps> = ({ essay, isOpen, onClose, 
         </div>
 
         <div className="mb-16 aspect-video w-full overflow-hidden bg-[#111] border border-white/10 shadow-2xl relative group">
-           <img src={essay.imageUrl} alt={essay.title} referrerPolicy="no-referrer" className="w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-1000 scale-105 group-hover:scale-100" />
+           <img src={heroImage} alt={essay.title} className="w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-1000 scale-105 group-hover:scale-100" />
            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80"></div>
         </div>
 

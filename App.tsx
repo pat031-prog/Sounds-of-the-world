@@ -8,21 +8,23 @@ import { fetchCountryData, fetchGlobalData } from './services/geminiService';
 import { CulturalData, GeoJsonProperties } from './types';
 import { Mic2, Radio, BookOpen, Globe2, DownloadCloud } from 'lucide-react';
 import { essays, Essay } from './data/essays';
+import { shuffleEditorialCuratedImages } from './data/editorialCuratedImages';
 
 const App: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [culturalData, setCulturalData] = useState<CulturalData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [isPanelOpen, setIsPanelOpen] = useState(true);
   
   // New State for Mode: 'mainstream' (Charts/Pop) vs 'editorial' (Pitchfork/Indie)
-  const [appMode, setAppMode] = useState<'mainstream' | 'editorial'>('mainstream');
+  const [appMode, setAppMode] = useState<'mainstream' | 'editorial'>('editorial');
 
   const [isCaching, setIsCaching] = useState(false);
   const [cacheProgress, setCacheProgress] = useState(0);
 
   // Essay State
   const [selectedEssay, setSelectedEssay] = useState<Essay | null>(null);
+  const [editorialImageDeck, setEditorialImageDeck] = useState<string[]>(() => shuffleEditorialCuratedImages());
 
   // Load Global Data when switching to Editorial if no country selected
   useEffect(() => {
@@ -42,6 +44,12 @@ const App: React.FC = () => {
     };
     loadGlobal();
   }, [appMode, selectedCountry, culturalData]);
+
+  useEffect(() => {
+    if (appMode === 'editorial') {
+      setEditorialImageDeck(shuffleEditorialCuratedImages());
+    }
+  }, [appMode, culturalData?.countryName]);
 
   const handleCountryClick = useCallback(async (properties: GeoJsonProperties | string) => {
     const countryName = typeof properties === 'string' ? properties : properties.ADMIN;
@@ -205,6 +213,8 @@ const App: React.FC = () => {
         data={culturalData}
         selectedCountryName={selectedCountry}
         mode={appMode}
+        editorialImageDeck={editorialImageDeck}
+        onOpenGlobalEditorial={openGlobalEditorial}
         onOpenEssay={(essayId) => {
           const essay = essays.find(e => e.id === essayId);
           if (essay) setSelectedEssay(essay);
@@ -216,6 +226,7 @@ const App: React.FC = () => {
         isOpen={selectedEssay !== null}
         onClose={() => setSelectedEssay(null)}
         onNavigateToCountry={handleCountryClick}
+        editorialImageDeck={editorialImageDeck}
       />
 
     </div>
