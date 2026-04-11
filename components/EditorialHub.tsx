@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   ArrowUpRight,
   BookOpen,
@@ -8,8 +8,10 @@ import {
   Mic2,
   Newspaper,
   Radio,
+  Shuffle,
   Sparkles,
   TowerControl,
+  X,
 } from 'lucide-react';
 import { essays } from '../data/essays';
 import { getDeckImage } from '../data/editorialCuratedImages';
@@ -60,6 +62,36 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
   const hubIssueMapItems = editorialIssueMapSections.filter((section) => section.context === 'hub');
   const quickCountryPreview = curatedHubCountries.slice(0, isDesktop ? 10 : 6);
   const briefingPreview = editorialBriefing.slice(0, 2);
+
+  // --- Shuffle & Filter State ---
+  const shuffle = <T,>(arr: T[]): T[] => {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+
+  const [canonEntries, setCanonEntries] = useState(() => cultCanonChart);
+  const [signalEntries, setSignalEntries] = useState(() => newSignalChart);
+  const [canonCountryFilter, setCanonCountryFilter] = useState<string | null>(null);
+
+  const shuffleCulture = useCallback(() => {
+    setCanonEntries(shuffle(cultCanonChart));
+    setSignalEntries(shuffle(newSignalChart));
+  }, []);
+
+  // All territories from Cult Canon for the filter selector
+  const canonTerritories = Array.from(
+    new Set(cultCanonChart.map((e) => e.territory).filter(Boolean))
+  ).sort() as string[];
+
+  const filteredCanon = canonCountryFilter
+    ? canonEntries.filter((e) =>
+        e.territory?.toLowerCase().includes(canonCountryFilter.toLowerCase())
+      )
+    : canonEntries;
 
   useEffect(() => {
     if (!initialSectionId) return;
@@ -330,12 +362,50 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
         </section>
 
         <section id="cult-canon" className="mb-16">
-          <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+          <div className="mb-4 flex flex-wrap items-center gap-3 border-b border-white/10 pb-4">
             <Disc size={16} className="text-[#FF3530]" />
             <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Cult Canon // 20</h3>
+            <div className="ml-auto flex flex-wrap items-center gap-2">
+              {/* Country filter */}
+              <div className="flex flex-wrap gap-1">
+                {canonCountryFilter && (
+                  <button
+                    onClick={() => setCanonCountryFilter(null)}
+                    className="flex items-center gap-1 border border-[#FF3530]/60 bg-[#FF3530]/10 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-[#FF3530] transition-colors hover:bg-[#FF3530]/20"
+                  >
+                    <X size={10} />
+                    {canonCountryFilter}
+                  </button>
+                )}
+                <div className="relative">
+                  <select
+                    value={canonCountryFilter ?? ''}
+                    onChange={(e) => setCanonCountryFilter(e.target.value || null)}
+                    className="appearance-none border border-white/15 bg-black px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-white/70 transition-colors hover:border-[#FF3530] focus:outline-none cursor-pointer"
+                  >
+                    <option value="">Filter by Territory</option>
+                    {canonTerritories.map((t) => (
+                      <option key={t} value={t}>{t}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              {/* Shuffle */}
+              <button
+                onClick={shuffleCulture}
+                className="flex items-center gap-1.5 border border-white/15 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-white/60 transition-colors hover:border-[#FF3530] hover:text-[#FF3530]"
+                title="Shuffle Canon & Signal"
+              >
+                <Shuffle size={11} />
+                Shuffle
+              </button>
+            </div>
           </div>
+          {filteredCanon.length === 0 && (
+            <p className="py-8 text-center text-sm text-white/30">No hay entradas para este territorio en el canon.</p>
+          )}
           <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-            {cultCanonChart.map((entry) => (
+            {filteredCanon.map((entry) => (
               <a
                 key={`${entry.chart}-${entry.rank}`}
                 href={entry.coverSourceUrl}
@@ -373,12 +443,20 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
         </section>
 
         <section id="new-signal" className="mb-16">
-          <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+          <div className="mb-4 flex flex-wrap items-center gap-3 border-b border-white/10 pb-4">
             <TowerControl size={16} className="text-[#FF3530]" />
             <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">New Signal // 20</h3>
+            <button
+              onClick={shuffleCulture}
+              className="ml-auto flex items-center gap-1.5 border border-white/15 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-white/60 transition-colors hover:border-[#FF3530] hover:text-[#FF3530]"
+              title="Shuffle Signal"
+            >
+              <Shuffle size={11} />
+              Shuffle
+            </button>
           </div>
           <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-            {newSignalChart.map((entry) => (
+            {signalEntries.map((entry) => (
               <a
                 key={`${entry.chart}-${entry.rank}`}
                 href={entry.coverSourceUrl}
