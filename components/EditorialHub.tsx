@@ -278,7 +278,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
           activeTarget={initialSectionId ?? undefined}
           isDesktop={isDesktop}
           sticky={isDesktop}
-          className="mb-16"
+          className="hidden md:block mb-16"
           onSelect={(item) => {
             if (item.target === 'global-issue') {
               onOpenGlobalIssue();

@@ -295,7 +295,7 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        <div className="pointer-events-auto flex w-fit flex-wrap items-center gap-1 border border-white/20 bg-black p-1.5 shadow-2xl backdrop-blur-md">
+        <div className="pointer-events-auto flex w-fit max-w-full flex-nowrap overflow-x-auto no-scrollbar items-center gap-1 border border-white/20 bg-black p-1.5 shadow-2xl backdrop-blur-md">
           <button
             onClick={switchToAtlas}
             className={`flex items-center gap-2 px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all md:px-4 md:text-xs ${
