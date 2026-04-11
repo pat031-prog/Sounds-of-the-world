@@ -18,7 +18,7 @@ export const EditorialIssueMap: React.FC<EditorialIssueMapProps> = ({
   sticky = false,
   className = '',
 }) => {
-  const stickyClass = sticky ? 'md:sticky md:top-44 md:z-20' : '';
+  const stickyClass = sticky ? 'sticky top-20 z-40' : '';
 
   return (
     <div className={`${stickyClass} ${className}`.trim()}>

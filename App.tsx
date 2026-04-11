@@ -318,24 +318,6 @@ const App: React.FC = () => {
           >
             <BookOpen size={16} />
           </button>
-          <button
-            onClick={openGlobalIssue}
-            className="flex items-center justify-center border-l border-white/10 p-3 text-gray-400 transition-all hover:text-[#FF3530] md:p-4"
-            title="Open Global Issue"
-          >
-            <Mic2 size={16} />
-          </button>
-          <button
-            onClick={handleCacheOffline}
-            disabled={isCaching}
-            className={`flex items-center justify-center border-l border-white/10 p-3 transition-all md:p-4 ${
-              isCaching ? 'text-[#FF3530]' : 'text-gray-400 hover:text-white'
-            }`}
-            title="Descargar datos principales offline"
-          >
-            <DownloadCloud size={16} className={isCaching ? 'animate-pulse' : ''} />
-            {isCaching ? <span className="ml-1 text-[10px]">{cacheProgress}%</span> : null}
-          </button>
         </div>
       </div>
 
