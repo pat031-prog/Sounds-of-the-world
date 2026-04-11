@@ -295,32 +295,32 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        <div className="pointer-events-auto flex w-fit max-w-full flex-nowrap overflow-x-auto no-scrollbar items-center gap-1 border border-white/20 bg-black p-1.5 shadow-2xl backdrop-blur-md">
+        <div className="pointer-events-auto flex w-fit max-w-full flex-nowrap overflow-x-auto no-scrollbar items-center border border-white/20 bg-black shadow-2xl backdrop-blur-md">
           <button
             onClick={switchToAtlas}
-            className={`flex items-center gap-2 px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all md:px-4 md:text-xs ${
+            className={`flex items-center justify-center p-3 transition-all md:p-4 ${
               appMode === 'atlas'
                 ? 'bg-[#FF3530] text-black shadow-sm'
                 : 'text-gray-500 hover:bg-white/5 hover:text-white'
             }`}
+            title="Atlas"
           >
-            <Globe2 size={14} />
-            <span className="hidden sm:inline">Atlas</span>
+            <Globe2 size={16} />
           </button>
           <button
             onClick={openEditorialHome}
-            className={`flex items-center gap-2 px-3 py-2 text-[10px] font-bold uppercase tracking-wide transition-all md:px-4 md:text-xs ${
+            className={`flex items-center justify-center border-l border-white/10 p-3 transition-all md:p-4 ${
               appMode === 'editorial'
                 ? 'bg-[#FF3530] text-white shadow-sm'
                 : 'text-gray-500 hover:bg-white/5 hover:text-white'
             }`}
+            title="Editorial"
           >
-            <BookOpen size={14} />
-            <span className="hidden sm:inline">Editorial</span>
+            <BookOpen size={16} />
           </button>
           <button
             onClick={openGlobalIssue}
-            className="ml-1 flex items-center gap-2 border-l border-white/10 pl-3 text-xs font-bold uppercase tracking-wide text-gray-400 transition-all hover:text-[#FF3530] md:ml-2 md:px-1"
+            className="flex items-center justify-center border-l border-white/10 p-3 text-gray-400 transition-all hover:text-[#FF3530] md:p-4"
             title="Open Global Issue"
           >
             <Mic2 size={16} />
@@ -328,13 +328,13 @@ const App: React.FC = () => {
           <button
             onClick={handleCacheOffline}
             disabled={isCaching}
-            className={`ml-1 flex items-center gap-2 border-l border-white/10 pl-3 text-xs font-bold uppercase tracking-wide transition-all ${
+            className={`flex items-center justify-center border-l border-white/10 p-3 transition-all md:p-4 ${
               isCaching ? 'text-[#FF3530]' : 'text-gray-400 hover:text-white'
             }`}
             title="Descargar datos principales offline"
           >
             <DownloadCloud size={16} className={isCaching ? 'animate-pulse' : ''} />
-            {isCaching ? <span className="text-[10px]">{cacheProgress}%</span> : null}
+            {isCaching ? <span className="ml-1 text-[10px]">{cacheProgress}%</span> : null}
           </button>
         </div>
       </div>

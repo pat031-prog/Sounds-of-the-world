@@ -85,7 +85,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
         }}
       />
 
-      <div className="relative mx-auto max-w-[1640px] px-5 pb-24 pt-32 md:px-10 md:pt-48 lg:px-12">
+      <div className="relative mx-auto max-w-[1640px] px-5 pb-24 pt-32 md:px-10 md:pt-36 lg:px-12">
         <section className="mb-8 grid grid-cols-1 gap-6 xl:grid-cols-12">
           <article className="group relative overflow-hidden border border-white/10 bg-[#0d0d0d] text-left xl:col-span-8">
             <img
@@ -277,7 +277,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
           items={hubIssueMapItems}
           activeTarget={initialSectionId ?? undefined}
           isDesktop={isDesktop}
-          sticky={isDesktop}
+          sticky={false}
           className="hidden md:block mb-16"
           onSelect={(item) => {
             if (item.target === 'global-issue') {
