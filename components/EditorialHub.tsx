@@ -93,6 +93,27 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
       )
     : canonEntries;
 
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+
+  // Scroll-spy: highlight active hub section in the sticky nav
+  useEffect(() => {
+    const sectionIds = ['essays', 'cult-canon', 'new-signal', 'playlist-matrix', 'signal-lexicon', 'compilation-picks'];
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { rootMargin: '-20% 0px -70% 0px', threshold: 0 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
+
   useEffect(() => {
     if (!initialSectionId) return;
 
@@ -117,7 +138,41 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
         }}
       />
 
-      <div className="relative mx-auto max-w-[1640px] px-5 pb-24 pt-32 md:px-10 md:pt-36 lg:px-12">
+      {/* STICKY HUB NAV BAR — single source of truth for section navigation */}
+      <div className="sticky top-0 z-30 flex items-center gap-0 overflow-x-auto no-scrollbar border-b border-white/10 bg-[#050505]/95 backdrop-blur-md">
+        <button
+          onClick={onOpenGlobalIssue}
+          className="flex shrink-0 items-center gap-2 border-r border-white/10 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-[#FF3530] transition-colors hover:bg-white/5"
+        >
+          <Radio size={12} />
+          Global Issue
+        </button>
+        {[
+          { id: 'essays', label: 'Essays' },
+          { id: 'cult-canon', label: 'Cult Canon' },
+          { id: 'new-signal', label: 'New Signal' },
+          { id: 'playlist-matrix', label: 'Playlists' },
+          { id: 'signal-lexicon', label: 'Lexicon' },
+          { id: 'compilation-picks', label: 'Picks' },
+        ].map(({ id, label }) => (
+          <button
+            key={id}
+            onClick={() => {
+              const el = document.getElementById(id);
+              if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }}
+            className={`shrink-0 border-r border-white/10 px-4 py-3 text-[10px] font-bold uppercase tracking-widest transition-all ${
+              activeSection === id
+                ? 'bg-[#FF3530]/10 text-white border-b-2 border-b-[#FF3530]'
+                : 'text-gray-500 hover:bg-white/5 hover:text-gray-300'
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <div className="relative mx-auto max-w-[1640px] px-5 pb-24 pt-10 md:px-10 md:pt-12 lg:px-12">
         <section className="mb-8 grid grid-cols-1 gap-6 xl:grid-cols-12">
           <article className="group relative overflow-hidden border border-white/10 bg-[#0d0d0d] text-left xl:col-span-8">
             <img
@@ -213,22 +268,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
                   <ArrowUpRight size={18} className="shrink-0 text-[#FF3530]" />
                 </button>
 
-                <EditorialIssueMap
-                  items={hubIssueMapItems}
-                  activeTarget={initialSectionId ?? undefined}
-                  isDesktop={false}
-                  onSelect={(item) => {
-                    if (item.target === 'global-issue') {
-                      onOpenGlobalIssue();
-                      return;
-                    }
 
-                    const element = document.getElementById(item.target);
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                  }}
-                />
 
                 <div className="border-t border-white/10 pt-5">
                   <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
@@ -305,24 +345,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
           </div>
         </section>
 
-        <EditorialIssueMap
-          items={hubIssueMapItems}
-          activeTarget={initialSectionId ?? undefined}
-          isDesktop={isDesktop}
-          sticky={false}
-          className="hidden md:block mb-16"
-          onSelect={(item) => {
-            if (item.target === 'global-issue') {
-              onOpenGlobalIssue();
-              return;
-            }
 
-            const element = document.getElementById(item.target);
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-          }}
-        />
 
         <section id="essays" className="mb-16">
           <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">

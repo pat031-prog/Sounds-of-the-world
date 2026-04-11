@@ -36,11 +36,14 @@ export const EssayPanel: React.FC<EssayPanelProps> = ({
           <div className="rounded-full border border-white/20 p-2 transition-all group-hover:bg-white group-hover:text-black">
             <ChevronLeft size={16} />
           </div>
-          <span className="hidden md:inline">Volver</span>
+          <span className="hidden md:inline">Volver al Hub</span>
         </button>
-        <h2 className="font-cinzel text-xl uppercase tracking-widest text-white">
-          Ensayo <span className="font-sans text-sm font-bold tracking-normal text-[#FF3530]">/// Especial</span>
-        </h2>
+        <div className="text-center">
+          <h2 className="font-cinzel text-sm uppercase tracking-widest text-white md:text-base">
+            Ensayo <span className="font-sans text-xs font-bold tracking-normal text-[#FF3530]">/// Especial</span>
+          </h2>
+          <p className="mt-0.5 text-[10px] uppercase tracking-widest text-gray-500">{essay.author}</p>
+        </div>
         <button
           onClick={onClose}
           className="rounded-full bg-white/5 p-2 text-white transition-all hover:bg-white/10"

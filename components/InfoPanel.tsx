@@ -100,16 +100,16 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                     <div className="p-2 border border-white/20 rounded-full group-hover:bg-white group-hover:text-black transition-all">
                       <ChevronLeft size={16} />
                     </div>
-                    <span className="hidden md:inline">Atlas</span>
+                    <span className="hidden md:inline">Hub</span>
                 </button>
                 <div className="h-8 w-px bg-white/10 hidden md:block"></div>
                 <h2 className="text-xl font-cinzel text-white tracking-widest hidden md:block uppercase">
-                    {data?.countryName || "Loading..."} <span className="text-[#FF3530] text-sm font-sans tracking-normal font-bold">/// {isGlobalMode ? "Global Issue" : "Vol. 4"}</span>
+                    {data?.countryName || 'Loading...'} <span className="text-[#FF3530] text-sm font-sans tracking-normal font-bold">/// {isGlobalMode ? 'Global Issue' : 'Vol. 4'}</span>
                 </h2>
              </div>
            ) : (
              <h2 className="text-3xl font-bold tracking-tight text-white leading-none">
-               {selectedCountryName || "Explorar"}
+               {selectedCountryName || 'Explorar'}
              </h2>
            )}
         </div>
@@ -119,43 +119,37 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
             <X size={24} />
           </button>
         )}
-        
-        {/* EDITORIAL PAGINATION CONTROLS */}
+
+        {/* EDITORIAL TAB BAR — replaces blind prev/next arrows */}
         {mode === 'editorial' && data && (
-            <div className="flex items-center gap-4">
-               <span className="text-xs font-mono text-gray-500 hidden md:inline">Page {editorialPage + 1} of {totalPages}</span>
-               <div className="flex gap-2">
-                  <button 
-                    onClick={prevPage} 
-                    disabled={editorialPage === 0}
-                    className="p-2 border border-white/20 rounded-full hover:bg-white hover:text-black disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-gray-500 transition-all"
-                  >
-                     <ChevronLeft size={16} />
-                  </button>
-                  <button 
-                    onClick={nextPage} 
-                    disabled={editorialPage === totalPages - 1}
-                    className="p-2 border border-white/20 rounded-full hover:bg-white hover:text-black disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-gray-500 transition-all"
-                  >
-                     <ChevronRight size={16} />
-                  </button>
-               </div>
-            </div>
+          <div className="flex items-center gap-1 overflow-x-auto no-scrollbar">
+            {(isInProgress
+              ? [{ label: 'Cover', page: 0 }]
+              : [
+                  { label: 'Cover Story', page: 0 },
+                  { label: 'Deep Dive', page: 1 },
+                  { label: 'Archivo', page: 2 },
+                  { label: 'Panorama', page: 3 },
+                ]
+            ).map(({ label, page }) => (
+              <button
+                key={page}
+                onClick={() => setEditorialPage(page)}
+                className={`shrink-0 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest transition-all border-b-2 ${
+                  editorialPage === page
+                    ? 'border-[#FF3530] text-white'
+                    : 'border-transparent text-gray-500 hover:text-gray-300 hover:border-white/30'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         )}
       </div>
 
       {/* CONTENT AREA */}
-      <div className={mode === 'editorial' ? "pt-20 w-full min-h-screen" : "px-6 md:px-16 pb-24 min-h-screen pt-8"}>
-        {mode === 'editorial' && data && (
-          <EditorialIssueMap
-            items={issueMapItems}
-            activeTarget={`page-${editorialPage}`}
-            isDesktop={typeof window !== 'undefined' ? window.innerWidth >= 768 : true}
-            sticky
-            className="border-b border-white/10"
-            onSelect={(item) => handleIssueMapSelect(item.target)}
-          />
-        )}
+      <div className={mode === 'editorial' ? 'pt-24 w-full min-h-screen' : 'px-6 md:px-16 pb-24 min-h-screen pt-8'}>
         
         {isLoading ? (
           <div className="flex flex-col items-center justify-center h-[60vh]">
@@ -353,8 +347,9 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
                         )}
 
                         <div className="text-center mt-auto">
-                            <button onClick={nextPage} className="text-sm font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-colors animate-pulse">
-                               Read The Feature ↓
+                            <button onClick={nextPage} className="flex items-center gap-2 mx-auto text-sm font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-colors group">
+                               <span>Deep Dive</span>
+                               <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
                             </button>
                         </div>
                      </div>
