@@ -277,61 +277,101 @@ const App: React.FC = () => {
         ) : null}
       </div>
 
-      {/* GLOBAL NAV — Full width bar on mobile, floating block on desktop */}
+      {/* UNIFIED GLOBAL NAV — Brand + Mode Switcher + Editorial Section Links */}
       <div
-        className={`pointer-events-none fixed left-0 top-0 z-40 w-full transition-all duration-300 md:absolute md:left-8 md:top-8 md:w-auto ${
+        className={`pointer-events-none fixed left-0 top-0 z-40 w-full transition-all duration-300 ${
           isPanelOpen && appMode === 'editorial'
-            ? '-translate-y-full opacity-0 md:translate-y-0 md:opacity-100' // Hide via sheer translate on mobile so InfoPanel dictates top area
+            ? '-translate-y-full opacity-0 md:translate-y-0 md:opacity-100'
             : 'translate-y-0 opacity-100'
         }`}
       >
-        <div className="pointer-events-auto flex w-full flex-row items-center justify-between border-b border-white/10 bg-[#050505]/90 px-4 py-2 backdrop-blur-md md:flex-col md:items-start md:justify-start md:gap-3 md:border-none md:bg-transparent md:px-0 md:py-0 md:backdrop-blur-none">
-          {/* Brand block */}
-          <div className="flex shrink-0 items-center gap-3">
-            <div
-              onClick={openEditorialHome}
-              className="cursor-pointer rounded-sm bg-[#FF3530] p-2 text-black shadow-lg transition-transform duration-300 hover:scale-105 active:scale-95 md:rounded-none md:p-3"
-              title="Volver al inicio editorial"
-            >
-              <Mic2 size={18} className="md:h-6 md:w-6" />
+        <div className="pointer-events-auto flex w-full flex-col border-b border-white/10 bg-[#050505]/90 backdrop-blur-md md:border-none md:bg-transparent md:backdrop-blur-none">
+          {/* Row 1: Brand + Mode Switcher */}
+          <div className="flex w-full flex-row items-center justify-between px-4 py-2 md:absolute md:left-8 md:top-8 md:w-auto md:flex-col md:items-start md:justify-start md:gap-3 md:px-0 md:py-0">
+            {/* Brand block */}
+            <div className="flex shrink-0 items-center gap-3">
+              <div
+                onClick={openEditorialHome}
+                className="cursor-pointer rounded-sm bg-[#FF3530] p-2 text-black shadow-lg transition-transform duration-300 hover:scale-105 active:scale-95 md:rounded-none md:p-3"
+                title="Volver al inicio editorial"
+              >
+                <Mic2 size={18} className="md:h-6 md:w-6" />
+              </div>
+              <div className="flex flex-col border-none bg-transparent px-0 py-0 shadow-none md:border md:border-white/20 md:bg-black md:px-6 md:py-3 md:shadow-xl md:backdrop-blur-md">
+                <h1 className="font-cinzel text-sm font-bold tracking-wider text-white md:text-2xl">
+                  Sounds of the World
+                </h1>
+                <p className="mt-0.5 text-[8px] font-bold uppercase tracking-wider text-[#FF3530] md:mt-1 md:text-xs">
+                  {appMode === 'atlas'
+                    ? selectedCountry
+                      ? `Atlas / ${selectedCountry}`
+                      : 'Atlas Signal'
+                    : selectedCountry
+                    ? `Editorial / ${selectedCountry}`
+                    : 'Volume 04: The World'}
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col border-none bg-transparent px-0 py-0 shadow-none md:border md:border-white/20 md:bg-black md:px-6 md:py-3 md:shadow-xl md:backdrop-blur-md">
-              <h1 className="font-cinzel text-sm font-bold tracking-wider text-white md:text-2xl">
-                Sounds of the World
-              </h1>
-              <p className="mt-0.5 text-[8px] font-bold uppercase tracking-wider text-[#FF3530] md:mt-1 md:text-xs">
-                {appMode === 'atlas'
-                  ? selectedCountry
-                    ? `Atlas / ${selectedCountry}`
-                    : 'Atlas Signal'
-                  : selectedCountry
-                  ? `Editorial / ${selectedCountry}`
-                  : 'Volume 04: The World'}
-              </p>
+
+            {/* Mode Switcher */}
+            <div className="flex flex-nowrap items-center overflow-hidden rounded-sm border border-white/20 bg-black shadow-none md:rounded-none md:shadow-2xl md:backdrop-blur-md">
+              <button
+                onClick={switchToAtlas}
+                className={`flex items-center justify-center p-2 transition-all md:p-4 ${
+                  appMode === 'atlas' ? 'bg-[#FF3530] text-black' : 'text-gray-500 hover:bg-white/5 hover:text-white'
+                }`}
+                title="Atlas — Ver mapa / globo"
+              >
+                <Globe2 size={16} />
+              </button>
+              <button
+                onClick={openEditorialHome}
+                className={`flex items-center justify-center border-l border-white/10 p-2 transition-all md:p-4 ${
+                  appMode === 'editorial' ? 'bg-[#FF3530] text-black' : 'text-gray-500 hover:bg-white/5 hover:text-white'
+                }`}
+                title="Editorial Hub"
+              >
+                <BookOpen size={16} />
+              </button>
             </div>
           </div>
 
-          {/* Mode Switcher */}
-          <div className="flex flex-nowrap items-center overflow-hidden rounded-sm border border-white/20 bg-black shadow-none md:rounded-none md:shadow-2xl md:backdrop-blur-md">
-            <button
-              onClick={switchToAtlas}
-              className={`flex items-center justify-center p-2 transition-all md:p-4 ${
-                appMode === 'atlas' ? 'bg-[#FF3530] text-black' : 'text-gray-500 hover:bg-white/5 hover:text-white'
-              }`}
-              title="Atlas — Ver mapa / globo"
-            >
-              <Globe2 size={16} />
-            </button>
-            <button
-              onClick={openEditorialHome}
-              className={`flex items-center justify-center border-l border-white/10 p-2 transition-all md:p-4 ${
-                appMode === 'editorial' ? 'bg-[#FF3530] text-black' : 'text-gray-500 hover:bg-white/5 hover:text-white'
-              }`}
-              title="Editorial Hub"
-            >
-              <BookOpen size={16} />
-            </button>
-          </div>
+          {/* Row 2: Editorial Section Links (only when hub is visible) */}
+          {showEditorialHub && (
+            <div className="flex w-full items-center overflow-x-auto no-scrollbar border-t border-white/10 bg-[#050505]/80 md:justify-center md:border-t-0 md:bg-transparent md:fixed md:top-4 md:left-0 md:right-0 md:z-50 md:pointer-events-none md:px-4">
+              <div className="flex items-center gap-0.5 px-2 py-1.5 md:pointer-events-auto md:rounded-full md:border md:border-white/10 md:bg-[#050505]/90 md:backdrop-blur-xl md:px-2 md:py-1 md:shadow-2xl md:shadow-black/50">
+                <button
+                  onClick={() => openGlobalIssue(0)}
+                  className="flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest text-[#FF3530] transition-colors hover:bg-white/10"
+                >
+                  Global Issue
+                </button>
+                <div className="hidden md:block w-[1px] h-3.5 bg-white/10 mx-0.5"></div>
+                {[
+                  { id: 'essays', label: 'Ensayos' },
+                  { id: 'cult-canon', label: 'Canon' },
+                  { id: 'new-signal', label: 'Señal' },
+                  { id: 'playlist-matrix', label: 'Playlists' },
+                  { id: 'signal-lexicon', label: 'Léxico' },
+                  { id: 'countries', label: 'Países' },
+                ].map(({ id, label }) => (
+                  <button
+                    key={id}
+                    onClick={() => {
+                      const el = document.getElementById(id);
+                      if (el) {
+                        const scrollY = el.getBoundingClientRect().top + window.scrollY - 100;
+                        window.scrollTo({ top: scrollY, behavior: 'smooth' });
+                      }
+                    }}
+                    className="shrink-0 rounded-full px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest text-gray-500 transition-all hover:bg-white/10 hover:text-white"
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

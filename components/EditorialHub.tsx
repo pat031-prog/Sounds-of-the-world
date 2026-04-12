@@ -141,49 +141,9 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
         }}
       />
 
-      {/* FLOATING PILL NAV BAR */}
-      <div className="sticky top-[76px] md:top-[24px] z-30 flex justify-center pointer-events-none px-4">
-        <div className="flex items-center gap-1 overflow-x-auto no-scrollbar rounded-full border border-white/10 bg-[#050505]/95 backdrop-blur-xl p-1.5 pointer-events-auto max-w-full shadow-2xl shadow-black">
-          <button
-            onClick={onOpenGlobalIssue}
-            className="flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-[#FF3530] transition-colors hover:bg-white/10"
-          >
-            <Radio size={12} />
-            Global Issue
-          </button>
-          
-          <div className="w-[1px] h-4 bg-white/10 mx-1"></div>
+      {/* Section nav is now rendered in the global App nav bar */}
 
-          {[
-            { id: 'essays', label: 'Ensayos' },
-            { id: 'cult-canon', label: 'El Canon' },
-            { id: 'new-signal', label: 'Señal Nueva' },
-            { id: 'playlist-matrix', label: 'Playlists' },
-            { id: 'signal-lexicon', label: 'Léxico' },
-            { id: 'compilation-picks', label: 'Selecciones' },
-          ].map(({ id, label }) => (
-            <button
-              key={id}
-              onClick={() => {
-                const el = document.getElementById(id);
-                if (el) {
-                  const scrollY = el.getBoundingClientRect().top + window.scrollY - 120;
-                  window.scrollTo({ top: scrollY, behavior: 'smooth' });
-                }
-              }}
-              className={`shrink-0 rounded-full px-4 py-2 text-[10px] font-bold uppercase tracking-widest transition-all ${
-                activeSection === id
-                  ? 'bg-white text-black'
-                  : 'text-gray-400 hover:bg-white/10 hover:text-white'
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="relative mx-auto max-w-[1640px] px-5 pb-24 pt-[80px] md:px-10 md:pt-12 lg:px-12">
+      <div className="relative mx-auto max-w-[1640px] px-5 pb-24 pt-[100px] md:px-10 md:pt-12 lg:px-12">
         <section className="mb-8 grid grid-cols-1 gap-6 xl:grid-cols-12">
           <article className="group relative overflow-hidden border border-white/10 bg-[#0d0d0d] text-left xl:col-span-8">
             <img
