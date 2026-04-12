@@ -85,6 +85,18 @@ const research = {
     url: 'https://pitchfork.com/features/lists-and-guides/best-albums-2025/',
     publishedAt: 'Dec 2, 2025',
   },
+  fisherGhosts: {
+    title: 'Ghosts of My Life: Writings on Depression, Hauntology and Lost Futures',
+    source: 'k-punk / Repeater Books',
+    url: 'https://repeaterbooks.com/product/ghosts-of-my-life/',
+    publishedAt: '2014',
+  },
+  ccruWritings: {
+    title: 'CCRU: Writings 1997-2003',
+    source: 'Urbanomic',
+    url: 'https://www.urbanomic.com/book/ccru-writings-1997-2003/',
+    publishedAt: '2017',
+  },
 };
 
 export const essays: Essay[] = [
@@ -238,6 +250,25 @@ export const essays: Essay[] = [
       'Bandcamp Daily lo entiende cuando cruza sus selecciones electronicas y experimentales con geografias improbables, sellos pequenos y relatos de trabajo concreto. La dispersion que para el feed parece caos, alli se vuelve cartografia. Ese movimiento importa porque demuestra que el futuro no tiene una sola direccion. Tiene climas, tacticas, presiones, niveles de riesgo y politicas de forma. El canon roto es mas verdadero justamente porque ya no puede ocultar la heterogeneidad de aquello que pretende representar.',
       'Tambien hay una dimension emocional en juego. Durante anos el canon funciono como promesa de orden frente al exceso. Hoy ni siquiera esa promesa parece creible. Por eso las listas valiosas son las que admiten su propia fragilidad. Las que no dicen esto es todo, sino esto es una lectura posible del momento. Esa modestia no le quita fuerza. Se la da. Un canon consciente de su inestabilidad puede volverse mucho mas generoso que uno fabricado para blindar jerarquias.',
       'Canon roto, futuro inestable no es una lamentacion. Es una invitacion a curar mejor. A aceptar que la escena ya no cabe en una sola sintaxis, y que justamente por eso necesita mas trabajo critico, no menos. Cuando el centro se rompe, la responsabilidad de montar relaciones se vuelve mayor. Y en esa tarea, a veces, una lista bien escrita puede hacer algo que ningun algoritmo consigue: abrir una puerta entre restos dispersos y hacer que, por un segundo, el desorden revele forma.',
+    ],
+  },
+  {
+    id: 'hauntology',
+    title: 'Fantasmas del Futuro: Fisher, el CCRU y la Jungla',
+    subtitle: 'El jungle de los 90 no fue solo velocidad. Fue la promesa de un futuro que nunca llegó.',
+    dek:
+      'Mark Fisher, el CCRU de Warwick y la escena jungle británica compartieron una obsesión: el futuro como fuerza activa, no como destino. Cuando ese futuro se canceló, la música pasó de profecía a hauntología. Este ensayo recorre esa línea que va del amen break a la teoría aceleracionista.',
+    author: 'Editorial Desk',
+    imageUrl: '',
+    relatedCountries: ['United Kingdom', 'Global Issue'],
+    sources: [research.fisherGhosts, research.ccruWritings, research.raCanon, research.pitchforkElectronic],
+    content: [
+      'En 1995, mientras Goldie publicaba Timeless y los pirate radios de Londres escupían amen breaks acelerados a 170 bpm, un grupo de académicos en la Universidad de Warwick pensaba que la jungla era la música más importante del planeta. No la más popular, no la más bonita: la más importante. El CCRU (Cybernetic Culture Research Unit), liderado informalmente por Sadie Plant y despues por Nick Land, veía en el drum & bass algo que la crítica musical convencional no podía ver: una máquina de producir futuro. Un sonido que no representaba el mañana sino que lo forzaba a existir en el presente.',
+      'Mark Fisher, entonces estudiante de doctorado y miembro del CCRU, absorbió esa intuición y la convirtió en el eje de toda su obra posterior. Para Fisher, la música nunca fue simplemente entretenimiento ni objeto estético. Era un sistema de detección temporal: una tecnología capaz de registrar qué tipo de futuro era aún pensable en cada momento histórico. El jungle de mediados de los 90 registraba un futuro vernáculo, negro, urbano, veloz, hecho con restos de soul y reggae triturados hasta volverse irreconocibles. Era popular y a la vez alienígena. Venía de abajo y sonaba como si viniera de otro planeta.',
+      'Photek llevó esa lógica al extremo con Modus Operandi en 1997. Cada break era diseccionado con precisión forense, cada silencio pesaba como una amenaza. Fisher lo citaba como ejemplo de lo que llamaba "futurismo popular": una sofisticación formal que no necesitaba académicos para validarse porque su público era la pista de baile, no la galería. Roni Size ganó el Mercury Prize ese mismo año con New Forms, y por un momento pareció que el futuro realmente había llegado: música negra británica con la complejidad de un cuarteto de jazz y la potencia de un sistema de sonido de Brixton.',
+      'Pero el futuro se canceló. Fisher dedicaría buena parte de su carrera a explicar cómo y por qué. En Ghosts of My Life (2014), su libro central, describe una cultura que ya no es capaz de producir shock genuino, atrapada en un loop de recombinaciones estériles. La música dejó de anticipar futuros y empezó a reciclar pasados. El término que usó, tomado de Derrida, fue hauntología: la presencia espectral de futuros que fueron prometidos pero nunca se materializaron. Burial, cuyo Untrue (2007) suena como un fantasma de la jungla pirata de los 90 filtrado por lluvia digital y soledad suburbana, era para Fisher el artefacto hauntológico perfecto.',
+      'El CCRU había ido más lejos, o más raro, antes de disolverse a fines de los 90. Sus textos, reunidos en CCRU: Writings 1997-2003, mezclan filosofía continental, teoría de sistemas, ficción ocultista y análisis de drum & bass en un cóctel que todavía resulta inclasificable. El concepto de hiperstición —ficciones que se vuelven reales por la fuerza de su circulación— nació ahí, y se aplica hoy con perturbadora exactitud a la era de la desinformación y la IA generativa. El jungle no era solo el soundtrack del CCRU. Era su modelo operativo: algo que avanzaba tan rápido que obligaba a la teoría a correr detrás.',
+      'Hoy la jungla regresa como referencia en productores como KAVARI, en el revival de breakbeats acelerados, en la estética de sellos como Metalheadz y Good Looking que vuelven a circular con reverencia renovada. Pero el punto de Fisher sigue vigente, quizás más que nunca: el problema no es si la jungla suena bien en 2026. El problema es si en 2026 somos capaces de producir algo que suene tan genuinamente futuro como aquello sonaba en 1995. La hauntología no es nostalgia. Es la pregunta más incómoda que se le puede hacer al presente: ¿por qué el futuro ya no suena como antes?',
     ],
   },
 ];
