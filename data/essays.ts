@@ -319,3 +319,4 @@ export const essays: Essay[] = [
       'Lo que experimentamos al oír Goldie o a las cintas piratas de 1995, es una "nostalgia por el futuro". Es la pesada constatación de que la música masiva contemporánea (el pop anémico hiper-inmunizado) se declaró derrotada. El jungle era la señal de que el futuro estaba ocurriendo y podía ser hackeado. Confrontar sus ecos hoy es preguntarse por qué de repente, en algún lugar entre el año 2000 y el presente, simplemente nos rendimos.'
     ],
   }
+];
