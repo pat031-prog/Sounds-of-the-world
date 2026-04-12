@@ -143,7 +143,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
 
       {/* Section nav is now rendered in the global App nav bar */}
 
-      <div className="relative mx-auto max-w-[1640px] px-5 pb-24 pt-[100px] md:px-10 md:pt-12 lg:px-12">
+      <div className="relative mx-auto max-w-[1640px] px-5 pb-24 pt-[70px] md:px-10 md:pt-16 lg:px-12">
         <section className="mb-8 grid grid-cols-1 gap-6 xl:grid-cols-12">
           <article className="group relative overflow-hidden border border-white/10 bg-[#0d0d0d] text-left xl:col-span-8">
             <img
