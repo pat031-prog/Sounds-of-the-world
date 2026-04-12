@@ -241,21 +241,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
                   </div>
                   <ArrowUpRight size={18} className="shrink-0 text-[#FF3530]" />
                 </button>
-
-                <button
-                  onClick={onOpenKPunk}
-                  className="flex items-center justify-between border border-gray-500/40 bg-gray-500/10 px-4 py-3 text-left transition-colors hover:border-gray-400 hover:bg-gray-500/20"
-                >
-                  <div>
-                    <span className="mb-1 block text-[10px] font-bold uppercase tracking-[0.28em] text-gray-400">
-                      Archive
-                    </span>
-                    <p className="text-sm leading-relaxed text-gray-300">
-                      Leer los ensayos fundacionales (The k-punk Archive).
-                    </p>
-                  </div>
-                  <BookOpen size={18} className="shrink-0 text-gray-400" />
-                </button>                <div className="border-t border-white/10 pt-5">
+                <div className="border-t border-white/10 pt-5">
                   <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF3530]">
                     Curated Countries
                   </span>
