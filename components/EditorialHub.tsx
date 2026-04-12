@@ -36,7 +36,6 @@ interface EditorialHubProps {
   onOpenGlobalIssue: () => void;
   onOpenEssay: (essayId: string) => void;
   onOpenCountry: (countryName: string) => void;
-  onOpenKPunk: () => void;
   initialSectionId?: string | null;
 }
 
@@ -61,7 +60,6 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
   onOpenGlobalIssue,
   onOpenEssay,
   onOpenCountry,
-  onOpenKPunk,
   initialSectionId,
 }) => {
   const hubIssueMapItems = editorialIssueMapSections.filter((section) => section.context === 'hub');
