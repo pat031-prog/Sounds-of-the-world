@@ -80,6 +80,35 @@ export const EssayPanel: React.FC<EssayPanelProps> = ({
         </div>
 
         <div className="mx-auto max-w-[760px] space-y-9 md:space-y-11">
+          {essay.kpunkSource ? (
+            <div className="flex flex-col gap-3 border border-white/15 bg-white/[0.03] p-5 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-start gap-3">
+                <div className="mt-0.5 shrink-0 rounded-sm bg-[#FF3530] px-1.5 py-0.5 text-[9px] font-black uppercase tracking-[0.2em] text-black">
+                  k-punk
+                </div>
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-gray-400">
+                    Entrada original del blog
+                  </p>
+                  <p className="mt-1 font-serif-display text-base italic text-gray-300">
+                    &ldquo;{essay.kpunkSource.originalTitle}&rdquo;
+                  </p>
+                  <p className="mt-0.5 font-mono text-[10px] text-gray-600">
+                    Publicado en k-punk.org &mdash; {essay.kpunkSource.publishedAt}
+                  </p>
+                </div>
+              </div>
+              <a
+                href={essay.kpunkSource.originalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex shrink-0 items-center gap-1.5 self-start rounded-sm border border-white/15 px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-gray-400 transition-all hover:border-[#FF3530]/50 hover:text-white md:self-center"
+              >
+                <ArrowUpRight size={12} />
+                <span>Original</span>
+              </a>
+            </div>
+          ) : null}
           {essay.content.map((paragraph, idx) => (
             <p
               key={idx}

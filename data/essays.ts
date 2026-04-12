@@ -10,6 +10,11 @@ export interface Essay {
   imageUrl: string;
   relatedCountries: string[];
   sources: EssaySource[];
+  kpunkSource?: {
+    originalTitle: string;
+    originalUrl: string;
+    publishedAt: string;
+  };
 }
 
 const research = {
@@ -96,6 +101,18 @@ const research = {
     source: 'Urbanomic',
     url: 'https://www.urbanomic.com/book/ccru-writings-1997-2003/',
     publishedAt: '2017',
+  },
+  fisherCapitalism: {
+    title: 'Capitalist Realism: Is There No Alternative?',
+    source: 'Zero Books',
+    url: 'https://www.johnhuntpublishing.com/zero-books/our-books/capitalist-realism',
+    publishedAt: '2009',
+  },
+  fisherWeird: {
+    title: 'The Weird and the Eerie',
+    source: 'Repeater Books',
+    url: 'https://repeaterbooks.com/product/the-weird-and-the-eerie/',
+    publishedAt: '2016',
   },
 };
 
@@ -317,6 +334,92 @@ export const essays: Essay[] = [
       'A diferencia del House o el Techno de Detroit, que retenían un humanismo melancólico (una simbiosis equilibrada entre el humano y el sintetizador), el Jungle era directamente post-humano. Aceleraba el "Amen Break" a 160-170 bpm, muy por encima del latido natural del corazón, diseccionando el funk y el reggar hasta convertirlos en metralla quirúrgica de ritmos polimétricos. Cuando productores como Goldie (como Rufige Kru), Photek o Dillinja operaban, no estaban haciendo música de baile para relajarse. Estaban mapeando los flujos de comunicación a alta velocidad, armando al oyente contra el ciberespacio hostil del tardocapitalismo.',
       'El "Darkside" jungle fue quizás la última gran música afrofuturista genuinamente innovadora que asimiló el paisaje de lo artificial sin apología. No había romance, había tensión, bajos destructivos, muestras cortadas con una precisión aterradora y la sensación ineludible de que algo enorme te acechaba en la oscuridad de la pista de baile. Hoy en día, escuchar esos artefactos nos produce nostalgia, pero no una nostalgia ordinaria. No extrañamos el pasado.',
       'Lo que experimentamos al oír Goldie o a las cintas piratas de 1995, es una "nostalgia por el futuro". Es la pesada constatación de que la música masiva contemporánea (el pop anémico hiper-inmunizado) se declaró derrotada. El jungle era la señal de que el futuro estaba ocurriendo y podía ser hackeado. Confrontar sus ecos hoy es preguntarse por qué de repente, en algún lugar entre el año 2000 y el presente, simplemente nos rendimos.'
+    ],
+  },
+  {
+    id: 'capitalist-realism-depression',
+    title: 'El Realismo Capitalista como Depresión Clínica',
+    subtitle: 'Del archivo k-punk (Mark Fisher, Octubre 2008)',
+    dek: 'El capitalismo ya no promete ninguna utopía. Su triunfo más siniestro fue convencernos de que no existe ninguna alternativa posible, y esa certeza funciona exactamente como una patología clínica.',
+    author: 'Mark Fisher',
+    imageUrl: '',
+    relatedCountries: ['United Kingdom', 'Global Issue'],
+    kpunkSource: {
+      originalTitle: 'Capitalist Realism and Hedonic Depression',
+      originalUrl: 'https://k-punk.org/capitalist-realism-and-hedonic-depression/',
+      publishedAt: 'Octubre 2008',
+    },
+    sources: [research.fisherCapitalism, research.fisherGhosts],
+    content: [
+      'La depresión que estamos viendo propagarse en nuestras sociedades desde los años ochenta no es simplemente una patología individual. Es el síntoma cultural más revelador de lo que yo llamo Realismo Capitalista: la suposición generalizada de que el capitalismo no sólo es el único sistema económico viable sino que es el único sistema económico pensable. La depresión ya no es una crisis personal, es la
+ respuesta racional a un mundo que ha cancelado sistemáticamente toda expectativa de futuro.',
+      'La frase de Fredric Jameson —que es más fácil imaginar el fin del mundo que el fin del capitalismo— funciona hoy como diagnóstico más que como exámenes crítico. La cultura popular de los noventa ya lo sabía: el apocalipsis proliferaba en el cine como entretenimiento familiar mientras la especulación financiera y la privatización desmantelaban silenciosamente el tejido social. No hace falta amenazar a nadie con el gulag cuando la alternativa al sistema ya ha sido rendered impensable.',
+      'El Realismo Capitalista opera como un límite cognitivo antes que como una ideología en el sentido clásico. No se presenta como una elección sino como una realidad: así son las cosas y no existe ningún exterior posible. Por eso sus efectos sobre la salud mental son tan particulares. No produce el tipo de sufrimiento radicalmente irresistible que caracterizó las grandes depresiones económicas. Produce algo más chrónico y más corrosivo: la anestesia de la imaginación, la certeza sórdida de que nada cambiará, que ninguna acción colectiva tiene sentido porque el sistema absorberá cualquier gesto de oposición.',
+      'En las aulas británicas, en los campus universitarios, en los call centres y en los contratos de cero horas, veo esta epidemic a diario. No es que los jóvenes carezcan de autoestima o de ambición; es que fueron formados en un mundo donde la ambición sólo puede tomar formas sancionadas por el mercado. La creatividad se mide en términos de "marca personal". La comunidad se reduce a "networking". Y cuando el sistema falla en cumplir sus promesas —que siempre y necesariamente falla— el individuo lo interpreta como un fracaso personal, jamás como un defecto estructural del sistema. Eso es el Realismo Capitalista hecho carne: que la ideología del sistema se confunda con la realidad natural del cosmos.'
+    ],
+  },
+  {
+    id: 'memorex-for-the-krakens',
+    title: 'Memorex para los Krakens: Mark E. Smith y The Fall',
+    subtitle: 'Del archivo k-punk (Mark Fisher, Enero 2004)',
+    dek: 'The Fall es el grupo más subestimado del rock anglosajón. Mark E. Smith inventó un modo de hacer cultura popular que rechaza sistemáticamente el encanto, la afabilidad y la complicidad emocional que el público exige a sus artistas favoritos.',
+    author: 'Mark Fisher',
+    imageUrl: '',
+    relatedCountries: ['United Kingdom'],
+    kpunkSource: {
+      originalTitle: 'Memorex for the Krakens: The Fall\'s Pulp Modernism',
+      originalUrl: 'https://k-punk.org/memorex-for-the-krakens-the-falls-pulp-modernism/',
+      publishedAt: 'Enero 2004',
+    },
+    sources: [research.fisherGhosts],
+    content: [
+      'Mark E. Smith probablemente sea el único artista británico vivo que merece el título de vanguardista en el sentido histórico del término, es decir, que su trabajo haya producido una ruptura real con las convenciones estéticas dominantes en lugar de simplemente reconfigurarlas. Lo que hace a The Fall tan difícil de asimilar para la crítica convencional es que su vanguardismo no viene empaquetado en la presentación de arte experimental o de música élite. Viene en la forma de discos de guitarras distorsionadas, cantadas en accento de Salford. El vanguardismo de The Fall es un vanguardismo pulp.',
+      'Smith ha hecho más de treinta discos en cuarenta años con una formación que cambia continuamente salvo por su presencia. Pero lo que permanece no es únicamente un nombre o una línea estética. Permanece una actitud completamente hostil a la nostalgia y al encanto. La voz de Smith no busca tu afecto. Tampoco tu comprensión. Escupe frases a veces ininteligibles con la autoridad de alguien que sabe una cosa sobre el mundo que tú ignoras, y ese algo jamás será articulado del todo, sólo insinuado, circundado, atacado desde ángulos siempre inesperados.',
+      'Lo que distingue las letras de Smith de casi cualquier otro escritor de rock en lengua inglesa es que operan con la lógica del found text: collage de fragmentos de periódicos, diálogos escuchados en pubs, jerga de suburbio, referencias inesperadas a ocultismo y ciencia ficción barata. No hay narrativa convencional. No hay personaje central con el que identifi carse. Lo que hay es una textura de significado inestable que se resiste constantemente a ser fijada, que siempre parece estar a punto de revelar un sentido definitivo y que sistemticamente defrauda esa expectativa.',
+      'The Fall es la demostración más contundente de que la cultura pop británica tenía la capacidad de producir algo genuinamente extraño, genuinamente alienígena, desde dentro de sus propias estructuras más banales. Que esa posibilidad ya no exista en la mainstream actual, que los nichos de rareza se hayan mercantilizado y museificado, que la fricción estética haya sido convertida en nicho de consumo para personas educadas, es exactamente el tipo de pérdida que me interesa cartografiar.'
+    ],
+  },
+  {
+    id: 'tricky-pre-millennium',
+    title: 'Tricky y la Tensión Premiénica',
+    subtitle: 'Del archivo k-punk (Mark Fisher, 2005)',
+    dek: 'Maxinquaye anticipó el colapso del søglo XX con una visión táctil, sucia y premonitoria. Tricky capturó el sonido de un momento histórico que todavía no sabía quién era.',
+    author: 'Mark Fisher',
+    imageUrl: '',
+    relatedCountries: ['United Kingdom'],
+    kpunkSource: {
+      originalTitle: 'Pre-Millennium Tension',
+      originalUrl: 'https://k-punk.org/pre-millennium-tension/',
+      publishedAt: '2005',
+    },
+    sources: [research.fisherGhosts, research.raCanon],
+    content: [
+      'Maxinquaye (1995) es el disco que mejor captura lo que se siente al vivir en el borde de un cambio histórico que ninguno de los actores involucrados comprende todavía. El trip-hop de Tricky no es una música para la euforia, ni para la depresión clásica. Es la música del suspenso previo al diagnóstico, ese momento entre el médico que sale de la habitación y el médico que regresa con los resultados. Algo está por revelarse y lo que se revelará cambiará todo, pero el instante que dura la espera tiene su propia textura particular, irreemplazable.',
+      'A diferencia del trip-hop de Portishead o Massive Attack, que conservaban cierta elegancia cinematográfica tomada del jazz y del soul, Tricky trabajaba directamente con la materia del deterioro. Sus samples son de hip-hop degradado, de róck pisoteado, de fragmentos que suenan como si hubieran sobrevivido a una inundación. La voz de Martina Topley-Bird flota sobre esas texturas como una entidad que no pertenece del todo al mundo que la rodea: los
+ fantasmas no saben que son fantasmas, y ella canta con esa qualidad de presencia involuntaria.',
+      'Todo en Maxinquaye suena a intimidad forzada: las guitarras murmuran, las baterías están demasiado cerca del micro, los bajos son físicamente pesados sobre el pecho. No es la intimidad del quarto privado sino la intimidad de compartir espacio físico con alguien que te genera una incomodidad imposible de nombrar. Es una música que produce el efecto de estar siendo observado sin saber por qué.',
+      'Cuando Tricky publicaba Maxinquaye, el Reino Unido estaba en ese lapso extraño entre el fin del Thatcherismo y el ascenso del New Labour, entre la atomización social de los ochenta y la refiguración vacía de la comunidad en los noventa. El sociopaisaje urbano británico estaba lleno de estas texturas: espacios en proceso de gentrifición que todavía conservaban rastros del deterioro anterior, identidades en suspenso, cuerpos organizados alrededor de una económica de la precariedad que aún no había aprendido a nombrarse. Maxinquaye es la banded sonora de ese suspenso.'
+    ],
+  },
+  {
+    id: 'weird-and-eerie',
+    title: 'Lo Extraño y lo Inquietante: Una Taxonomía',
+    subtitle: 'Del archivo k-punk (Mark Fisher, 2012)',
+    dek: 'Lo extraño aparece cuando algo que no debería estar presente, está. Lo inquietante aparece cuando algo que debería estar presente, no está. Ambas categorías son herramientas para leer la cultura contemporánea.',
+    author: 'Mark Fisher',
+    imageUrl: '',
+    relatedCountries: ['United Kingdom', 'Global Issue'],
+    kpunkSource: {
+      originalTitle: 'The Weird and the Eerie',
+      originalUrl: 'https://k-punk.org/the-weird-and-the-eerie/',
+      publishedAt: '2012',
+    },
+    sources: [research.fisherWeird, research.fisherGhosts],
+    content: [
+      'Lo Weird y lo Eerie son dos modos de salir fuera de lo ordinario y presentan diferencias estructurales importantes que vale la pena distinguir. Lo Weird pertenece a aquello que no debería estar: hay algo aquí que viola las leyes del espacio y del tiempo ordinario, que tiene demasiadas patas o demasiado pocos ojos, que resuena en registros que no deberían ser posibles. La respuesta ante lo Weird es la perturbación visceral, el asombro mezclado con repulsión.',
+      'Lo Eerie, en cambio, pertenece al espacio de la ausencia: hay aquí algo que debería estar y no está. Las ruinas son el ejemplo formal clásico. Una casa abandonada no produce el mismo efecto que un monstruo, pero su efecto es, en cierta manera, más duradero. La pregunta que dispara es diferente: no ¿ qué es eso?, sino ¿qué ocurrió aquí?, ¿para dónde fueron? El Eerie es la categoría de lo que fue y ya no es, del futuro que estuvo y fue cancelado, del potencial que se frustró.',
+      'Estas dos categorías organizan la mayoría de la cultura que más me interesa en música. Burial es Eerie: la máquina permanece en el lugar donde el club ya no existe, los samples de voces son fragmentos de presencias que ya se fueron. The Caretaker —el Proyecto de Leyland Kirby basado en la música de baile de los cuarenta re-deteriorada hasta la irreconocibilidad— es Eerie en estado puro: el fantasma del placer colectivo grabado en un medium que lentamente lo corroe todo. Goldie, por el contrario, opera más cerca de lo Weird: algo aquí que no debería existir, que excede lo humano en su velocidad, en su complejidad percutánea.',
+      'Lo que me interesa de ambas categorías es que resisten la reducción psicológica. No son miedos personales. Son modos de percibir que el orden ordinario de las cosas no es el único orden posible, que existen grietas en el tejido de lo cotidiano a través de las cuales se filtra algo que pertenece a una escala completamente diferente. En una época que ha normalizado el colapso, ese estremecimiento que produce la fisura todavía vale la pena perseguirlo.'
     ],
   }
 ];
