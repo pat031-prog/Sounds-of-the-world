@@ -329,9 +329,12 @@ const App: React.FC = () => {
                   key={id}
                   onClick={() => {
                     const el = document.getElementById(id);
-                    if (el) {
-                      const scrollY = el.getBoundingClientRect().top + window.scrollY - 80;
-                      window.scrollTo({ top: scrollY, behavior: 'smooth' });
+                    const container = document.getElementById('editorial-hub-scroll');
+                    if (el && container) {
+                      const offsetTop = el.offsetTop - 80;
+                      container.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                    } else if (el) {
+                      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                   }}
                   className="shrink-0 rounded-full px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.18em] text-white/40 transition-all hover:bg-white/[0.07] hover:text-white"

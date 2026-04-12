@@ -131,7 +131,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
   }, [initialSectionId]);
 
   return (
-    <div className="w-full h-full overflow-y-auto bg-[#050505] text-[#EDEDED]">
+    <div id="editorial-hub-scroll" className="w-full h-full overflow-y-auto bg-[#050505] text-[#EDEDED]">
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.04]"
         style={{
