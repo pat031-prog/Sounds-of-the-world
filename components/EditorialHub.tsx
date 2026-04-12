@@ -139,7 +139,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
       />
 
       {/* STICKY HUB NAV BAR — single source of truth for section navigation */}
-      <div className="sticky top-0 z-30 flex items-center gap-0 overflow-x-auto no-scrollbar border-b border-white/10 bg-[#050505]/95 backdrop-blur-md">
+      <div className="sticky top-[56px] md:top-0 z-30 flex items-center gap-0 overflow-x-auto no-scrollbar border-b border-white/10 bg-[#050505]/95 backdrop-blur-md">
         <button
           onClick={onOpenGlobalIssue}
           className="flex shrink-0 items-center gap-2 border-r border-white/10 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-[#FF3530] transition-colors hover:bg-white/5"
@@ -172,7 +172,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
         ))}
       </div>
 
-      <div className="relative mx-auto max-w-[1640px] px-5 pb-24 pt-10 md:px-10 md:pt-12 lg:px-12">
+      <div className="relative mx-auto max-w-[1640px] px-5 pb-24 pt-[80px] md:px-10 md:pt-12 lg:px-12">
         <section className="mb-8 grid grid-cols-1 gap-6 xl:grid-cols-12">
           <article className="group relative overflow-hidden border border-white/10 bg-[#0d0d0d] text-left xl:col-span-8">
             <img

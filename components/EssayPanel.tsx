@@ -28,7 +28,7 @@ export const EssayPanel: React.FC<EssayPanelProps> = ({
 
   return (
     <div className="fixed inset-0 z-[60] overflow-y-auto bg-[#050505] font-serif text-[#EDEDED] animate-in slide-in-from-bottom-10 duration-500">
-      <div className="sticky top-0 z-50 flex h-20 items-center justify-between border-b border-white/10 bg-[#050505]/95 px-6 py-4 backdrop-blur-md md:px-12">
+      <div className="sticky top-0 z-50 flex h-auto items-center justify-between gap-4 border-b border-white/10 bg-[#050505]/95 px-4 py-3 backdrop-blur-md md:h-20 md:px-12 md:py-4">
         <button
           onClick={onClose}
           className="group flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 transition-colors hover:text-white"

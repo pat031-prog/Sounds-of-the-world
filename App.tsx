@@ -277,62 +277,61 @@ const App: React.FC = () => {
         ) : null}
       </div>
 
-      {/* TOP-LEFT NAV — hidden on mobile when InfoPanel is covering the screen */}
+      {/* GLOBAL NAV — Full width bar on mobile, floating block on desktop */}
       <div
-        className={`pointer-events-none absolute left-4 top-4 z-20 flex max-w-[calc(100vw-2rem)] flex-col gap-3 md:left-8 md:top-8 transition-all duration-300 ${
-          isPanelOpen && appMode === 'editorial' ? 'opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto' : 'opacity-100'
+        className={`pointer-events-none fixed left-0 top-0 z-40 w-full transition-all duration-300 md:absolute md:left-8 md:top-8 md:w-auto ${
+          isPanelOpen && appMode === 'editorial'
+            ? '-translate-y-full opacity-0 md:translate-y-0 md:opacity-100' // Hide via sheer translate on mobile so InfoPanel dictates top area
+            : 'translate-y-0 opacity-100'
         }`}
       >
-        {/* Brand row */}
-        <div className="pointer-events-auto flex items-start gap-3">
-          <div
-            onClick={openEditorialHome}
-            className="cursor-pointer bg-[#FF3530] p-3 text-black shadow-lg transition-transform duration-300 hover:scale-105 active:scale-95"
-            title="Volver al inicio editorial"
-          >
-            <Mic2 size={24} />
+        <div className="pointer-events-auto flex w-full flex-row items-center justify-between border-b border-white/10 bg-[#050505]/90 px-4 py-2 backdrop-blur-md md:flex-col md:items-start md:justify-start md:gap-3 md:border-none md:bg-transparent md:px-0 md:py-0 md:backdrop-blur-none">
+          {/* Brand block */}
+          <div className="flex shrink-0 items-center gap-3">
+            <div
+              onClick={openEditorialHome}
+              className="cursor-pointer rounded-sm bg-[#FF3530] p-2 text-black shadow-lg transition-transform duration-300 hover:scale-105 active:scale-95 md:rounded-none md:p-3"
+              title="Volver al inicio editorial"
+            >
+              <Mic2 size={18} className="md:h-6 md:w-6" />
+            </div>
+            <div className="flex flex-col border-none bg-transparent px-0 py-0 shadow-none md:border md:border-white/20 md:bg-black md:px-6 md:py-3 md:shadow-xl md:backdrop-blur-md">
+              <h1 className="font-cinzel text-sm font-bold tracking-wider text-white md:text-2xl">
+                Sounds of the World
+              </h1>
+              <p className="mt-0.5 text-[8px] font-bold uppercase tracking-wider text-[#FF3530] md:mt-1 md:text-xs">
+                {appMode === 'atlas'
+                  ? selectedCountry
+                    ? `Atlas / ${selectedCountry}`
+                    : 'Atlas Signal'
+                  : selectedCountry
+                  ? `Editorial / ${selectedCountry}`
+                  : 'Volume 04: The World'}
+              </p>
+            </div>
           </div>
-          <div className="border border-white/20 bg-black px-4 py-3 shadow-xl backdrop-blur-md md:px-6">
-            <h1 className="font-cinzel text-xl font-bold tracking-wider text-white md:text-2xl">
-              Sounds of the World
-            </h1>
-            {/* Breadcrumb: shows current context */}
-            <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[#FF3530] md:text-xs">
-              {appMode === 'atlas'
-                ? selectedCountry
-                  ? `Atlas / ${selectedCountry}`
-                  : 'Atlas Signal'
-                : selectedCountry
-                ? `Editorial / ${selectedCountry}`
-                : 'Volume 04: The World'}
-            </p>
-          </div>
-        </div>
 
-        {/* Mode switcher — icons only */}
-        <div className="pointer-events-auto flex w-fit flex-nowrap items-center border border-white/20 bg-black shadow-2xl backdrop-blur-md">
-          <button
-            onClick={switchToAtlas}
-            className={`flex items-center justify-center p-3 transition-all md:p-4 ${
-              appMode === 'atlas'
-                ? 'bg-[#FF3530] text-black'
-                : 'text-gray-500 hover:bg-white/5 hover:text-white'
-            }`}
-            title="Atlas — Ver mapa / globo"
-          >
-            <Globe2 size={16} />
-          </button>
-          <button
-            onClick={openEditorialHome}
-            className={`flex items-center justify-center border-l border-white/10 p-3 transition-all md:p-4 ${
-              appMode === 'editorial'
-                ? 'bg-[#FF3530] text-black'
-                : 'text-gray-500 hover:bg-white/5 hover:text-white'
-            }`}
-            title="Editorial Hub"
-          >
-            <BookOpen size={16} />
-          </button>
+          {/* Mode Switcher */}
+          <div className="flex flex-nowrap items-center overflow-hidden rounded-sm border border-white/20 bg-black shadow-none md:rounded-none md:shadow-2xl md:backdrop-blur-md">
+            <button
+              onClick={switchToAtlas}
+              className={`flex items-center justify-center p-2 transition-all md:p-4 ${
+                appMode === 'atlas' ? 'bg-[#FF3530] text-black' : 'text-gray-500 hover:bg-white/5 hover:text-white'
+              }`}
+              title="Atlas — Ver mapa / globo"
+            >
+              <Globe2 size={16} />
+            </button>
+            <button
+              onClick={openEditorialHome}
+              className={`flex items-center justify-center border-l border-white/10 p-2 transition-all md:p-4 ${
+                appMode === 'editorial' ? 'bg-[#FF3530] text-black' : 'text-gray-500 hover:bg-white/5 hover:text-white'
+              }`}
+              title="Editorial Hub"
+            >
+              <BookOpen size={16} />
+            </button>
+          </div>
         </div>
       </div>
 

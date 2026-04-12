@@ -58,8 +58,8 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
     : 'fixed inset-y-0 right-0 z-50 w-full md:w-[650px] bg-[#121212] border-l border-white/10 font-sans text-gray-100 shadow-2xl overflow-y-auto transform transition-all duration-500 ease-in-out';
 
   const headerClasses = mode === 'editorial'
-    ? 'fixed top-0 left-0 right-0 z-50 bg-[#050505]/95 backdrop-blur-md border-b border-white/10 py-4 px-6 md:px-12 flex justify-between items-center h-20'
-    : 'sticky top-0 z-20 bg-[#121212]/90 backdrop-blur-md border-b border-white/5 px-8 py-5 flex justify-between items-center';
+    ? 'fixed top-0 left-0 right-0 z-50 bg-[#050505]/95 backdrop-blur-md border-b border-white/10 py-3 md:py-4 px-6 md:px-12 flex flex-col md:flex-row md:justify-between items-start md:items-center gap-3 md:gap-0 h-auto md:h-20'
+    : 'sticky top-0 z-20 bg-[#121212]/90 backdrop-blur-md border-b border-white/5 px-6 md:px-8 py-4 md:py-5 flex flex-col md:flex-row md:justify-between items-start md:items-center gap-3 md:gap-0 h-auto md:h-20';
 
   const totalPages = mode === 'editorial' && isInProgress ? 1 : 4;
   const nextPage = () => setEditorialPage(p => Math.min(p + 1, totalPages - 1));
@@ -93,36 +93,38 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
       
       {/* HEADER */}
       <div className={headerClasses}>
-        <div className="flex items-center gap-4">
-           {mode === 'editorial' ? (
-             <div className="flex items-center gap-6">
-                <button onClick={onClose} className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors group">
-                    <div className="p-2 border border-white/20 rounded-full group-hover:bg-white group-hover:text-black transition-all">
-                      <ChevronLeft size={16} />
-                    </div>
-                    <span className="hidden md:inline">Hub</span>
-                </button>
-                <div className="h-8 w-px bg-white/10 hidden md:block"></div>
-                <h2 className="text-xl font-cinzel text-white tracking-widest hidden md:block uppercase">
-                    {data?.countryName || 'Loading...'} <span className="text-[#FF3530] text-sm font-sans tracking-normal font-bold">/// {isGlobalMode ? 'Global Issue' : 'Vol. 4'}</span>
-                </h2>
-             </div>
-           ) : (
-             <h2 className="text-3xl font-bold tracking-tight text-white leading-none">
-               {selectedCountryName || 'Explorar'}
-             </h2>
-           )}
+        <div className="flex w-full items-center justify-between">
+          <div className="flex items-center gap-4">
+             {mode === 'editorial' ? (
+               <div className="flex items-center gap-6">
+                  <button onClick={onClose} className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors group">
+                      <div className="p-2 border border-white/20 rounded-full group-hover:bg-white group-hover:text-black transition-all">
+                        <ChevronLeft size={16} />
+                      </div>
+                      <span className="hidden md:inline">Hub</span>
+                  </button>
+                  <div className="h-8 w-px bg-white/10 hidden md:block"></div>
+                  <h2 className="text-xl font-cinzel text-white tracking-widest hidden md:block uppercase">
+                      {data?.countryName || 'Loading...'} <span className="text-[#FF3530] text-sm font-sans tracking-normal font-bold">/// {isGlobalMode ? 'Global Issue' : 'Vol. 4'}</span>
+                  </h2>
+               </div>
+             ) : (
+               <h2 className="text-3xl font-bold tracking-tight text-white leading-none">
+                 {selectedCountryName || 'Explorar'}
+               </h2>
+             )}
+          </div>
+          
+          {mode === 'atlas' && (
+            <button onClick={onClose} className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all">
+              <X size={24} />
+            </button>
+          )}
         </div>
-        
-        {mode === 'atlas' && (
-          <button onClick={onClose} className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all">
-            <X size={24} />
-          </button>
-        )}
 
         {/* EDITORIAL TAB BAR — replaces blind prev/next arrows */}
         {mode === 'editorial' && data && (
-          <div className="flex items-center gap-1 overflow-x-auto no-scrollbar">
+          <div className="flex w-full items-center gap-1 overflow-x-auto no-scrollbar md:w-auto">
             {(isInProgress
               ? [{ label: 'Cover', page: 0 }]
               : [
