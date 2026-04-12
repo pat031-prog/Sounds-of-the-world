@@ -51,6 +51,9 @@ const trendTone: Record<'new' | 'up' | 'steady', string> = {
   steady: 'bg-white/10 text-white/70',
 };
 
+const FALLBACK_COVER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Crect width='600' height='600' fill='%23111111' /%3E%3Ccircle cx='300' cy='300' r='100' fill='none' stroke='%23333333' stroke-width='2' /%3E%3Cpath d='M 280 300 L 320 300 M 300 280 L 300 320' stroke='%23333333' stroke-width='2' /%3E%3C/svg%3E";
+
+
 export const EditorialHub: React.FC<EditorialHubProps> = ({
   isDesktop,
   editorialImageDeck,
@@ -138,38 +141,46 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
         }}
       />
 
-      {/* STICKY HUB NAV BAR — single source of truth for section navigation */}
-      <div className="sticky top-[56px] md:top-0 z-30 flex items-center gap-0 overflow-x-auto no-scrollbar border-b border-white/10 bg-[#050505]/95 backdrop-blur-md">
-        <button
-          onClick={onOpenGlobalIssue}
-          className="flex shrink-0 items-center gap-2 border-r border-white/10 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-[#FF3530] transition-colors hover:bg-white/5"
-        >
-          <Radio size={12} />
-          Global Issue
-        </button>
-        {[
-          { id: 'essays', label: 'Essays' },
-          { id: 'cult-canon', label: 'Cult Canon' },
-          { id: 'new-signal', label: 'New Signal' },
-          { id: 'playlist-matrix', label: 'Playlists' },
-          { id: 'signal-lexicon', label: 'Lexicon' },
-          { id: 'compilation-picks', label: 'Picks' },
-        ].map(({ id, label }) => (
+      {/* FLOATING PILL NAV BAR */}
+      <div className="sticky top-[76px] md:top-[24px] z-30 flex justify-center pointer-events-none px-4">
+        <div className="flex items-center gap-1 overflow-x-auto no-scrollbar rounded-full border border-white/10 bg-[#050505]/95 backdrop-blur-xl p-1.5 pointer-events-auto max-w-full shadow-2xl shadow-black">
           <button
-            key={id}
-            onClick={() => {
-              const el = document.getElementById(id);
-              if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }}
-            className={`shrink-0 border-r border-white/10 px-4 py-3 text-[10px] font-bold uppercase tracking-widest transition-all ${
-              activeSection === id
-                ? 'bg-[#FF3530]/10 text-white border-b-2 border-b-[#FF3530]'
-                : 'text-gray-500 hover:bg-white/5 hover:text-gray-300'
-            }`}
+            onClick={onOpenGlobalIssue}
+            className="flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-[#FF3530] transition-colors hover:bg-white/10"
           >
-            {label}
+            <Radio size={12} />
+            Global Issue
           </button>
-        ))}
+          
+          <div className="w-[1px] h-4 bg-white/10 mx-1"></div>
+
+          {[
+            { id: 'essays', label: 'Ensayos' },
+            { id: 'cult-canon', label: 'El Canon' },
+            { id: 'new-signal', label: 'Señal Nueva' },
+            { id: 'playlist-matrix', label: 'Playlists' },
+            { id: 'signal-lexicon', label: 'Léxico' },
+            { id: 'compilation-picks', label: 'Selecciones' },
+          ].map(({ id, label }) => (
+            <button
+              key={id}
+              onClick={() => {
+                const el = document.getElementById(id);
+                if (el) {
+                  const scrollY = el.getBoundingClientRect().top + window.scrollY - 120;
+                  window.scrollTo({ top: scrollY, behavior: 'smooth' });
+                }
+              }}
+              className={`shrink-0 rounded-full px-4 py-2 text-[10px] font-bold uppercase tracking-widest transition-all ${
+                activeSection === id
+                  ? 'bg-white text-black'
+                  : 'text-gray-400 hover:bg-white/10 hover:text-white'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="relative mx-auto max-w-[1640px] px-5 pb-24 pt-[80px] md:px-10 md:pt-12 lg:px-12">
@@ -179,6 +190,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
               src={getDeckImage(editorialImageDeck, 0)}
               alt="Global Issue"
               className="absolute inset-0 h-full w-full object-cover opacity-25 transition-all duration-700 group-hover:scale-105 group-hover:opacity-40"
+              onError={(e) => { e.currentTarget.src = FALLBACK_COVER; }}
             />
             <div className="absolute inset-0 bg-gradient-to-br from-[#050505]/95 via-[#050505]/80 to-[#FF3530]/15" />
             <div className="relative flex h-full flex-col gap-8 p-6 md:p-10">
@@ -350,7 +362,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
         <section id="essays" className="mb-16">
           <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
             <Newspaper size={16} className="text-[#FF3530]" />
-            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Special Essays</h3>
+            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Ensayos Especiales</h3>
           </div>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
             {essays.map((essay, index) => (
@@ -364,6 +376,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
                     src={getDeckImage(editorialImageDeck, index + 1)}
                     alt={essay.title}
                     className="h-full w-full object-cover opacity-65 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100"
+                    onError={(e) => { e.currentTarget.src = FALLBACK_COVER; }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30 to-transparent" />
                 </div>
@@ -387,7 +400,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
         <section id="cult-canon" className="mb-16">
           <div className="mb-4 flex flex-wrap items-center gap-3 border-b border-white/10 pb-4">
             <Disc size={16} className="text-[#FF3530]" />
-            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Cult Canon // 20</h3>
+            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">El Canon // 20</h3>
             <div className="ml-auto flex flex-wrap items-center gap-2">
               {/* Country filter */}
               <div className="flex flex-wrap gap-1">
@@ -445,6 +458,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
                     alt={entry.albumName}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
+                    onError={(e) => { e.currentTarget.src = FALLBACK_COVER; }}
                   />
                 </div>
                 <div className="min-w-0 flex-1">
@@ -468,7 +482,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
         <section id="new-signal" className="mb-16">
           <div className="mb-4 flex flex-wrap items-center gap-3 border-b border-white/10 pb-4">
             <TowerControl size={16} className="text-[#FF3530]" />
-            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">New Signal // 20</h3>
+            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Señal Nueva // 20</h3>
             <button
               onClick={shuffleCulture}
               className="ml-auto flex items-center gap-1.5 border border-white/15 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-white/60 transition-colors hover:border-[#FF3530] hover:text-[#FF3530]"
@@ -496,6 +510,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
                     alt={entry.albumName}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
+                    onError={(e) => { e.currentTarget.src = FALLBACK_COVER; }}
                   />
                 </div>
                 <div className="min-w-0 flex-1">
@@ -582,7 +597,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
         <section id="signal-lexicon" className="mb-16">
           <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
             <Sparkles size={16} className="text-[#FF3530]" />
-            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Signal Lexicon</h3>
+            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Léxico</h3>
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {signalLexicon.map((signal) => (
@@ -620,7 +635,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
         <section id="countries" className="mb-16">
           <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
             <Globe2 size={16} className="text-[#FF3530]" />
-            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Curated Countries</h3>
+            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Países Curados</h3>
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {curatedHubCountries.map((country) => (
@@ -660,7 +675,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
         <section id="archive" className="mb-16">
           <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
             <BookOpen size={16} className="text-[#FF3530]" />
-            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Archive In Construction</h3>
+            <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">Archivo En Construcción</h3>
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">
             {inProgressHubCountries.map((country) => (
@@ -720,7 +735,7 @@ export const EditorialHub: React.FC<EditorialHubProps> = ({
           <div className="mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
             <Disc size={16} className="text-[#FF3530]" />
             <h3 className="text-xs font-black uppercase tracking-[0.35em] text-white">
-              Compilations & Recommendations
+              Compilados & Selecciones
             </h3>
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
