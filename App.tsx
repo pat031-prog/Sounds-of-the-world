@@ -2,6 +2,7 @@ import React, { Suspense, lazy, useCallback, useEffect, useRef, useState } from 
 import { InfoPanel } from './components/InfoPanel';
 import { EssayPanel } from './components/EssayPanel';
 import { EditorialHub } from './components/EditorialHub';
+import { KPunkPanel } from './components/KPunkPanel';
 import { AtlasSurfaceBoundary } from './components/AtlasSurfaceBoundary';
 import { fetchCountryData, fetchGlobalData } from './services/geminiService';
 import { AppMode, CulturalData, GeoJsonProperties } from './types';
@@ -40,6 +41,7 @@ const App: React.FC = () => {
   const [isCaching, setIsCaching] = useState(false);
   const [cacheProgress, setCacheProgress] = useState(0);
   const [selectedEssay, setSelectedEssay] = useState<Essay | null>(null);
+  const [isKPunkOpen, setIsKPunkOpen] = useState(false);
   const [editorialPanelPage, setEditorialPanelPage] = useState(0);
   const [hubSectionFocus, setHubSectionFocus] = useState<string | null>(null);
   const [editorialImageDeck, setEditorialImageDeck] = useState<string[]>(() =>
@@ -272,6 +274,7 @@ const App: React.FC = () => {
               const essay = essays.find((entry) => entry.id === essayId);
               if (essay) setSelectedEssay(essay);
             }}
+            onOpenKPunk={() => setIsKPunkOpen(true)}
             onOpenCountry={(countryName) => void handleCountryClick(countryName)}
           />
         ) : null}
@@ -417,6 +420,10 @@ const App: React.FC = () => {
         onNavigateToCountry={(countryName) => void handleCountryClick(countryName)}
         editorialImageDeck={editorialImageDeck}
       />
+
+      {isKPunkOpen && (
+        <KPunkPanel onClose={() => setIsKPunkOpen(false)} />
+      )}
     </div>
   );
 };
